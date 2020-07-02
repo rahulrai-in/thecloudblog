@@ -1,0 +1,63 @@
+baseURL = "https://thecloudblog.net"
+languageCode = "en-us"
+defaultContentLanguage = "en-us"
+title = "The Cloud Blog"
+theme = "hugo-theme-okayish-blog"
+
+# Provide this id to enable Google Analytics
+googleAnalytics = "UA-xxxxxxxxx-x"
+
+# Provide the shortname to enable Disqus comments
+disqusShortname = "ok-ish-blog"
+
+[params]
+# These will be used for OpenGraph, Twitter Card and Schema.org
+description = "Your site's description"
+keywords = ["some", "keywords", "for", "your", "site"]
+images = ["/images/banner.png"]
+
+# This is the number of terms within a taxonomy per page
+termsPaginate = 50
+# Enable/disable share links (Facebook, Twitter and LinkedIn)
+shareLinksEnabled = true
+# Enable/disable Google Analytics in local server
+gaLocalEnabled = false
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+
+# Add `author` under `[taxonomies]` as below
+# so that you can provide metadata for each author
+#
+# See: https://gohugo.io/content-management/taxonomies/#add-custom-metadata-to-a-taxonomy-term
+author = "rahul@rahul-rai.com"
+
+# Add menu items to the navigation bar as below.
+# N.B. Use identifiers as the keys for translations.
+[menu]
+
+[[menu.main]]
+identifier = "authors"
+name = "Profile"
+url = "/authors"
+
+[[menu.main]]
+identifier = "calendar"
+name = "Calendar"
+url = "/authors"
+
+[[menu.main]]
+identifier = "categories"
+name = "Categories"
+url = "/categories"
+
+# For i18n support, add the language codes here 
+# and provide translations in `i18n` folder. E.g., `i18n/en-US.toml`
+[languages]
+
+[languages.en-us]
+languageName = "English (US)"
+
+[languages.km-kh]
+languageName = "ភាសាខ្មែរ"
