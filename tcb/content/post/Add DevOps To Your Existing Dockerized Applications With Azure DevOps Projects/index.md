@@ -106,6 +106,6 @@ We are done making changes now. Now, queue a new build and navigate to the websi
 
 {{< img src="/DevOpsTest Application.png" alt="DevOpsTest Application" >}}
 
-A key thing to remember is that WebApps supports communication only through the HTTP (port 80) and HTTPS (port 443). This fact is conveniently documented [here](https://github.com/projectkudu/kudu/wiki/Azure-Web-App-sandbox) :smile:. I spent quite some time figuring this out on my own, therefore, don't make the same mistake that I did.
+A key thing to remember is that WebApps supports communication only through the HTTP (port 80) and HTTPS (port 443). This fact is conveniently documented [here](https://github.com/projectkudu/kudu/wiki/Azure-Web-App-sandbox) :smile: . I spent quite some time figuring this out on my own, therefore, don't make the same mistake that I did.
 
 {{< subscribe >}}

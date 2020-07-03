@@ -1,16 +1,8 @@
 <p>
-    <div class="panel subscribeBox">
-        <div class="panel-heading" id="waypoint-element">
-            Did you enjoy reading this post? I can notify you the next time I post something. <b><a id="subscribeFooterLink" href="/">Subscribe</a></b>.
+    <div class="p-notification--information">
+        <div class="p-heading--6">
+            Did you enjoy reading this post? I can notify you the
+            next time I post something. <a id="subscribeFooterLink" href="/">Subscribe</a>.
         </div>
     </div>
 </p>
-{{ if not (in (printf "%#v" .Site.BaseURL) "localhost") }}
-<script type="text/javascript">
-    $(function () { triggerWaypoint(true); });
-</script>
-{{ else }}
-<script type="text/javascript">
-    $(function () { triggerWaypoint(false); });
-</script>
-{{ end }}

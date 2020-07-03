@@ -10,9 +10,11 @@ googleAnalytics = "UA-xxxxxxxxx-x"
 # Provide the shortname to enable Disqus comments
 disqusShortname = "ok-ish-blog"
 
+enableEmoji = true
+
 [params]
 # These will be used for OpenGraph, Twitter Card and Schema.org
-description = "Your site's description"
+description = "by Rahul Rai"
 keywords = ["some", "keywords", "for", "your", "site"]
 images = ["/images/banner.png"]
 
