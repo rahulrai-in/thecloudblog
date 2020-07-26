@@ -1,6 +1,10 @@
-<p>
-    <div class="col-xs-12 text-center">
-        <iframe src="//www.slideshare.net/slideshow/embed_code/key/{{ .Get "src" }}" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+<span class="p-heading-icon--small">
+    <div class="p-heading-icon__header u-align--center">
+        {{ $ssIcon := resources.Get "img/slideshare.svg" }}
+        <img class="p-heading-icon__img" src={{$ssIcon.Permalink}} alt="slideshare" />
+        <h4 class="p-heading-icon__title">
+            <a href={{ .Get "src" }} target="_blank">Slideshare<i class="p-icon--external-link"></i>
+            </a>
+        </h4>
     </div>
-    <br />
-</p>
+</span>

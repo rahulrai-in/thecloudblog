@@ -1,13 +1,10 @@
-<p>
-    <div class="col-xs-12 text-center">
-        <a class="btn btn-lg btn-danger" href="{{ .Get "src" }}" style="margin-top: 5px!important; margin-bottom: 5px!important;" target="_blank">
-            <i class="fas fa-code pull-left"></i>
-            <br>
-            <span style="width: 90%; display: inline-block; text-align: center;">
-                <b>Source Code</b>
-                <i class="fab fa-github"></i>
-            </span>
-        </a>
+<span class="p-heading-icon--small">
+    <div class="p-heading-icon__header u-align--center">
+        {{ $ghIcon := resources.Get "img/github.svg" }}
+        <img class="p-heading-icon__img" src={{$ghIcon.Permalink}} alt="github" />
+        <h4 class="p-heading-icon__title">
+            <a href={{ .Get "src" }} target="_blank">Source Code<i class="p-icon--external-link"></i>
+            </a>
+        </h4>
     </div>
-    <br />
-</p>
+</span>

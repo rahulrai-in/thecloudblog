@@ -1,3 +1,3 @@
-figure{text-align:center}html[data-theme='dark']{--bg: #333333;--bg-panel: #434343;--color-text: #B5B5B5}body{background-color:var(--bg, #fff)}html.transition,html.transition *,html.transition *:before,html.transition *:after{transition:all 750ms !important;transition-delay:0 !important}
+figure{text-align:center}figure>figcaption{font-style:normal;font-weight:500}
 
 /*# sourceMappingURL=custom.css.map */

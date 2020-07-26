@@ -40,9 +40,9 @@ author = "rahul@rahul-rai.com"
 [menu]
 
 [[menu.main]]
-identifier = "authors"
-name = "Profile"
-url = "/authors"
+identifier = "shots"
+name = "Shots"
+url = "/shots"
 
 [[menu.main]]
 identifier = "calendar"

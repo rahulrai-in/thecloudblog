@@ -14,9 +14,9 @@ Here are a few of the pictures from my session that some awesome folks clicked. 
 
 {{< img src="1.jpg" alt="Speaker Session" >}}
 
-Of course, no presentation is complete without a slide deck. You can download the PowerPoint slides that I used in the session from SlideShare by clicking [this link](https://www.slideshare.net/moonytheloony/building-apps-with-azure-iot-edge).
+Of course, no presentation is complete without a slide deck. You can download the PowerPoint slides that I used in the session from SlideShare by clicking the following link.
 
-{{< slideshare src="pw3ZLUqQQCp2qC" >}}
+{{< slideshare src="https://www.slideshare.net/moonytheloony/building-apps-with-azure-iot-edge" >}}
 
 ## (Re)Building The Demo Application
 
