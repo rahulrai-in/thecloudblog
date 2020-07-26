@@ -1,10 +1,8 @@
-<span class="p-heading-icon--small">
-    <div class="p-heading-icon__header u-align--center">
-        {{ $ghIcon := resources.Get "img/github.svg" }}
-        <img class="p-heading-icon__img" src={{$ghIcon.Permalink}} alt="github" />
-        <h4 class="p-heading-icon__title">
-            <a href={{ .Get "src" }} target="_blank">Source Code<i class="p-icon--external-link"></i>
-            </a>
-        </h4>
-    </div>
-</span>
+<div class="u-align--center">
+    <button class="p-button">
+        <a href={{ .Get "src" }} target="_blank" class="content-button">
+            <img class="p-heading-icon__img" src="/lib/img/github.svg" alt="github" />
+            Source Code
+        </a>
+    </button>
+</div>

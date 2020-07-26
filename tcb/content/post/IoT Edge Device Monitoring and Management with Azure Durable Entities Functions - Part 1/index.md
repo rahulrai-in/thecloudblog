@@ -7,12 +7,10 @@ tags:
   - compute
 ---
 
-{{% notice %}}
-In this series
-
-1. [IoT Edge Application](/post/iot-edge-device-monitoring-and-management-with-azure-durable-entities-functions-part-1/)
-2. [Azure Durable Entities Function](/post/iot-edge-device-monitoring-and-management-with-azure-durable-entities-functions-part-2/)
-   {{% /notice %}}
+> In this series
+>
+> 1. [IoT Edge Application](/post/iot-edge-device-monitoring-and-management-with-azure-durable-entities-functions-part-1/)
+> 2. [Azure Durable Entities Function](/post/iot-edge-device-monitoring-and-management-with-azure-durable-entities-functions-part-2/)
 
 IoT systems involve many devices, each of which maintains a small internal state. The [Actor Model](https://en.wikipedia.org/wiki/Actor_model) is a good fit for representing IoT devices in the cloud because of its inherent fault tolerance, concurrency controls, performance, and scalability. I wrote about the Actor Model and Orleans (virtual actor based implementation) in one of my previous articles [here](/post/building-iot-solutions-with-microsoft-orleans-and-microsoft-azure-part-1/).
 

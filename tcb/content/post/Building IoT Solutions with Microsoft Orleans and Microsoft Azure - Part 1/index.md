@@ -5,6 +5,7 @@ tags:
   - azure
   - internet of things
 ---
+
 In this **two-part series** I will walk you through building an IOT solution on [Microsoft Azure](https://azure.microsoft.com/) using [Microsoft Orleans](https://dotnet.github.io/orleans/). The first part is an overview of Microsoft Orleans while the second part will cover building a simple application on [Microsoft Orleans](https://dotnet.github.io/orleans/) and deploying it to [Microsoft Azure](https://azure.microsoft.com/).
 
 Lately, I was involved in training a bunch of my colleagues on the [Microsoft Orleans](https://dotnet.github.io/orleans/) framework. [Microsoft Orleans](https://dotnet.github.io/orleans/) is a framework that provides a straightforward approach to building distributed high-scale computing applications, without the need to learn and apply complex concurrency or other scaling patterns. Typically we use [SOA](https://msdn.microsoft.com/en-in/library/bb833022.aspx) to build systems that can scale. To find the issues that SOA can’t address, let’s take an example of building an eCommerce website. Let’s say you have built services corresponding to the functionalities provided by your portal e.g. shopping cart, catalog, payments, etc. Your site is ready in time for the cricket world cup and a lot of people start checking out T-Shirts of teams they are rooting for. In order to cater to this increased load in the most efficient way possible, you partition the catalogue by type, e.g. clothing and further by clothing type, e.g. T-Shirts and scale out only the clothing catalogue service. This change will consume some effort, but everything will keep working fine. Next, as team India moves to finals, fans start browsing through the Indian team T-Shirts catalogue. You again alter the system design to apply further refactoring. This approach is not only time consuming, but also requires experienced developers and architects who can ensure that system integrity is not endangered by design changes. [Microsoft Orleans](https://dotnet.github.io/orleans/) provides answers to a lot of these problems by taking the complexity of building a high scale system and baking it into a framework which is easy for developers to use.
@@ -84,5 +85,5 @@ In the second part of this series, we will build a small sample in which we will
 
 - [Pluralsight](http://www.pluralsight.com/courses/microsoft-orleans-introduction)
 
-{{% notice %}} The second part of this series is available [here](/post/building-iot-solutions-with-microsoft-orleans-and-microsoft-azure-part-2){{% /notice %}}
-{{< subscribe >}}
+> The second part of this series is available [here](/post/building-iot-solutions-with-microsoft-orleans-and-microsoft-azure-part-2)
+> {{< subscribe >}}

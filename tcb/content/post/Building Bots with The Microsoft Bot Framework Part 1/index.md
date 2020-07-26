@@ -6,15 +6,13 @@ tags:
  - bot-framework
 ---
 
-{{% notice %}}
-In this series
-
-1. [Introduction](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-1/)
-2. [Adding Dialogs and State to your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-2/)
-3. [Using Form Flow](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-3/)
-4. [Adding intelligence to your bot using LUIS](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-4/)
-5. [Publishing your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-5/)
-   {{% /notice %}}
+> In this series
+>
+> 1. [Introduction](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-1/)
+> 2. [Adding Dialogs and State to your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-2/)
+> 3. [Using Form Flow](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-3/)
+> 4. [Adding intelligence to your bot using LUIS](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-4/)
+> 5. [Publishing your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-5/)
 
 I decided to spend some time learning the [Microsoft Bot Framework](https://dev.botframework.com/). I am going to write a series of blog posts to share with you what I learn so that we can go through this learning exercise together. This is the first post in the series with a few more to go. You might want to stay in the loop, so remember to [subscribe](#subscribe) to my mailing list and keep visiting this site to check out new content.
 

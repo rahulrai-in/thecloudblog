@@ -2,20 +2,17 @@
 title: "Building Bots with The Microsoft Bot Framework - Part 2"
 date: 2017-05-19
 tags:
- - azure
- - bot-framework
+  - azure
+  - bot-framework
 ---
 
-
-{{% notice %}}
-In this series
-
-1. [Introduction](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-1/)
-2. [Adding Dialogs and State to your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-2/)
-3. [Using Form Flow](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-3/)
-4. [Adding intelligence to your bot using LUIS](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-4/)
-5. [Publishing your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-5/)
-   {{% /notice %}}
+> In this series
+>
+> 1. [Introduction](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-1/)
+> 2. [Adding Dialogs and State to your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-2/)
+> 3. [Using Form Flow](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-3/)
+> 4. [Adding intelligence to your bot using LUIS](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-4/)
+> 5. [Publishing your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-5/)
 
 Welcome to the second post in my blog series on Building Bots with The Microsoft Bot Framework. In today's post, we will learn how we can build a stateful bot that can carry out a meaningful conversation with the user. We will also find out how Dialogs can add reusability to our bots.
 
@@ -29,14 +26,13 @@ In this Dialog chain, we have a series of Dialogs that are linked to each other 
 
 ## Creating a Dialog & Saving State
 
-{{% notice %}}
-Persisting state in memory has several restrictions such as those of size of the object and therefore it is not recommended for production use. There are two state providers implemented by [Azure Extensions](https://github.com/Microsoft/BotBuilder-Azure) which you can use namely:
+> Persisting state in memory has several restrictions such as those of size of the object and therefore it is not recommended for production use. There are two state providers implemented by [Azure Extensions](https://github.com/Microsoft/BotBuilder-Azure) which you can use namely:
+>
+> 1. [Cosmos DB State Provider](https://docs.microsoft.com/en-us/bot-framework/dotnet/bot-builder-dotnet-state-azure-cosmosdb): To persist bot state in Cosmos DB.
+> 2. [Azure Table Storage State Provider](https://docs.microsoft.com/en-us/bot-framework/dotnet/bot-builder-dotnet-state-azure-table-storage): To persist bot state in Azure Table Storage.
+>
+> You can additionally, write your state provider to persist state data by following [this sample](https://blog.botframework.com/2017/07/26/saving-state-sql-dotnet/) from the Bot Fx Team.
 
-1. [Cosmos DB State Provider](https://docs.microsoft.com/en-us/bot-framework/dotnet/bot-builder-dotnet-state-azure-cosmosdb): To persist bot state in Cosmos DB.
-2. [Azure Table Storage State Provider](https://docs.microsoft.com/en-us/bot-framework/dotnet/bot-builder-dotnet-state-azure-table-storage): To persist bot state in Azure Table Storage.
-
-You can additionally, write your state provider to persist state data by following [this sample](https://blog.botframework.com/2017/07/26/saving-state-sql-dotnet/) from the Bot Fx Team.
-{{% /notice %}}
 A Dialog should implement the `IDialog` interface, which is present in the **Microsoft.Bot.Builder.Dialogs** namespace. Since Dialog objects need to be serialized at runtime, therefore they must use the `Serializable` attribute. The `IDialog` interface has just one method which you need to implement named `StartAsync`, which is used to initiate a Dialog. Since Dialogs are asynchronous, the `StartAsync` method uses `async` and `await` to implement asynchronous calls.
 
 A bot should be able to store state in a persistent store to carry out a meaningful conversation. For example, to personalize a conversation, a bot should save the name of the user in the state so that it can address the user by name throughout the conversation. A bot can store state information using one of the following mechanisms:

@@ -1,10 +1,8 @@
-<span class="p-heading-icon--small">
-    <div class="p-heading-icon__header u-align--center">
-        {{ $ssIcon := resources.Get "img/slideshare.svg" }}
-        <img class="p-heading-icon__img" src={{$ssIcon.Permalink}} alt="slideshare" />
-        <h4 class="p-heading-icon__title">
-            <a href={{ .Get "src" }} target="_blank">Slideshare<i class="p-icon--external-link"></i>
-            </a>
-        </h4>
-    </div>
-</span>
+<div class="u-align--center">
+    <button class="p-button">
+        <a href={{ .Get "src" }} target="_blank" class="content-button">
+            <img class="p-heading-icon__img" src="/lib/img/slideshare.svg" alt="github" />
+            Slideshare
+        </a>
+    </button>
+</div>

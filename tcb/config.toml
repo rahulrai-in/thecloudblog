@@ -54,12 +54,7 @@ identifier = "categories"
 name = "Categories"
 url = "/categories"
 
-# For i18n support, add the language codes here 
-# and provide translations in `i18n` folder. E.g., `i18n/en-US.toml`
-[languages]
-
-[languages.en-us]
-languageName = "English (US)"
-
-[languages.km-kh]
-languageName = "ភាសាខ្មែរ"
+[module]
+    [[module.mounts]]
+        source = "assets/lib/img"
+        target = "static/lib/img"

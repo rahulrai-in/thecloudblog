@@ -44,7 +44,7 @@ Next, I push my blog post to GitHub from where Travis is notified of the changes
 
 I have integrated a third-party mailing system to the blog that detects the changes in the [RSS feed](/post/index.xml) of this blog and sends an email to my subscribers. I took great pains to make sure that the data of my subscribers stay safe. I :heart: my subscribers and therefore, I am paying [MailerLite](https://www.mailerlite.com/) to keep my subscriber list safe :moneybag: and to keep my subscribers happy.
 
-{{% notice %}}Want me to write about how the Travis CI custom build script works? [Let me know](/contact) or comment below.{{% /notice %}}
+> Want me to write about how the Travis CI custom build script works? [Let me know](/contact) or comment below.
 
 ## The Code
 

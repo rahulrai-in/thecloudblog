@@ -18,7 +18,7 @@ You can download the source code of this experiment from my [GitHub](https://git
 
 In about thirty minutes timeframe, we will build a sample that accepts input from your device (a thing connected to internet), aggregates data captured from all devices (including yours) and reports aggregated data to a client system. To make this sample appeal to visual senses, we’ll record color reported by each device, aggregate the data and periodically keep changing the theme of [this site](http://msorleans.cloudapp.net/).
 
-{{% notice text="September 20, 2016: The demo site has been taken down. Please deploy the code on your own cloud service instance." %}}{{% /notice %}}
+> September 20, 2016: The demo site has been taken down. Please deploy the code on your own cloud service instance.
 
 ## Playground
 

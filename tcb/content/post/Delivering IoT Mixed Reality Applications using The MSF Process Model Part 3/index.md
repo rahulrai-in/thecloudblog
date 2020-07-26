@@ -6,14 +6,14 @@ tags:
   - internet-of-things
   - mixed-reality
 ---
-{{% notice %}}
-In this series
 
-1. [Envision and Plan](/post/Delivering-IoT-Mixed-Reality-Applications-using-The-MSF-Process-Model-Envision-and-Plan-Part-1/)
-2. [Develop and Stabilize](/post/Delivering-IoT-Mixed-Reality-Applications-using-The-MSF-Process-Model-Develop-and-Stabilize-Part-2/)
-3. [Develop, Stabilize, and Deploy](/post/Delivering-IoT-Mixed-Reality-Applications-using-The-MSF-Process-Model-Develop-Stabilize-and-Deploy-Part-3/)
-   {{% /notice %}}
-   This is the final article in this series of building MR IoT applications using the MSF Process Model. If you have landed on this post directly, I recommend that you go through these posts in the order in which they are mentioned.
+> In this series
+>
+> 1. [Envision and Plan](/post/Delivering-IoT-Mixed-Reality-Applications-using-The-MSF-Process-Model-Envision-and-Plan-Part-1/)
+> 2. [Develop and Stabilize](/post/Delivering-IoT-Mixed-Reality-Applications-using-The-MSF-Process-Model-Develop-and-Stabilize-Part-2/)
+> 3. [Develop, Stabilize, and Deploy](/post/Delivering-IoT-Mixed-Reality-Applications-using-The-MSF-Process-Model-Develop-Stabilize-and-Deploy-Part-3/)
+
+This is the final article in this series of building MR IoT applications using the MSF Process Model. If you have landed on this post directly, I recommend that you go through these posts in the order in which they are mentioned.
 
 4. [Part 1](/post/Delivering-IoT-Mixed-Reality-Applications-using-The-MSF-Process-Model-Envision-and-Plan-Part-1/): Where we discussed an overview of the MSF and the Envisioning and Planning phases of delivering the solution.
 5. [Part 2](post/Delivering-IoT-Mixed-Reality-Applications-using-The-MSF-Process-Model-Develop-and-Stabilize-Part-2/): Where we discussed the Development and Deployment of the backend of the solution.

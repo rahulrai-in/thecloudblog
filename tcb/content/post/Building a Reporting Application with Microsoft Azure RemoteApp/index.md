@@ -6,11 +6,9 @@ tags:
   - networking
 ---
 
-
-
 Before I say anything else, let’s lay down a ground rule that I wish all blogs would follow: A sample that takes more than 30 minutes to get cranking up is a project. Get ready to learn about [Azure RemoteApp](https://azure.microsoft.com/en-us/documentation/services/remoteapp/) applications by building a SAMPLE that would be powered by [Microsoft Azure](https://azure.microsoft.com/).
 
-{{% notice %}}September 23, 2016: Remote App is being discontinued. Read the announcement [here](https://blogs.technet.microsoft.com/enterprisemobility/2016/08/12/application-remoting-and-the-cloud/).{{% /notice %}}
+> September 23, 2016: Remote App is being discontinued. Read the announcement [here](https://blogs.technet.microsoft.com/enterprisemobility/2016/08/12/application-remoting-and-the-cloud/).
 
 ## What is Azure RemoteApp?
 

@@ -6,12 +6,11 @@ tags:
   - internet-of-things
   - compute
 ---
-{{% notice %}}
-In this series
 
-1. [IoT Edge Application](/post/iot-edge-device-monitoring-and-management-with-azure-durable-entities-functions-part-1/)
-2. [Azure Durable Entities Function](/post/iot-edge-device-monitoring-and-management-with-azure-durable-entities-functions-part-2/)
-   {{% /notice %}}
+> In this series
+>
+> 1. [IoT Edge Application](/post/iot-edge-device-monitoring-and-management-with-azure-durable-entities-functions-part-1/)
+> 2. [Azure Durable Entities Function](/post/iot-edge-device-monitoring-and-management-with-azure-durable-entities-functions-part-2/)
 
 In the last article, we built and tested a simple IoT Edge application that simulates temperature telemetry based on the command that it receives. We also created a test client that can invoke Direct Method on the device.
 
@@ -133,7 +132,7 @@ Finally, head back to the **Basic Information** section and follow the prompts t
 
 We will now create an activity trigger function that will send alert messages to the Slack application that we just created. Create a folder named `Triggers` and add a class named `SendApprovalRequest` to it. Copy the code from the following snippet and paste it in the class.
 
-```CS
+```cs
 public static class SendApprovalRequest
 {
     [FunctionName(nameof(SendApprovalRequest))]

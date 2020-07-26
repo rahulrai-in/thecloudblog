@@ -6,15 +6,13 @@ tags:
   - bot-framework
 ---
 
-{{% notice %}}
-In this series
-
-1. [Introduction](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-1/)
-2. [Adding Dialogs and State to your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-2/)
-3. [Using Form Flow](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-3/)
-4. [Adding intelligence to your bot using LUIS](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-4/)
-5. [Publishing your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-5/)
-   {{% /notice %}}
+> In this series
+>
+> 1. [Introduction](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-1/)
+> 2. [Adding Dialogs and State to your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-2/)
+> 3. [Using Form Flow](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-3/)
+> 4. [Adding intelligence to your bot using LUIS](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-4/)
+> 5. [Publishing your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-5/)
 
 Welcome to the third post in my blog series on Building Bots with The Microsoft Bot Framework. In the last post, we saw how we could use Dialogs and State to carry out a meaningful conversation with the user. However, we also saw that interacting with the user using Dialogs involves a lot of complexity. Today we will discuss how we can reduce the complexity of Bot development using a feature called Form Flow.
 
