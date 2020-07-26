@@ -25,32 +25,20 @@ shareLinksEnabled = true
 # Enable/disable Google Analytics in local server
 gaLocalEnabled = false
 
-[taxonomies]
-category = "categories"
-tag = "tags"
-
-# Add `author` under `[taxonomies]` as below
-# so that you can provide metadata for each author
-#
-# See: https://gohugo.io/content-management/taxonomies/#add-custom-metadata-to-a-taxonomy-term
-author = "rahul@rahul-rai.com"
-
 # Add menu items to the navigation bar as below.
 # N.B. Use identifiers as the keys for translations.
 [menu]
 
 [[menu.main]]
-identifier = "shots"
-name = "Shots"
-url = "/shots"
+name = "whoami"
+weight = 2
+url = "/whoami"
 
 [[menu.main]]
-identifier = "calendar"
-name = "Calendar"
+name = "Engagements"
 url = "/authors"
 
 [[menu.main]]
-identifier = "categories"
 name = "Categories"
 url = "/categories"
 

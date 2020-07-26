@@ -3,6 +3,7 @@ title: "Cheapskate’s Journey to On-Demand Load Tests on Heroku with Locust"
 date: 2020-06-20
 tags:
   - azure
+  - heroku
   - devops
   - programming
 ---
