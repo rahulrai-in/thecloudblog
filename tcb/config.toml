@@ -13,10 +13,11 @@ disqusShortname = "ok-ish-blog"
 enableEmoji = true
 
 [params]
-# These will be used for OpenGraph, Twitter Card and Schema.org
-description = "by Rahul Rai"
-keywords = ["some", "keywords", "for", "your", "site"]
-images = ["/images/banner.png"]
+    # These will be used for OpenGraph, Twitter Card and Schema.org
+    description = "by Rahul Rai"
+    keywords = ["some", "keywords", "for", "your", "site"]
+    images = ["/images/banner.png"]
+    mainSections = ["post","lab"]
 
 # This is the number of terms within a taxonomy per page
 termsPaginate = 50

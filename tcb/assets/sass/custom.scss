@@ -13,3 +13,33 @@ figure {
     font-weight: 500;
     color: black;
 }
+
+.lab-icon {
+    border-bottom: 1px dotted #00efd1;
+    margin-right: 5px;
+    padding-bottom: 2px;
+    position: relative;
+    display: inline-flex;
+
+    &:before {
+        display: block;
+        content: '';
+        background-image: url(/lib/img/lab.svg);
+        height: 1.7rem;
+        width: 1.7rem;
+    }
+
+    &:hover:after {
+        background: rgba(0, 0, 0, .8);
+        top: 0px;
+        font-weight: 100;
+        font-style: normal;
+        font-size: 15px;
+        color: #fff;
+        content: attr(data-title);
+        left: 100%;
+        padding: 0 5px 0;
+        position: absolute;
+        white-space: nowrap;
+    }
+}
