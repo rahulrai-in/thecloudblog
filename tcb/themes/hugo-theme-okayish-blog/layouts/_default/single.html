@@ -1,0 +1,32 @@
+{{ define "main" }}
+<header class="p-strip page-banner">
+    <div class="row">
+        <h1>{{ .Title | markdownify }}</h1>
+    </div>
+
+    {{ partial "single/post-meta.html" . }}
+</header>
+
+<section class="p-strip is-shallow">
+    <main class="row post-content">
+        {{ .Content }}
+    </main>
+</section>
+
+{{ if .Section }}
+<footer class="p-strip is-wrapper">
+    <div class="row">
+        {{ partial "single/pagination.html" . }}
+    </div>
+</footer>
+{{ end }}
+
+{{ if and $.Site.DisqusShortname (.Params.CommentsEnabled | default true) }}
+<div class="p-strip u-no-padding--bottom is-shallow">
+    <div class="row">
+        {{ template "_internal/disqus.html" . }}
+    </div>
+</div>
+{{ end }}
+
+{{ end }}

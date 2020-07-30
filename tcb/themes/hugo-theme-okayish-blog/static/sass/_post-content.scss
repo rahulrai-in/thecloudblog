@@ -1,0 +1,125 @@
+.post-content {
+  table,
+  blockquote,
+  pre,
+  div,
+  ul,
+  ol,
+  dl,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    & + h1 {
+      @extend %sp--ph1;
+    }
+
+    & + h2 {
+      @extend %sp--ph2;
+    }
+
+    & + h3 {
+      @extend %sp--ph3;
+    }
+
+    & + h4 {
+      @extend %sp--ph4;
+    }
+
+    & + h5,
+    & + h6 {
+      @extend %sp--ph5;
+    }
+
+    & + .p-muted-heading {
+      @extend %sp--pmuted;
+    }
+  }
+
+  > hr {
+    margin-top: $sp-unit * 1.5;
+    margin-bottom: $sp-unit * 3.5;
+  }
+
+  > div {
+    margin-bottom: $sp-unit * 2.2;
+  }
+
+  td,
+  th {
+    &[align="left"] {
+      @extend .u-align--left;
+    }
+
+    &[align="right"] {
+      @extend .u-align--right;
+    }
+
+    &[align="center"] {
+      @extend .u-align--center;
+    }
+  }
+
+  .footnotes {
+    @extend %sp--ph1;
+
+    p {
+      padding-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  .footnote-return {
+    margin-left: 0.25rem;
+  }
+
+  div {
+    @extend %paragraph;
+  }
+
+  ul.task-list {
+    list-style: none;
+    padding-left: 0;
+
+    ul.task-list {
+      margin-bottom: 0;
+      margin-left: $sp-unit * 4;
+    }
+
+    li label {
+      margin-bottom: 0;
+      padding-top: 0;
+    }
+
+    .task-list-item {
+      margin-top: $sp-unit * 0.8;
+      margin-right: $sp-unit * 1.5;
+    }
+  }
+}
+
+.p-aside {
+  @extend .u-sticky;
+}
+
+#TableOfContents {
+  @extend .p-table-of-contents__nav;
+
+  ul {
+    @extend .p-list;
+
+    li a {
+      @extend .p-table-of-contents__link;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-x-large) {
+  .post-content {
+    ul.task-list .task-list-item {
+      margin-top: $sp-unit;
+    }
+  }
+}

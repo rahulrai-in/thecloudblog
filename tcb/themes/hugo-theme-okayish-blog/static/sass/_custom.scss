@@ -1,0 +1,208 @@
+html {
+  font-weight: $font-weight-normal;
+  background-color: var(--bg);
+
+  --bg: #{$color-x-light};
+  --bg-panel: #{$color-x-light};
+  --bg-banner: #{$color-light};
+  --bg-search: #{$color-x-light};
+  --color-text: #{$color-dark};
+  --code-bg: #{$color-light};
+  --hashtag: #{$color-mid-dark};
+}
+
+html[data-theme='dark'] {
+  background-color: var(--bg);
+
+  --bg: #{$color-accent};
+  --bg-panel: #1F1B24;
+  --bg-banner: #1F1B24;
+  --bg-search: #{$color-dark};
+  --color-text: #{$color-x-light};
+  --code-bg: #{$color-dark};
+  --hashtag: #{$color-caution};
+
+  a {
+    color: $color-caution !important;
+  }
+
+  .p-article-pagination__label,
+  .p-article-pagination__title,
+  .p-article-pagination__link--previous::before,
+  .p-article-pagination__link--next::after {
+    color: $color-x-light;
+  }
+}
+
+html.transition,
+html.transition *,
+html.transition *:before,
+html.transition *:after {
+  transition: all 750ms !important;
+  transition-delay: 0 !important;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--color-text);
+}
+
+.p-navigation .p-search-box {
+  order: 0;
+}
+
+.p-navigation {
+  background-color: var(--bg);
+}
+
+.p-navigation__link {
+  color: var(--color-text) !important;
+}
+
+blockquote {
+  background-color: $color-x-light;
+  color: $color-dark;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: $font-weight-bold;
+}
+
+p,
+td,
+th,
+pre,
+code,
+samp,
+kbd {
+  font-weight: $font-weight-normal;
+}
+
+th {
+  color: var(--color-text) !important;
+  border-bottom: 1px solid var(--color-text);
+}
+
+p {
+  @extend .u-no-max-width;
+}
+
+code,
+samp,
+kbd {
+  background-color: var(--code-bg);
+  box-shadow: 0 0 0 0.1rem $color-light;
+}
+
+.p-link--logo,
+.title-logo {
+  color: var(--color-text) !important;
+  font-weight: $font-weight-bold;
+  text-decoration: none !important;
+}
+
+.p-link--hashtag {
+  color: var(--hashtag) !important;
+  line-height: 30px;
+}
+
+.p-inline-list-icons--share-links .p-inline-list__item {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.p-article-pagination__link--no-title {
+
+  &::before,
+  &::after {
+    top: 0.8rem !important;
+  }
+}
+
+.p-article-pagination__link:hover,
+.p-article-pagination__link--previous:hover,
+.p-article-pagination__link--next:hover {
+  background: var(--bg-banner);
+}
+
+.p-switch__slider {
+  margin: 0 !important;
+}
+
+.u-sticky {
+  position: sticky;
+  top: 0;
+}
+
+.u-inline {
+  display: inline;
+}
+
+.u-capitalized {
+  text-transform: capitalize;
+}
+
+.u-unselectable {
+  user-select: none;
+}
+
+.is-wrapper {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.page-banner {
+  background-color: var(--bg-banner);
+
+  &__image {
+    height: 300px;
+    width: 300px;
+  }
+}
+
+.posts {
+  .row:first-child .col-12:first-child .p-card {
+    margin-top: 1.5rem;
+  }
+
+  .p-card {
+    background-color: var(--bg-panel);
+    color: var(--color-text) !important;
+  }
+
+  .p-card h3 a {
+    color: var(--color-text);
+  }
+}
+
+// Instagram card styling
+.card {
+  @extend .p-card;
+
+  .card-header {
+    @extend .p-heading--three;
+  }
+
+  .card-body {
+    padding-top: 0.5rem;
+  }
+}
+
+@media screen and (min-width: 772px) {
+  .col--share-links {
+    text-align: right;
+  }
+}
+
+// Dark mode icon
+dark-mode-toggle {
+  --dark-mode-toggle-light-icon: url(/css/img/moon.svg);
+  --dark-mode-toggle-dark-icon: url(/css/img/sun.svg);
+  --dark-mode-toggle-icon-filter: invert(80%);
+  --dark-mode-toggle-icon-size: 1.2rem;
+}
