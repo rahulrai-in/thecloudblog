@@ -1,0 +1,34 @@
+name: Deploy to Netlify
+on:
+  push:
+    branches: [ master ]
+jobs:
+  build_deploy:
+      runs-on: ubuntu-latest
+      steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+            hugo-version: '0.74.3'
+            extended: true
+
+      - name: build
+        run: hugo --minify
+
+      - name: deploy
+        uses: nwtgck/actions-netlify@v1.1
+        with:
+          publish-dir: ./public
+          production-branch: master
+          # github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deployment v${{ github.ref }}"
+          enable-pull-request-comment: false
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1
