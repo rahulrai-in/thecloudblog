@@ -19,19 +19,12 @@ jobs:
             extended: true
 
       - name: build
-        run: hugo
+        run: hugo --minify --gc
 
       - name: deploy
-        uses: nwtgck/actions-netlify@v1.1
+        uses: netlify/actions/cli@master
         with:
-          publish-dir: "./tcb/public"
-          production-branch: master
-          production-deploy: true
-          deploy-message: "Deployment v${{ github.ref }}"
-          enable-pull-request-comment: false
-          enable-commit-comment: true
-          overwrites-pull-request-comment: true
+          args: deploy --dir=./tcb/public --functions=functions
         env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        timeout-minutes: 1
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
