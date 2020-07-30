@@ -2,6 +2,9 @@ name: Deploy to Netlify
 on:
   push:
     branches: [ master ]
+defaults:
+  run:
+    working-directory: ./tcb
 jobs:
   build_deploy:
       runs-on: ubuntu-latest
@@ -16,12 +19,12 @@ jobs:
             extended: true
 
       - name: build
-        run: hugo -c ./tcb --minify
+        run: hugo --minify
 
       - name: deploy
         uses: nwtgck/actions-netlify@v1.1
         with:
-          publish-dir: ./tcb/public
+          publish-dir: ./public
           production-branch: master
           # github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deployment v${{ github.ref }}"
