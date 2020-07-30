@@ -16,7 +16,7 @@ jobs:
             extended: true
 
       - name: build
-        run: hugo -c tcb --minify
+        run: hugo -c ./tcb --minify
 
       - name: deploy
         uses: nwtgck/actions-netlify@v1.1
