@@ -19,14 +19,14 @@ jobs:
             extended: true
 
       - name: build
-        run: hugo --minify
+        run: hugo
 
       - name: deploy
         uses: nwtgck/actions-netlify@v1.1
         with:
           publish-dir: "./tcb/public"
           production-branch: master
-          # github-token: ${{ secrets.GITHUB_TOKEN }}
+          production-deploy: true
           deploy-message: "Deployment v${{ github.ref }}"
           enable-pull-request-comment: false
           enable-commit-comment: true
