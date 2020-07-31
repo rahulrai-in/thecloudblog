@@ -1,4 +1,3 @@
-// import puppeteer from "puppeteer-serverless";
 const puppeteer = require("puppeteer-core");
 const chromium = require("chrome-aws-lambda");
 const renderSocialImage = require("puppeteer-social-image");
@@ -14,9 +13,9 @@ exports.handler = async function (event, context, callback) {
 
     browser: await puppeteer.launch({
       executablePath: await chromium.executablePath,
-      args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      headless: chromium.headless,
+      // args: chromium.args,
+      // defaultViewport: chromium.defaultViewport,
+      // headless: chromium.headless,
     }),
   });
 };
