@@ -21,8 +21,8 @@ jobs:
       - name: Build
         run: hugo --minify --gc
 
-      - name: Install Node packages
-        run: export NODE_ENV=production && cd functions/oggen && npm install
+      # - name: Install Node packages
+      #   run: export NODE_ENV=production && cd functions/oggen && npm install
 
       - name: Deploy
         uses: netlify/actions/cli@master
