@@ -22,7 +22,7 @@ jobs:
         run: hugo --minify --gc
 
       - name: Install Node packages
-        run: cd functions/oggen && npm i && ls -R
+        run: cd functions/oggen && npm install
 
       - name: Deploy
         uses: netlify/actions/cli@master
