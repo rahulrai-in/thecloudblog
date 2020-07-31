@@ -4,8 +4,9 @@
   "description": "",
   "main": "oggen.js",
   "dependencies": {
-    "puppeteer-serverless": "^1.0.0",
-    "puppeteer-social-image-lambda": "^0.5.0"
+    "chrome-aws-lambda": "^3.1.1",
+    "puppeteer-core": "^5.2.1",
+    "puppeteer-social-image": "^0.8.1"
   },
   "devDependencies": {},
   "keywords": [],

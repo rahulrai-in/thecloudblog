@@ -1,5 +1,7 @@
-import puppeteer from "puppeteer-serverless";
-renderSocialImage = require("puppeteer-social-image-lambda");
+// import puppeteer from "puppeteer-serverless";
+const puppeteer = require("puppeteer-core");
+const chromium = require("chrome-aws-lambda");
+const renderSocialImage = require("puppeteer-social-image");
 
 exports.handler = async function (event, context, callback) {
   await renderSocialImage({
@@ -9,6 +11,12 @@ exports.handler = async function (event, context, callback) {
         "https://images.unsplash.com/photo-1557958114-3d2440207108?w=1950&q=80",
       title: "Hello, world",
     },
-    // browser: await puppeteer.launch(),
+
+    browser: await puppeteer.launch({
+      executablePath: await chromium.executablePath,
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      headless: chromium.headless,
+    }),
   });
 };
