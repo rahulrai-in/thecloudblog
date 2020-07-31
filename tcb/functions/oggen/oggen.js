@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer-serverless";
-import renderSocialImage from "puppeteer-social-image-lambda";
+renderSocialImage = require("puppeteer-social-image-lambda");
 
 exports.handler = async function (event, context, callback) {
   await renderSocialImage({
