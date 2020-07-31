@@ -9,6 +9,6 @@ exports.handler = async function (event, context, callback) {
         "https://images.unsplash.com/photo-1557958114-3d2440207108?w=1950&q=80",
       title: "Hello, world",
     },
-    browser: await puppeteer.launch({}),
+    browser: await puppeteer.launch(),
   });
 };
