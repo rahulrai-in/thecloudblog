@@ -1,4 +1,4 @@
-name: Deploy to Netlify
+name: Deploy to Netlify - Prod
 on:
   push:
     branches: [ master ]
@@ -9,19 +9,22 @@ jobs:
   build_deploy:
       runs-on: ubuntu-latest
       steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v2
 
-      - name: setup Hugo
+      - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
             hugo-version: '0.74.3'
             extended: true
 
-      - name: build
+      - name: Build
         run: hugo --minify --gc
 
-      - name: deploy
+      - name: Install Node packages
+        run: cd functions && npm i
+
+      - name: Deploy
         uses: netlify/actions/cli@master
         with:
           args: deploy --dir=./tcb/public --functions=./tcb/functions --prod
