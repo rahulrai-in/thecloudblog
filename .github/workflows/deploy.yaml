@@ -22,7 +22,7 @@ jobs:
         run: hugo --minify --gc
 
       - name: Install Node packages
-        run: export NODE_ENV=production && cd functions/oggen && npm install --only=prod
+        run: cd functions/ogimage && npm install
 
       - name: Deploy
         uses: netlify/actions/cli@master
