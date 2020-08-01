@@ -1,20 +1,35 @@
-const puppeteer = require("puppeteer-serverless");
+// const puppeteer = require("puppeteer-serverless");
 // const chromium = require("chrome-aws-lambda");
-const renderSocialImage = require("puppeteer-social-image");
+// const renderSocialImage = require("puppeteer-social-image").default;
 
-// import puppeteer from "puppeteer-serverless";
+import puppeteer from "puppeteer-serverless";
 // import renderSocialImage from "puppeteer-social-image";
 let browser;
 
-exports.handler = async function (event, context, callback) {
+exports.handler = async (event, context, callback) => {
   browser = browser || (await puppeteer.launch({}));
-  await renderSocialImage({
-    template: "basic",
-    templateParams: {
-      imageUrl:
-        "https://images.unsplash.com/photo-1557958114-3d2440207108?w=1950&q=80",
-      title: "Hello, world",
-    },
-    browser,
-  });
+  // await renderSocialImage({
+  //   template: "basic",
+  //   templateParams: {
+  //     imageUrl:
+  //       "https://images.unsplash.com/photo-1557958114-3d2440207108?w=1950&q=80",
+  //     title: "Hello, world",
+  //   },
+  //   output: "image.png",
+  //   size: "facebook",
+  //   // browser,
+  // });
 };
+
+// exports.handler = async function (event, context, callback) {
+//   browser = browser || (await puppeteer.launch({}));
+//   await renderSocialImage({
+//     template: "basic",
+//     templateParams: {
+//       imageUrl:
+//         "https://images.unsplash.com/photo-1557958114-3d2440207108?w=1950&q=80",
+//       title: "Hello, world",
+//     },
+//     browser,
+//   });
+// };

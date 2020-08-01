@@ -4,10 +4,13 @@
   "description": "",
   "main": "oggen.js",
   "dependencies": {
-    "puppeteer-serverless": "1.0.0",
-    "puppeteer-social-image": "0.8.1"
+    "puppeteer-core": "^5.2.1",
+    "puppeteer-serverless": "^1.0.0",
+    "puppeteer-social-image": "^0.8.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "netlify-lambda": "^2.0.1"
+  },
   "keywords": [],
   "author": "Rahul Rai",
   "license": "ISC"
