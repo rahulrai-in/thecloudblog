@@ -112,6 +112,7 @@
      let params = (new URL(document.location)).searchParams;
      let title = params.get("t");
      if (title) {
-         document.getElementById("title").innerText = title;
+         // remove .png extension from title before printing the title
+         document.getElementById("title").innerText = title.replace('.png','');
      }
  </script>

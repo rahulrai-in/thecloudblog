@@ -1,5 +1,5 @@
 <meta name="twitter:card" content="summary_large_image"/>
-<meta property="twitter:image" content={{ .Site.BaseURL }}/.netlify/functions/ogimage?{{ (querify "t" .Title ) | safeURL }} />
+<meta property="twitter:image" content={{ .Site.BaseURL }}/.netlify/functions/ogimage?{{ (querify "t" .Title ) | safeURL }}.png />
 <meta name="twitter:title" content="{{ .Title }}"/>
 <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end -}}"/>
 <meta name="twitter:site" content="@rahulrai_in"/>
