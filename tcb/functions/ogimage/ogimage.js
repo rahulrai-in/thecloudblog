@@ -36,7 +36,7 @@ async function getScreenshot(url, isDev) {
   await page.setViewport({ width: 1300, height: 650 });
   await page.goto(url);
   await wait(1000);
-  const buffer = await page.screenshot({ type: "png" });
+  const buffer = await page.screenshot({ type: "jpeg" });
   const base64Image = buffer.toString("base64");
   cached.set(url, base64Image);
   return base64Image;
