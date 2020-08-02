@@ -59,7 +59,6 @@ exports.handler = async (event, context) => {
   );
   return {
     statusCode: 200,
-    headers: { "Content-Type": "image/png" },
     body: photoBuffer,
     isBase64Encoded: true,
   };
