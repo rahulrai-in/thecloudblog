@@ -1,0 +1,6 @@
+<meta name="twitter:card" content="summary_large_image"/>
+<meta property="twitter:image" content="{{ .Site.BaseURL }}.netlify/functions/ogimage?t={{ .Title }}" />
+<meta name="twitter:title" content="{{ .Title }}"/>
+<meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end -}}"/>
+<meta name="twitter:site" content="@rahulrai_in"/>
+<meta name="twitter:creator" content="@rahulrai_in"/>

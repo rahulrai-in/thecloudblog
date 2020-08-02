@@ -47,3 +47,6 @@ url = "/categories"
     [[module.mounts]]
         source = "assets/lib/img"
         target = "static/lib/img"
+
+[social]
+    twitter = "rahulrai-in"
