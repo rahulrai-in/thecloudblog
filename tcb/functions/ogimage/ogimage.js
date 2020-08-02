@@ -33,7 +33,7 @@ async function getScreenshot(url, isDev) {
   const options = await getOptions(isDev);
   const browser = await puppeteer.launch(options);
   const page = await browser.newPage();
-  await page.setViewport({ width: 1200, height: 630, deviceScaleFactor: 1.5 });
+  await page.setViewport({ width: 1200, height: 297, deviceScaleFactor: 1 });
   await page.goto(url);
   await wait(1000);
   const buffer = await page.screenshot({ type: "png" });
@@ -59,6 +59,7 @@ exports.handler = async (event, context) => {
   );
   return {
     statusCode: 200,
+    headers: { "Content-Type": "image/png" },
     body: photoBuffer,
     isBase64Encoded: true,
   };
