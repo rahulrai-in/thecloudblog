@@ -33,7 +33,7 @@ async function getScreenshot(url, isDev) {
   const options = await getOptions(isDev);
   const browser = await puppeteer.launch(options);
   const page = await browser.newPage();
-  await page.setViewport({ width: 1300, height: 650 });
+  await page.setViewport({ width: 1200, height: 630 });
   await page.goto(url);
   await wait(1000);
   const buffer = await page.screenshot({ type: "jpeg" });
