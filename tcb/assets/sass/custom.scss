@@ -44,9 +44,24 @@ figure {
     }
 }
 
-// dark-mode-toggle {
-//     --dark-mode-toggle-light-icon: url(/lib/img/moon.svg);
-//     --dark-mode-toggle-dark-icon: url(/lib/img/sun.svg);
-//     --dark-mode-toggle-icon-filter: invert(80%);
-//     --dark-mode-toggle-icon-size: 1.2rem;
-// }
+.p-link--logo {
+    &:before {
+        background-image: url('/lib/img/logo.svg');
+        background-size: 60px 60px;
+        background-repeat: no-repeat;
+        background-position: center;
+        display: block;
+        width: 60px;
+        height: 60px;
+        content: "";
+        margin: 10px;
+        float: left;
+    }
+}
+
+dark-mode-toggle {
+    --dark-mode-toggle-light-icon: url(/lib/img/moon.svg);
+    --dark-mode-toggle-dark-icon: url(/lib/img/sun.svg);
+    --dark-mode-toggle-icon-filter: invert(80%);
+    --dark-mode-toggle-icon-size: 1.2rem;
+}

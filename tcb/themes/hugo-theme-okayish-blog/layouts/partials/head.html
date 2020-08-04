@@ -9,9 +9,9 @@
     <link href="{{ .RelPermalink }}" rel="alternate" type="application/json" title="{{ $.Site.Title }}" />
     {{ end }}
     
-    <script defer type="module" src='{{ "js/main.min.mjs" | relURL }}'></script>
-    
     <link rel="stylesheet" href='{{ "css/style.css" | relURL }}'>
+    
+    <script defer type="module" src='{{ "js/main.min.mjs" | relURL }}'></script>
 
     {{ partial "head-extension.html" . }}
 </head>
