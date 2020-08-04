@@ -43,3 +43,10 @@ figure {
         white-space: nowrap;
     }
 }
+
+dark-mode-toggle {
+    --dark-mode-toggle-light-icon: url(/lib/img/moon.svg);
+    --dark-mode-toggle-dark-icon: url(/lib/img/sun.svg);
+    --dark-mode-toggle-icon-filter: invert(80%);
+    --dark-mode-toggle-icon-size: 1.2rem;
+}
