@@ -1,0 +1,11 @@
+<footer class="p-strip is-shallow page-footer">
+    <div class="row">
+        <div class="col-12  u-align--center">
+            <p>
+                {{ $.Site.Copyright | default (delimit (slice "©" (now.Format "2006") $.Site.Title) " ") | markdownify }}
+            </p>
+        </div>
+    </div>
+</footer>
+
+{{ partial "footer-extension.html" . }}
