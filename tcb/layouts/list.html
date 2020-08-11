@@ -44,7 +44,7 @@
                 {{ end }}
 
                 {{ if .Truncated }}
-                <p><a class="p-button" href="{{ .Permalink }}"><span>{{ i18n "readMore" | default "Read more" }}</span></i></a></p>
+                <p><a class="p-button--brand btn-read-more" href="{{ .Permalink }}">{{ i18n "readMore" | default "Read more" }}<span>.</span><span>.</span><span>.</span></a></p>
                 {{ end }}
             </div>
         </div>
