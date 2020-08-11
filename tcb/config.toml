@@ -4,8 +4,7 @@ defaultContentLanguage = "en-us"
 title = "The Cloud Blog"
 theme = "hugo-theme-okayish-blog"
 
-# Provide this id to enable Google Analytics
-googleAnalytics = "UA-xxxxxxxxx-x"
+enableGitInfo = true
 
 # Provide the shortname to enable Disqus comments
 disqusShortname = "ok-ish-blog"

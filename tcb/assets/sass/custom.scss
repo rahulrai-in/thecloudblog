@@ -98,3 +98,52 @@ dark-mode-toggle {
         animation-delay: .4s !important;
     }
 }
+
+.page-footer {
+    margin-top: 10px;
+    // variable set by the theme.
+    background-color: var(--bg-banner);
+
+    .decorated-link {
+        border-bottom: 1px dotted #00efd1;
+    }
+
+    .container {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-gap: 0;
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        img {
+            width: auto;
+            height: auto;
+
+            &.logo {
+                margin-left: 25px;
+                height: 35px;
+                width: 35px;
+            }
+        }
+
+        div {
+            // border: 1px solid;
+            box-sizing: border-box;
+            align-self: end;
+
+            &:first-child {
+                grid-column: span 12;
+            }
+
+            &:nth-child(2) {
+                grid-column: span 6;
+            }
+
+            &:nth-child(3) {
+                grid-column: span 6;
+            }
+        }
+    }
+}
