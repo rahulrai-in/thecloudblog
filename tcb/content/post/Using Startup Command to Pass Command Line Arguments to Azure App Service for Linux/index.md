@@ -4,6 +4,7 @@ date: 2020-06-06
 tags:
   - azure
   - app-service
+comment_id: 69b831a5-2b2e-4b97-9fbe-827707b8e615
 ---
 
 Azure App Service on Linux has several [pre-fabricated Docker images](https://docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-faq) that support applications written in languages such as .NET core, PHP, and Node.js. App Service also supports [using your own Docker image](https://docs.microsoft.com/en-us/azure/app-service/containers/quickstart-docker) to spin up a container for your application. A useful configuration feature of App Service on Linux is the _Startup File_ configuration that you can set as part of configuring the runtime stack. The value that you specify for the configuration overrides the `CMD` instruction of the Dockerfile that creates the runtime of the application. If you are not aware of this configuration option, we will soon deploy an application that uses this configuration option soon, so keep reading.

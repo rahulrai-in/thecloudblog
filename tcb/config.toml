@@ -5,10 +5,6 @@ title = "The Cloud Blog"
 theme = "hugo-theme-okayish-blog"
 
 enableGitInfo = true
-
-# Provide the shortname to enable Disqus comments
-disqusShortname = "ok-ish-blog"
-
 enableEmoji = true
 
 [params]
@@ -31,16 +27,13 @@ gaLocalEnabled = false
 
 [[menu.main]]
 name = "whoami"
-weight = 2
+weight = 1
 url = "/whoami"
 
 [[menu.main]]
-name = "Engagements"
+name = "Publications"
+weight = 2
 url = "/authors"
-
-[[menu.main]]
-name = "Categories"
-url = "/categories"
 
 [module]
     [[module.mounts]]

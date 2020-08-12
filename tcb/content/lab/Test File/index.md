@@ -2,15 +2,16 @@
 title: Kubernetes Ecosystem 101 - Part 1
 date: 2020-05-28
 tags:
-- Kubernetes
+  - Kubernetes
+comment_id: 49d850a0-74a3-4848-ad11-c7b908d981a3
 draft: true
-
 ---
+
 Kubernetes ecosystem is exploding with many organizations and developers bringing out tooling and adding services to it. To stay on top of Kubernetes tools and services, I will rapidly examine the most popular services and tools on Kubernetes using a simple GoLang application that I built. I will document the whole process for my future reference so stay tuned to this series. Let's Go...
 
 ## The Test Application
 
-Here is some text. 
+Here is some text.
 
 > Cgg
 

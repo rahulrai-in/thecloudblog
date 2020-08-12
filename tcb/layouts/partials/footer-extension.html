@@ -1,0 +1,24 @@
+<div class="p-modal" id="modal" style="display:none;">
+    <div class="p-modal__dialog" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-description"
+        style="overflow:auto;">
+        <header class="p-modal__header">
+            <h3 class="p-modal__title" id="modal-title">Subscribe</h3>
+            <button class="p-modal__close" aria-label="Close active modal" onclick="toggleModal()">Close</button>
+        </header>
+        <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/168763/o2t0g4.js?v23">
+        </script>
+    </div>
+</div>
+
+<script defer type="text/javascript">
+    function toggleModal(modal) {
+        var modal = document.getElementById('modal');
+        if (modal && modal.classList.contains('p-modal')) {
+            if (modal.style.display === 'none') {
+                modal.style.display = 'flex';
+            } else {
+                modal.style.display = 'none';
+            }
+        }
+    }
+</script>

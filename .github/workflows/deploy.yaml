@@ -1,4 +1,4 @@
-name: Deploy to Netlify - Prod
+name: 'Deploy to Netlify:Prod'
 on:
   push:
     branches: [ master ]
