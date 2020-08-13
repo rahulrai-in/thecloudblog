@@ -1,6 +1,6 @@
 <footer class="p-strip page-footer">
     <div class="row container">
-        <div class="u-align--right">
+        <div class="u-align--center">
             <a rel="noopener" href="https://github.com/rahulrai-in" target="_blank">
                 <img class="logo" src="/lib/img/gh_logo.svg" alt="github" />
             </a>
@@ -19,10 +19,7 @@
         </div>
         <div class="u-align--left">
             <p>
-                <img src="https://github.com/rahulrai-in/thecloudblog_update/workflows/Deploy to Netlify:Prod/badge.svg"
-                    alt="build status" />
-                <br />
-                {{ with .GitInfo }}<small>Commit #: {{ .AbbreviatedHash }}</small>{{ end }}
+                {{ with .GitInfo }}Commit #: {{ .AbbreviatedHash }}{{ end }}
             </p>
             <p>
                 {{ $.Site.Copyright | default (delimit (slice "©" (now.Format "2006") $.Site.Title) " ") | markdownify }}
@@ -33,6 +30,10 @@
                 Theme</a>
         </div>
         <div class="u-align--right">
+            <p>
+                <img src="https://github.com/rahulrai-in/thecloudblog_update/workflows/Deploy to Netlify:Prod/badge.svg"
+                    alt="build status" />
+            </p>
             <a rel="noopener" target="_blank" href="http://creativecommons.org/licenses/by/4.0/"><img
                     src="/lib/img/cc.svg" class="logo" alt="Creative Commons Attribution 4.0" /></a>
             <a href="https://www.netlify.com" rel="noopener" target="_blank"><img class="responsive"

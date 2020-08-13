@@ -49,7 +49,7 @@ figure {
         display: block;
         content: "";
         background: url(/lib/img/email.svg) center center no-repeat;
-        background-size: 50px 50px;
+        background-size: 50px;
         width: 50px;
         height: 50px;
     }
@@ -58,12 +58,12 @@ figure {
 .p-link--logo {
     &:before {
         background: url('/lib/img/logo.svg') center center no-repeat;
-        background-size: 60px 60px;
+        background-size: 70px 70px;
         display: block;
-        width: 60px;
-        height: 60px;
+        width: 70px;
+        height: 70px;
         content: "";
-        margin: 10px;
+        margin-right: 5px;
         float: left;
     }
 }
@@ -72,7 +72,7 @@ dark-mode-toggle {
     --dark-mode-toggle-light-icon: url(/lib/img/moon.svg);
     --dark-mode-toggle-dark-icon: url(/lib/img/sun.svg);
     --dark-mode-toggle-icon-filter: invert(80%);
-    --dark-mode-toggle-icon-size: 1.2rem;
+    --dark-mode-toggle-icon-size: 25px;
 }
 
 .blinkers {
@@ -126,14 +126,22 @@ dark-mode-toggle {
             text-decoration: none;
         }
 
-        img {
-            width: auto;
-            height: auto;
+        a {
+            img {
+                width: auto;
+                height: auto;
 
-            &.logo {
-                margin-left: 20px;
-                height: 35px;
-                width: 35px;
+                &.logo {
+                    margin-right: 25px;
+                    height: 30px;
+                    width: 30px;
+                }
+            }
+
+            &:last-child {
+                img.logo {
+                    margin-right: 0px;
+                }
             }
         }
 
