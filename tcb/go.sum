@@ -1,0 +1,4 @@
+github.com/gohugoio/hugo-mod-jslibs v0.0.0-20200822155934-a6c6f0e81d97 h1:mLeewNrjRfV/cun5pby75SngMLt5HI4ro6RPnNlgP1o=
+github.com/gohugoio/hugo-mod-jslibs/instantpage v0.5.1 h1:Aig+0MOPXiuQNZpnxOMS4uwUsnyq41JnQzGW4Gk3o7Y=
+github.com/gohugoio/hugo-mod-jslibs/instantpage v0.5.1/go.mod h1:N4EUbbL7Cw4Yq+GHeK3MUSiOJQbzfuUFRyvBKvnVBR8=
+github.com/instantpage/instant.page v5.1.0+incompatible/go.mod h1:GXVDktwI+K4T9o5mcK2NYDqPFxAUrB9U9goR9oG1SaI=

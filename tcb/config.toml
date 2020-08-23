@@ -39,6 +39,8 @@ url = "/authors"
     [[module.mounts]]
         source = "assets/lib/img"
         target = "static/lib/img"
+    [[module.imports]]
+        path = "github.com/gohugoio/hugo-mod-jslibs/instantpage"
 
 [social]
     twitter = "rahulrai-in"
