@@ -278,7 +278,7 @@ private static async Task SendInstructionAsync(IDurableEntityContext context)
 
 Launch the function in debug mode on your system (F5) and note the localhost URL that the function is executing on. Using ngrok, create an internet-accessible tunnel to your function by executing the following command.
 
-```bash
+```cmd
 ngrok http 7071
 ```
 

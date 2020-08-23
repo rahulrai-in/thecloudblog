@@ -4,6 +4,7 @@ date: 2018-04-25
 tags:
   - azure
   - internet-of-things
+slug: building-applications-with-azure-iot-edge
 ---
 
 I recently presented a session on building applications with [Azure IoT Edge](https://azure.microsoft.com/en-gb/services/iot-edge/) at the [Global Azure Bootcamp, Sydney](https://global.azurebootcamp.net/locations/australia-sydney-2/). In the field of IoT, edge analytics is not just important; it is a necessity. Azure IoT Edge solves a lot of edge analytics challenges in a unique manner that many organizations face. Azure IoT Edge brings the power of essential cloud services from the cloud to your on-premise devices. You can deploy either Azure service logic or your code to devices from the cloud interface without physically accessing the device. There are several capabilities that Azure IoT Edge offers such as offline access, error retries, etc. which make it very compelling for organizations to adopt.

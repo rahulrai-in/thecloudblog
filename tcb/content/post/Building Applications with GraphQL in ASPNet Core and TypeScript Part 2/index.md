@@ -3,6 +3,7 @@ title: "Building a GraphQL Application with ASP.Net Core and TypeScript - Part 2
 date: 2019-05-19
 tags:
   - web
+slug: building-applications-with-graphql-in-aspnet-core-and-typescript-part-2
 ---
 
 > In this series
@@ -68,18 +69,21 @@ npm run run:testQuery
 
 This command will execute the following query on the GraphQL API and print the response in the form of a string to the console.
 
-```json
-query AuthorQuery($id:ID) {
-    author(id:$id) {
-        name
-        quotes {
-            text
-            category}}}
+```gql
+query AuthorQuery($id: ID) {
+  author(id: $id) {
+    name
+    quotes {
+      text
+      category
+    }
+  }
+}
 ```
 
 The command also sends the following argument dictionary to the query to substitute the `$id` parameter.
 
-```json
+```gql
 { "id": 1 }
 ```
 
@@ -91,7 +95,7 @@ npm run run:testMutation
 
 This operation will execute the following mutation operation on the GraphQL API.
 
-```json
+```gql
 mutation QuoteMutation($authorId: Int!, $text: String!, $category: String!) {
     createQuote(quote: {authorId: $authorId, text: $text, category: $category}) {
         name
@@ -102,7 +106,7 @@ mutation QuoteMutation($authorId: Int!, $text: String!, $category: String!) {
 
 The operation also passes the following argument dictionary to the mutation operation.
 
-```json
+```gql
 {"authorId":2,\"text":"FamousQuote1","category":"fun"}
 ```
 
@@ -124,19 +128,19 @@ Let’s now dig deeper into the code I wrote for building this application.
 
 The application begins execution from the **index.ts\js** file which contains the following code.
 
-```
-import * as OperationParser from './operationParser';
-import { gqlOperations } from './options';
+```ts
+import * as OperationParser from "./operationParser";
+import { gqlOperations } from "./options";
 
 var opts = OperationParser.fromArgv(process.argv.slice(2));
-console.log('Input:', opts.input);
-console.log('Is Mutation:', opts.mutation);
-console.log('Args:', opts.arguments);
+console.log("Input:", opts.input);
+console.log("Is Mutation:", opts.mutation);
+console.log("Args:", opts.arguments);
 var executeOperation = async () =>
   opts.mutation
-    ? await gqlOperations['mutation'].operation(opts.input, opts.arguments)
-    : await gqlOperations['query'].operation(opts.input, opts.arguments);
-executeOperation().then(result => console.log('OUTPUT:', result));
+    ? await gqlOperations["mutation"].operation(opts.input, opts.arguments)
+    : await gqlOperations["query"].operation(opts.input, opts.arguments);
+executeOperation().then((result) => console.log("OUTPUT:", result));
 ```
 
 The code in the listing consumes the arguments you passed to the command and sends them to the `formArgv` function defined in **optionsParser** file.
@@ -144,10 +148,10 @@ The function returns an instance of the `Options` class in response, which expos
 
 Navigate to the **optionsParser.ts** file now. The `fromArgv` function uses a helper function `minimistAs` to split the input into operation string, the operation flag, and argument parameter value.
 
-```
-import * as minimist from 'minimist';
+```ts
+import * as minimist from "minimist";
 
-import { Options, Arguments } from './options';
+import { Options, Arguments } from "./options";
 
 function minimistAs<T>(
   args?: string[],
@@ -158,10 +162,10 @@ function minimistAs<T>(
 
 export function fromArgv(argv: string[]): Options {
   var parsedArgs = minimistAs<Arguments>(argv, {
-    alias: { mutation: 'm', arguments: 'a' }
+    alias: { mutation: "m", arguments: "a" },
   });
 
-  return new Options(parsedArgs._.join(' '), parsedArgs);
+  return new Options(parsedArgs._.join(" "), parsedArgs);
 }
 ```
 
@@ -169,20 +173,20 @@ The `minimistAs` function uses a simple command line parser package [minimist](h
 
 Let's now move on to explore the `Options` class in the **options.ts** file.
 
-```
-import { Mutation } from './mutation';
-import { Query } from './query';
+```ts
+import { Mutation } from "./mutation";
+import { Query } from "./query";
 
 function exitIfUndefined(value: any, message: string) {
-  if (typeof value === 'undefined' || value.trim() === '') {
+  if (typeof value === "undefined" || value.trim() === "") {
     console.error(message);
     throw new Error(`${value} is not valid input.`);
   }
 }
 
 export const gqlOperations = {
-  ['mutation']: Mutation,
-  ['query']: Query
+  ["mutation"]: Mutation,
+  ["query"]: Query,
 };
 
 export interface Arguments {
@@ -195,7 +199,7 @@ export class Options implements Arguments {
   readonly arguments: string;
 
   constructor(public readonly input: string, args: Arguments) {
-    exitIfUndefined(input, 'Please pass an input string.');
+    exitIfUndefined(input, "Please pass an input string.");
 
     this.mutation = args.mutation === undefined ? false : args.mutation;
     this.arguments = args.arguments;
@@ -207,12 +211,12 @@ Most of the code in this file is straightforward and requires no explanation. Th
 
 Let's now review the `Query` function present in the **query.ts** file.
 
-```
-import { IOperation } from './IOperation';
-import { default as ApolloClient, ApolloQueryResult } from 'apollo-boost';
-import { default as gql } from 'graphql-tag';
-import { Config } from './config';
-import 'cross-fetch/polyfill';
+```ts
+import { IOperation } from "./IOperation";
+import { default as ApolloClient, ApolloQueryResult } from "apollo-boost";
+import { default as gql } from "graphql-tag";
+import { Config } from "./config";
+import "cross-fetch/polyfill";
 
 export var Query: IOperation = {
   async operation(input: string, argument: string): Promise<string> {
@@ -220,13 +224,13 @@ export var Query: IOperation = {
       let client = new ApolloClient({ uri: Config.graphQl });
       return await client.query({
         query: gql(input),
-        variables: JSON.parse(argument)
+        variables: JSON.parse(argument),
       });
     };
 
     let result = await query();
     return JSON.stringify(result.data);
-  }
+  },
 };
 ```
 
@@ -234,12 +238,12 @@ Both the `Query` and the `Mutation` variables implement the `IOperation` interfa
 
 Understanding the code of the `Mutation` in the **mutation.ts** file will be easy for you as it closely resembles the implementation you went through in the **query.ts** file.
 
-```
-import { IOperation } from './IOperation';
-import { default as ApolloClient, FetchResult } from 'apollo-boost';
-import { default as gql } from 'graphql-tag';
-import { Config } from './config';
-import 'cross-fetch/polyfill';
+```ts
+import { IOperation } from "./IOperation";
+import { default as ApolloClient, FetchResult } from "apollo-boost";
+import { default as gql } from "graphql-tag";
+import { Config } from "./config";
+import "cross-fetch/polyfill";
 
 export var Mutation: IOperation = {
   async operation(input: string, argument: string): Promise<string> {
@@ -247,13 +251,13 @@ export var Mutation: IOperation = {
       let client = new ApolloClient({ uri: Config.graphQl });
       return await client.mutate({
         mutation: gql(input),
-        variables: JSON.parse(argument)
+        variables: JSON.parse(argument),
       });
     };
 
     let result = await query();
     return JSON.stringify(result.data);
-  }
+  },
 };
 ```
 

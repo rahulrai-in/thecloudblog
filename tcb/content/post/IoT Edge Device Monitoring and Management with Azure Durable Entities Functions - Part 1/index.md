@@ -84,7 +84,7 @@ We are now ready to build our IoT Edge application that will simulate temperatur
 
 ## IoT Edge Application
 
-I wrote an [article on IoT Edge](/post/Building-Applications-with-Azure-IoT-Edge/) to show how you can link the various edge modules together to create a data transformation workflow. This time, I will create a simple module that artificially generates telemetry and sends it to IoT Hub straight away.
+I wrote an [article on IoT Edge](/post/building-applications-with-azure-iot-edge/) to show how you can link the various edge modules together to create a data transformation workflow. This time, I will create a simple module that artificially generates telemetry and sends it to IoT Hub straight away.
 
 The setup of IoT Edge is a little complex. I recommend that you follow the steps outlined in the [official documentation](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-vs-code-develop-module) to set up the Visual Studio Code and your development environment.
 

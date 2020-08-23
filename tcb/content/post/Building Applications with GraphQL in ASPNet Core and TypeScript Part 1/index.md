@@ -18,9 +18,9 @@ SELECT name, id FROM employees WHERE id = 1
 
 ...can be translated to the following in GraphQL.
 
-```json
+```gql
 {
-  employees (id: 1) {
+  employees(id: 1) {
     id
     name
   }
@@ -186,7 +186,7 @@ At this point we are ready with two queryable entities and a fully functional da
 
 A GraphQL service requires defining types and fields on those types. Further, you provision functions for each field on each type. In GraphQL, the schema is set on the server, and the client uses the schema to query or mutate (create, update, and delete) the data over a single endpoint. The schema of data is defined in a particular format using a specification known as **Schema Definition Language**. The following is an example of how the author schema in our sample will be defined.
 
-```json
+```gql
 {
   author: Author
   authors: GraphQL List (Author)
@@ -195,7 +195,7 @@ A GraphQL service requires defining types and fields on those types. Further, yo
 
 In the schema listed previously, `Author` itself is a **Type** with three fields: `Id`, `Name`, and `Quotes`. It will be represented as the following.
 
-```json
+```gql
 {
   Author = {
     id: GraphQL Int
@@ -238,9 +238,9 @@ public class QuoteType : ObjectGraphType<Quote>
 
 After defining the schema, we can now define queries that the client can execute using the schema. The server presents the schema of queries and mutations to the client which it can send to the server. We will define a query to get an author object when the client sends the id of the author as a query argument. In GraphQL the query will look like the following. Note that we are requesting only the quotes from the author to be sent in the response.
 
-```json
+```gql
 {
-  author (id:1){
+  author(id: 1) {
     quotes {
       text
     }
@@ -250,7 +250,7 @@ After defining the schema, we can now define queries that the client can execute
 
 The response for this query will look like the following.
 
-```json
+```gql
 {
   "data": {
     "author": {
@@ -307,9 +307,15 @@ public class AuthorQuery : ObjectGraphType
 
 While we are into the process of writing queries, let's add a mutation operation to add a quote to an author profile. Mutations are GraphQL objects similar to queries, but by using mutations, you can update, delete and create records. The following is an example of a mutation operation named `createQuote` that accepts parameters for creating a new quote. Mutation operations also allow you to query the updated object as part of the same operation. In the following example, you can see that we can request various fields of the resultant `Author` object to be returned in response to a mutation operation.
 
-```json
+```gql
 mutation {
-  createQuote(quote: {authorId: 2, text: "Pleasure in the job puts perfection in the work.", category: "job"}) {
+  createQuote(
+    quote: {
+      authorId: 2
+      text: "Pleasure in the job puts perfection in the work."
+      category: "job"
+    }
+  ) {
     name
     quotes {
       text
@@ -435,7 +441,7 @@ Launch the application now and navigate to the URL: [https://localhost:5001/grap
 
 Let's execute a query in GraphiQL interface to list the authors and their quotes. Write the following query in the interface and execute it.
 
-```json
+```gql
 {
   authors {
     id
@@ -454,9 +460,15 @@ The following is a screenshot of the output of the query.
 
 Let's now execute a mutation to add a quote to the author record and also list all the quotes of the author in the same operation.
 
-```json
+```gql
 mutation {
-  createQuote(quote: {authorId: 2, text: "Pleasure in the job puts perfection in the work.", category: "job"}) {
+  createQuote(
+    quote: {
+      authorId: 2
+      text: "Pleasure in the job puts perfection in the work."
+      category: "job"
+    }
+  ) {
     name
     quotes {
       text
