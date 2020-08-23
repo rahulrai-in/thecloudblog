@@ -5,3 +5,5 @@
 <link href="https://graphcomment.com" rel="preconnect" crossorigin>
 <link rel="dns-prefetch" href="https://static.mailerlite.com">
 <link href="https://static.mailerlite.com" rel="preconnect" crossorigin>
+{{ $customJS := slice (resources.Get "scripts/instant.page.mjs" | resources.Minify) | resources.Concat "js/custom.js" }}
+<script defer src={{ $customJS.Permalink }}></script>
