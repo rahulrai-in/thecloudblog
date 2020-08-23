@@ -4,6 +4,7 @@ date: 2019-10-31
 tags:
   - kubernetes
   - service-mesh
+comment_id: 58822e20-0534-4131-b0a6-e762cc7960e0
 ---
 
 A crucial feature of the Istio Service Mesh is that it grants you absolute control over how you want to route traffic to a service. Each service on the Istio service mesh has a unique network identity that it receives from the underlying host, i.e., Kubernetes. For example, a service named _foo_ provisioned in a namespace named _bar_ will have the FQDN (Fully Qualified Domain Name) _foo.bar.svc.cluster.local_, which also serves as its network identity. Other services within the cluster can use the network identity of _foo_ to send requests to it, which will reach one of the pods executing an instance of the service.
@@ -24,9 +25,9 @@ The level of flexibility that services offer to external clients is unavailable 
 
 A potential solution for systems that have all their services exposed to the internet via ingress gateway is to use the external endpoints of the services for communication. Using an external endpoint for service to service communication is a bad practice as such communication should still take place within the cluster for performance and security reasons. In networking, this form of communication is known as [hairpinning](https://en.wikipedia.org/wiki/Hairpinning), which in the context of Kubernetes, translates to service to service communication in which requests from a service leave the cluster and then re-enter the cluster to reach the destination service.
 
-Today, we will discuss a potential solution to this problem by configuring the DNS used by Istio and the DNS used by Kubernetes, which is CoreDNS for both the systems. In Istio, you can add custom DNS records to the service registry using the _ServiceEntry_ configuration resource. Envoy uses the service registry of Istio and Kubernetes to detect the location of any service in the cluster. Istio uses a [CoreDNS plugin](https://github.com/istio-ecosystem/istio-coredns-plugin) to read the service entries and associate the IP addresses of services to their host addresses. The DNS plugin is deployed to the cluster when you install Istio with the following [installation option](https://istio.io/docs/reference/config/installation-options/).
+Today, we will discuss a potential solution to this problem by configuring the DNS used by Istio and the DNS used by Kubernetes, which is CoreDNS for both the systems. In Istio, you can add custom DNS records to the service registry using the _ServiceEntry_ configuration resource. Envoy uses the service registry of Istio and Kubernetes to detect the location of any service in the cluster. Istio uses a [CoreDNS plugin](https://github.com/istio-ecosystem/istio-coredns-plugin) to read the service entries and associate the IP addresses of services to their host addresses. The DNS plugin is deployed to the cluster when you install Istio with the following [installation option](https://istio.io/latest/docs/setup/install/multicluster/gateways/).
 
-```bash
+```plaintext
 --set istiocoredns.enabled=true
 ```
 
@@ -70,7 +71,7 @@ $ curl http://localhost:3000/api/fruits/au
 
 Let's deploy this service to our cluster now. The first resource we will need is a namespace with the label _istio-injection_ set to _enabled_ so that Istio can inject a sidecar to all the service pods within this namespace. The following listing presents the definition of the namespace named _micro-shake-factory_.
 
-```
+```yaml
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -81,7 +82,7 @@ metadata:
 
 Next, we will create a deployment and a service for the _fruits-api_ service using the following specification.
 
-```
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -137,7 +138,7 @@ In the previous specification, note that we reserved a cluster IP address by set
 
 Finally, we will configure a Virtual Service using the following specification that will route all traffic to the _fruits-api-service_.
 
-```
+```yaml
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -220,7 +221,7 @@ $ kubectl edit configmap/coredns -n kube-system
 
 Edit the corefile to add (not replace) the following section to the configuration. After saving the changes, any requests to resolve an address with domain name _internal_ will be routed to _istiocoredns_.
 
-```json
+```plaintext
 internal:53 {
     errors
     cache 30
@@ -230,7 +231,7 @@ internal:53 {
 
 Let's create a service entry that will associate the name _my-fruits.internal_ to the cluster IP of our service.
 
-```
+```yaml
 apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
@@ -263,7 +264,7 @@ $ kubectl edit configmap/coredns -n istio-system
 
 There are two approaches to editing the corefile of _istiocoredns_ which vary with the version of CoreDNS. If the version of CoreDNS is < 1.4.0 (it will be evident from the file structure, [see source](https://github.com/istio/istio/blob/master/install/kubernetes/helm/istio/charts/istiocoredns/templates/configmap.yaml)), then update the configuration to resemble the following.
 
-```json
+```plaintext
 Corefile: |
 .:53 {
         errors
@@ -283,7 +284,7 @@ Corefile: |
 
 If the version of CoreDNS is > 1.4.0, change the configuration to resemble the following.
 
-```json
+```plaintext
 Corefile: |
 .:53 {
         errors

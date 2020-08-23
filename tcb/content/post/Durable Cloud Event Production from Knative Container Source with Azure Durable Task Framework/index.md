@@ -4,8 +4,8 @@ date: 2020-01-15
 tags:
   - azure
   - kubernetes
+comment_id: ae1c0c5e-0080-49eb-95ad-4733c19b229b
 ---
-
 
 [Knative](https://cloud.google.com/knative/) is an excellent platform for building, deploying and managing serverless workloads on Kubernetes. The _Serving_ resources of Knative extend Istio to support serverless applications. Another class of resources of Knative called _Eventing_ extend Istio to support the production and consumption of [Cloud Events](https://cloudevents.io/).
 
@@ -61,7 +61,7 @@ Let me point you to a known issue with Knative Eventing that baffled me for a wh
 - Istio: 1.4.0
 - Knative: 0.11.0
 
-To install cluster local gateway for version 1.4 of Istio, apply the configuration [istio-knative-extras.yaml](https://github.com/knative/serving/blob/master/third_party/istio-1.4.2/istio-knative-extras.yaml) to your cluster.
+To install cluster local gateway for version 1.4 of Istio, apply the configuration [istio-knative-extras.yaml](https://github.com/knative/serving/tree/release-0.17/third_party) to your cluster.
 
 ## Application Overview and Source Code
 
@@ -252,7 +252,7 @@ You can use the helper script located at the root of the solution, _build-push-r
 
 The spec to deploy the application is named _appspec.yaml,_ and it is located at the root of the solution. Let's discuss each specification in this file, starting with the namespace.
 
-```
+```yaml
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -264,7 +264,7 @@ metadata:
 
 This specification instructs Istio to inject a sidecar for our services and instructs Knative to add a default broker for the namespace. Let’s now configure our container source.
 
-```
+```yaml
 apiVersion: sources.eventing.knative.dev/v1alpha1
 kind: ContainerSource
 metadata:
@@ -273,12 +273,12 @@ metadata:
 spec:
   image: rahulrai/hello-orchestrator
   env:
-   - name: StorageConnectionString
-     value: "DefaultEndpointsProtocol=https;AccountName={account name};AccountKey={account key};EndpointSuffix=core.windows.net"
-   - name: TaskHubName
-     value: "DTFHub"
-   - name: DurationInSeconds
-     value: "10"
+    - name: StorageConnectionString
+      value: "DefaultEndpointsProtocol=https;AccountName={account name};AccountKey={account key};EndpointSuffix=core.windows.net"
+    - name: TaskHubName
+      value: "DTFHub"
+    - name: DurationInSeconds
+      value: "10"
   sink:
     apiVersion: serving.knative.dev/v1alpha1
     kind: Service
@@ -292,7 +292,7 @@ A _SinkBinding_ links the event producer to the event consumer. In the previous 
 
 Finally, let's visit the specification responsible for publishing the _hello-events_ service as a Knative service.
 
-```cs
+```yaml
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:

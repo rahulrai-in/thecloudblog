@@ -4,6 +4,7 @@ date: 2019-11-11
 tags:
   - kubernetes
   - service-mesh
+comment_id: c99bcfa7-5509-4725-9e5f-7583eb106878
 ---
 
 The concept of access control can be boiled down to two factors: _authentication (AuthN)_ and _authorization (AuthZ)_. While authentication determines the identity of a client based on the data presented to the identity provider (e.g., Google and Microsoft AD), authorization determines whether an authenticated principal may interact with the resource.
@@ -32,7 +33,7 @@ For this demo, we will use the containerized version of a popular HTTP request a
 
 Use the following specification to deploy the HTTPBin service to your Kubernetes cluster and expose it to the internet using an Istio ingress gateway.
 
-```
+```yaml
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -212,7 +213,7 @@ The execution of the shell script generates a JWK in a file named _private.jwk_.
 
 Let's lock down our service with an authentication policy so that it does not accept requests that don't carry a valid JWT token. Following is the specification of the authentication policy that we will apply to our cluster.
 
-```
+```yaml
 apiVersion: authentication.istio.io/v1alpha1
 kind: Policy
 metadata:
@@ -285,7 +286,7 @@ The following screenshot illustrates the previous workflow in action. After addi
 
 Let's copy the token and save it in a file named _authN-headers.txt_ in the following format. Replace the placeholder text {TOKEN} with the actual token value that you copied from the website.
 
-```bash
+```plaintext
 Authorization: Bearer {TOKEN}
 ```
 
@@ -340,7 +341,7 @@ Let's now enable RBAC on our service such that only the principal with the role 
 
 You can enable RBAC on all services within the cluster. However, such operation may disrupt ongoing operations, and therefore, a more appropriate migration strategy is to enable RBAC on a namespace or a service such that any communication with the service or every service in the namespace requires RBAC. The following specification enables RBAC only on the _httpbin-service_.
 
-```
+```yaml
 apiVersion: rbac.istio.io/v1alpha1
 kind: RbacConfig
 metadata:
@@ -355,7 +356,7 @@ spec:
 
 Next, we will define a ServiceRole named _header-reader_ that will grant principal access to the _headers_ endpoint of our service.
 
-```
+```yaml
 apiVersion: rbac.istio.io/v1alpha1
 kind: ServiceRole
 metadata:
@@ -366,12 +367,12 @@ spec:
     - services:
         - httpbin-service.safe-services-ns.svc.cluster.local
       paths:
-        - '/headers'
+        - "/headers"
 ```
 
 Finally, we will bind the ServiceRole to request attributes with ServiceRoleBinding with the following specification.
 
-```
+```yaml
 apiVersion: rbac.istio.io/v1alpha1
 kind: ServiceRoleBinding
 metadata:

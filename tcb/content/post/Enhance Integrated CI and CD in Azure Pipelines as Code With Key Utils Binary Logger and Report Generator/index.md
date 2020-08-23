@@ -5,6 +5,7 @@ tags:
   - azure
   - devops
   - compute
+comment_id: fceab8a3-17cb-4ee5-8f24-9743d73421cc
 ---
 
 If you are using Azure DevOps for building and deploying your .NET core applications, then you should consider the following.
@@ -44,7 +45,7 @@ Azure DevOps now supports writing [Release pipelines as code](https://azure.micr
 
 I created a simple Azure function named _GetLoLz_ that returns a string with as many occurrences of the text "LoL" as requested by setting the query parameter named _count_ of the HTTP request as follows.
 
-```
+```plaintext
 [GET] http://<hostname>.<domain name>/api/GetLoLz?count=<int>
 ```
 
@@ -77,7 +78,7 @@ public static IActionResult GetLoLz(
 
 Launch the application now and visit the following URL from your browser or send a GET request from an API client such as Postman. Since your application might be available at a different port, check the Azure Function Tool CLI console for the address of your HTTP function.
 
-```
+```plaintext
 http://localhost:7071/api/GetLoLz?count=1000
 ```
 
@@ -101,7 +102,7 @@ Azure Pipelines automatically picks the build and release definition from the _a
 
 Create a file named _azure-pipelines.yml_ at the root of the repository and add the following code to it.
 
-```json
+```yaml
 trigger:
   branches:
     include:
@@ -138,78 +139,78 @@ You can see in the previous definition that this pipeline will be triggered when
 
 As you can see that I have stored all the templates in a folder named _.azure-pipelines_ at the root of the repository. Let's go through the templates that we used for the build stage. The first step that will execute is _restore-packages,_ which will restore the NuGet packages of the solution.
 
-```json
+```yaml
 steps:
-- task: DotNetCoreCLI@2
-  displayName: Restore Nuget
-  inputs:
-   command: restore
+  - task: DotNetCoreCLI@2
+    displayName: Restore Nuget
+    inputs:
+      command: restore
 ```
 
 The next step in the sequence is _build_, which will build the solution. We will set the _/bl_ flag to instruct MSBuild to generate a binary log. Since we want to investigate this log file later in case of issues, we will publish the file that contains the binary log as a build artifact.
 
-```json
+```yaml
 steps:
-- task: MSBuild@1
-  displayName: Build - $(buildConfiguration)
-  inputs:
-    configuration: $(buildConfiguration)
-    solution: AzFunction.sln
-    clean: true
-    msbuildArguments: /bl:"$(Build.SourcesDirectory)/BuildLog/build.binlog"
-- task: PublishPipelineArtifact@1
-  displayName: Publish BinLog
-  inputs:
-    path: $(Build.SourcesDirectory)/BuildLog
-    artifact: BuildLog
+  - task: MSBuild@1
+    displayName: Build - $(buildConfiguration)
+    inputs:
+      configuration: $(buildConfiguration)
+      solution: AzFunction.sln
+      clean: true
+      msbuildArguments: /bl:"$(Build.SourcesDirectory)/BuildLog/build.binlog"
+  - task: PublishPipelineArtifact@1
+    displayName: Publish BinLog
+    inputs:
+      path: $(Build.SourcesDirectory)/BuildLog
+      artifact: BuildLog
 ```
 
 The next step of this stage is _test_, which will execute all the tests. There are three individual tasks in this stage. The first task executes the tests in the _AzFunction.LoL.Tests_ project with necessary flags set that generates code coverage report in Cobertura format in a folder named _Coverage_. The next step installs the Report Generator tool. The Report Generator tool takes the test report and converts it to an HTML report that would be visible in the Azure Pipelines dashboard. The final task publishes the Cobertura report that you can download later.
 
-```json
+```yaml
 steps:
-- task: DotNetCoreCLI@2
-  displayName: Run Tests
-  inputs:
-    command: test
-    projects: 'AzFunction.LoL.Tests/AzFunction.LoL.Tests.csproj'
-    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
-- script: |
-   dotnet tool install dotnet-reportgenerator-globaltool --tool-path .
-   ./reportgenerator -reports:$(Build.SourcesDirectory)/TestResults/Coverage/\*\*/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:'HtmlInline\_AzurePipelines;Cobertura'
-  displayName: Create Code Coverage Report
-- task: PublishCodeCoverageResults@1
-  displayName: Publish Code Coverage Report
-  inputs:
-    codeCoverageTool: Cobertura
-    summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
-    reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
+  - task: DotNetCoreCLI@2
+    displayName: Run Tests
+    inputs:
+      command: test
+      projects: "AzFunction.LoL.Tests/AzFunction.LoL.Tests.csproj"
+      arguments: "--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/"
+  - script: |
+      dotnet tool install dotnet-reportgenerator-globaltool --tool-path .
+      ./reportgenerator -reports:$(Build.SourcesDirectory)/TestResults/Coverage/\*\*/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:'HtmlInline\_AzurePipelines;Cobertura'
+    displayName: Create Code Coverage Report
+  - task: PublishCodeCoverageResults@1
+    displayName: Publish Code Coverage Report
+    inputs:
+      codeCoverageTool: Cobertura
+      summaryFileLocation: "$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml"
+      reportDirectory: "$(Build.SourcesDirectory)/CodeCoverage"
 ```
 
 The final step in the build stage is _publish_. This step is responsible for publishing the application as an artifact that will be used by the next stage, which is responsible for deploying the published artifact. The following code listing presents the three tasks responsible for publishing the build artifact.
 
-```json
+```yaml
 steps:
-- task: DotNetCoreCLI@2
-  displayName: Publish App
-  inputs:
-    command: publish
-    publishWebProjects: false
-    arguments: '-c $(buildConfiguration) -o out --no-build --no-restore'
-    zipAfterPublish: false
-    modifyOutputPath: false
-    workingDirectory: AzFunction.LoL
-- task: CopyFiles@2
-  displayName: Copy App Output to Staging Directory
-  inputs:
-    sourceFolder: AzFunction.LoL/out
-    contents: '\*\*/\*'
-    targetFolder: $(Build.ArtifactStagingDirectory)/function
-- task: PublishPipelineArtifact@1
-  displayName: Publish Artifact
-  inputs:
-    path: $(Build.ArtifactStagingDirectory)/function
-    artifactName: Function
+  - task: DotNetCoreCLI@2
+    displayName: Publish App
+    inputs:
+      command: publish
+      publishWebProjects: false
+      arguments: "-c $(buildConfiguration) -o out --no-build --no-restore"
+      zipAfterPublish: false
+      modifyOutputPath: false
+      workingDirectory: AzFunction.LoL
+  - task: CopyFiles@2
+    displayName: Copy App Output to Staging Directory
+    inputs:
+      sourceFolder: AzFunction.LoL/out
+      contents: '\*\*/\*'
+      targetFolder: $(Build.ArtifactStagingDirectory)/function
+  - task: PublishPipelineArtifact@1
+    displayName: Publish Artifact
+    inputs:
+      path: $(Build.ArtifactStagingDirectory)/function
+      artifactName: Function
 ```
 
 In the previous listing, the first step executes the _dotnet publish_ command and emits the application binaries in a folder named _out_. The next step copies the contents of the _out_ folder to another folder named _function_ in the _ArtifactStagingDirectory_. The final step publishes the _function_ folder as a build artifact so that the contents of this folder can be deployed to Azure Function by the next stage.
@@ -238,27 +239,27 @@ After saving the information, we will be able to use the name of the connection 
 
 Let's discuss the steps that make up the _Deploy_ stage of our pipeline. The first step in this stage is _download-artifact,_ which downloads the _Function_ artifact from the artifact produced by the _Build_ stage.
 
-```json
+```yaml
 steps:
-- task: DownloadPipelineArtifact@2
-  displayName: Download Build Artifacts
-  inputs:
-    buildType: current
-    downloadType: single
-    downloadPath: '$(System.ArtifactsDirectory)'
-    artifactName: Function
+  - task: DownloadPipelineArtifact@2
+    displayName: Download Build Artifacts
+    inputs:
+      buildType: current
+      downloadType: single
+      downloadPath: "$(System.ArtifactsDirectory)"
+      artifactName: Function
 ```
 
 Finally, the last step in the pipeline named _deploy_ is responsible for publishing the release artifact to Azure function.
 
-```json
+```yaml
 steps:
-- task: AzureFunctionApp@1
-  displayName: Azure Function App Deploy
-  inputs:
-    azureSubscription: LoLFxConnection
-    appName: '$(appName)'
-    package: '$(System.ArtifactsDirectory)'
+  - task: AzureFunctionApp@1
+    displayName: Azure Function App Deploy
+    inputs:
+      azureSubscription: LoLFxConnection
+      appName: "$(appName)"
+      package: "$(System.ArtifactsDirectory)"
 ```
 
 Note that we referenced the Azure subscription using the name of the service connection that we created previously.

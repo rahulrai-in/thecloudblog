@@ -3,6 +3,7 @@ title: "Continuous TeX Document Production with GitHub Actions"
 date: 2019-07-21
 tags:
   - devops
+comment_id: 23424fec-33ac-4528-b8e2-a89829eaa17c
 ---
 
 Here is my little secret: My résumé lives in a private GitHub repository. I use [TeX](https://www.tug.org/), which is a popular typesetting language, to compose my résumé. TeX helps you separate document text from formatting. Major publishers whose content and design teams work independently of each other use TeX. The content team produces content, and the design team makes the content presentable. In a typical publishing workflow, the author marks the various parts of content such as headers, and footers with inbuilt, or custom TeX commands. Subsequently, the designer works on the typesetting of the document by adjusting the presentation aspect of the commands.
@@ -58,7 +59,7 @@ On clicking the button, you will land on the workflow designer form. The first t
 
 In the editor that follows, enter the following workflow definition.
 
-```JSON
+```plaintext
 workflow "Generate Document" {
   on = "push"
   resolves = ["Save To GH Pages"]
@@ -87,7 +88,7 @@ The **Save To GH Pages** is an Action published on the marketplace which is avai
 
 An interesting detail to note here is that this task only points to a public repository. Besides GitHub repositories, the `uses` property also supports links to files hosted on the Docker Hub. You can specify the secrets, environment variables, and arguments that your task needs in the Action block. For example, the **Save To GH Pages** Action requires an environment variable named **BUILD_DIR**, and a secret named **GH_PAT**. The following is the structure of a typical Action.
 
-```JSON
+```plaintext
 action "Name" {
   uses = "points to public or local repo or a docker instruction"
   needs = "array of actions this action depends on"
@@ -113,7 +114,7 @@ Push the code in its current state to the master branch. The workflow will execu
 
 In VSCode, clone the repository that you just created and add a Dockerfile to the root of the repository with code from the following listing.
 
-```bash
+```docker
 FROM debian:latest
 
 LABEL "maintainer"="Rahul Rai <rahul@rahul-rai.com>"
@@ -221,7 +222,7 @@ Our Action is now ready to undergo testing. So let's do that next.
 
 Add a simple TeX file named **sample.tex** to the root directory of the repository and add the following content to it.
 
-```
+```tex
 \documentclass[12pt]{article}
 \title{Hello World}
 \author{Rahul}

@@ -4,6 +4,7 @@ date: 2019-09-23
 tags:
   - automation
   - tools-gadgets
+comment_id: d9fa6499-e59a-4e98-8467-8623cff98bd4
 ---
 
 Developers are always looking for ways to optimize their productivity. The latest addition that I did to improve mine was to create aliases for the most common commands that I use every day. I have entirely pivoted to using the new [Windows Terminal](https://github.com/Microsoft/Terminal) for my day-to-day command line activities.
@@ -28,7 +29,7 @@ Let’s discuss a safe way to ensure that command prompt executes the aliases sc
 
 Create a command file named init.cmd (the name is irrelevant) and add the following commands to it.
 
-```bash
+```cmd
 @echo off
 doskey k=kubectl $*
 doskey d=docker $*
@@ -40,13 +41,13 @@ In the previous listing, we assigned aliases to some common commands that we use
 
 Next, place the file at a permanent location and now fire your Windows Terminal instance. Bring up the Windows Terminal settings by clicking on the gear icon in the menu or by using the macro key combination “Ctrl + ,” in the terminal window. Windows Terminal saves and reads settings from a JSON document named profiles.json. You can modify the many configuration options in this file to make the overall application, and each shell, act/look like you want. For now, search for the following setting in the JSON document.
 
-```bash
+```cmd
 "commandline": "cmd.exe"
 ```
 
 The setting shown previously instructs the Windows Terminal process to launch the command interpreter, cmd.exe. Update this command to instruct the command interpreter to execute your command file on initialization and then continue. Remember to substitute the file path below with the path to the **init.cmd** file that you created previously.
 
-```bash
+```cmd
 "commandline": "cmd.exe /K C:\\InitCmd\\init.cmd"
 ```
 

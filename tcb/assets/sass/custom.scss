@@ -193,3 +193,8 @@ dark-mode-toggle {
         float: left;
     }
 }
+
+// bug fix in template
+.post-content {
+    word-wrap: break-word;
+}
