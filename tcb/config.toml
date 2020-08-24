@@ -2,7 +2,7 @@ baseURL = "https://thecloudblog-v2.netlify.app"
 languageCode = "en-us"
 defaultContentLanguage = "en-us"
 title = "The Cloud Blog"
-theme = "hugo-theme-okayish-blog"
+theme = "okayish-blog-fork"
 
 enableGitInfo = true
 enableEmoji = true

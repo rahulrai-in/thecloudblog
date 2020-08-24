@@ -13,9 +13,9 @@
 {{ $pages = slice }}
 
 {{ range .Site.RegularPages }}
-    {{ if $.IsAncestor . }}
-    {{ $pages = append . $pages}}
-    {{ end }}
+{{ if $.IsAncestor . }}
+{{ $pages = append . $pages}}
+{{ end }}
 {{ end }}
 
 {{ end }}
@@ -28,7 +28,12 @@
 
         <div class="col-12">
             <div class="p-card">
-                <h3>{{ if eq .Section "lab" }}<i class="lab-icon" data-title="Lab: This is a quickstart sample"></i>{{ end }}<a href="{{ .Permalink }}">{{ .Title | markdownify }}</a></h3>
+                <!-- 
+                    H3 is not in a sequentially-descending order which is not good for accessibility. 
+                    However, we still want the visual appearance of H3. Fortunately, Vanilla has a CSS class for that. 
+                -->
+                <h2 class="p-heading--3"><a href="{{ .Permalink }}">{{ if eq .Section "lab" }}<i class="lab-icon"
+                            data-title="Lab: Quick tip\Code sample"></i>{{ end }}{{ .Title | markdownify }}</a></h2>
 
                 {{/*  Check to see if it has post info. */}}
                 {{ if or .Params.Date (or .Params.Authors .Params.Author) }}
@@ -44,7 +49,13 @@
                 {{ end }}
 
                 {{ if .Truncated }}
-                <p><a class="p-button--brand blinkers" href="{{ .Permalink }}">{{ i18n "readMore" | default "Read more" }}<span>.</span><span>.</span><span>.</span></a></p>
+                <p>
+                    <a href="{{ .Permalink }}" class="p-button--brand blinkers">
+                        {{ i18n "readMore" | default "Read more" }}</span><span aria-hidden="true">.</span><span
+                            aria-hidden="true">.</span><span aria-hidden="true">.</span><span class="u-off-screen"> of
+                            {{ .Title }}
+                    </a>
+                </p>
                 {{ end }}
             </div>
         </div>
