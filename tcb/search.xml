@@ -1,0 +1,9 @@
+﻿<?xml version="1.0"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>TheCloudBlog</ShortName>
+  <Description>Search The Cloud Blog</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Image width="16" height="16" type="image/x-icon">/resources/thecloudblog.png</Image>
+  <Url type="text/html" method="GET" template="https://thecloudblog.net/search/?q={searchTerms}" />
+  <SearchForm>https://thecloudblog.net/</SearchForm>
+</OpenSearchDescription>

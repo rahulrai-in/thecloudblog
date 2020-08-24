@@ -5,13 +5,15 @@ tags:
   - azure
   - internet-of-things
   - mixed-reality
+comment_id: 262d033c-e4a1-4c10-a7fd-064480ea9d98
+slug: delivering-iot-mixed-reality-applications-using-the-msf-process-model-develop-stabilize-and-deploy-part-2
 ---
 
 > In this series
 >
-> 1. [Envision and Plan](/post/Delivering-IoT-Mixed-Reality-Applications-using-The-MSF-Process-Model-Envision-and-Plan-Part-1/)
-> 2. [Develop and Stabilize](/post/Delivering-IoT-Mixed-Reality-Applications-using-The-MSF-Process-Model-Develop-and-Stabilize-Part-2/)
-> 3. [Develop, Stabilize, and Deploy](/post/Delivering-IoT-Mixed-Reality-Applications-using-The-MSF-Process-Model-Develop-Stabilize-and-Deploy-Part-3/)
+> 1. [Envision and Plan](/post/delivering-iot-mixed-reality-applications-using-the-msf-process-model-develop-stabilize-and-deploy-part-1/)
+> 2. [Develop and Stabilize](/post/delivering-iot-mixed-reality-applications-using-the-msf-process-model-develop-stabilize-and-deploy-part-2/)
+> 3. [Develop, Stabilize, and Deploy](/post/delivering-iot-mixed-reality-applications-using-the-msf-process-model-develop-stabilize-and-deploy-part-3/)
 
 In the [previous article](/post/Delivering-IoT-Mixed-Reality-Applications-using-The-MSF-Process-Model-Envision-and-Plan-Part-1/), we went through the Envisioning and Planning phases for delivering a Mixed Reality IoT application. In this article, we will start building the components of the architecture that we developed in the previous phase. Since we have a clear objective with all the plans laid out, let's kick off the development phase.
 
@@ -102,11 +104,72 @@ Now that we have provisioned the infrastructure and created the plumbing between
 
 In Visual Studio, create a new console application and add the following code in the **Program** file.
 
-{{< gist rahulrai-in af55d099b8881018550364bddc5c00ea >}}
+```cs
+internal class Program
+{
+   private const string EhConnectionString = "Endpoint=sb://EVENTHUBNAMESPACE.servicebus.windows.net/;SharedAccessKeyName=Key";
+
+   private const string EhEntityPath = "EVENT HUB NAME";
+
+   private static void Main(string[] args)
+   {
+      while (true)
+      {
+            Console.Write("Number of messages? ");
+            var numberOfMessages = Convert.ToInt32(Console.ReadLine());
+            SendMessagesToEventHub(numberOfMessages).Wait();
+      }
+   }
+
+   private static async Task SendMessagesToEventHub(int numMessagesToSend)
+   {
+      var connectionStringBuilder = new EventHubsConnectionStringBuilder(EhConnectionString)
+      {
+            EntityPath = EhEntityPath
+      };
+
+      var eventHubClient = EventHubClient.CreateFromConnectionString(connectionStringBuilder.ToString());
+      Random random = new Random();
+      for (var i = 0; i < numMessagesToSend; i++)
+      {
+            try
+            {
+               var sensor1Record = new HumidityRecord
+               {
+                  Id = "1",
+                  TimestampUtc = DateTime.UtcNow,
+                  Value = random.NextDouble() * 100
+               };
+               var sensor2Record = new HumidityRecord
+               {
+                  Id = "2",
+                  TimestampUtc = DateTime.UtcNow + TimeSpan.FromSeconds(random.Next(500)),
+                  Value = random.NextDouble() * 100
+               };
+               var message = $"Message {i}: {Newtonsoft.Json.JsonConvert.SerializeObject(sensor1Record)} & {Newtonsoft.Json.JsonConvert.SerializeObject(sensor2Record)}";
+               Console.WriteLine($"Sending message: {message}");
+               await eventHubClient.SendAsync(new
+                  EventData(Encoding.UTF8.GetBytes
+                  (Newtonsoft.Json.JsonConvert.SerializeObject(sensor1Record))));
+               await eventHubClient.SendAsync(new
+                  EventData(Encoding.UTF8.GetBytes
+                        (Newtonsoft.Json.JsonConvert.SerializeObject(sensor2Record))));
+            }
+            catch (Exception exception)
+            {
+               Console.WriteLine($"{DateTime.Now} > Exception:{ exception.Message}");
+            }
+            await Task.Delay(1000);
+      }
+
+      Console.WriteLine($"{numMessagesToSend} messages sent.");
+   }
+}
+```
 
 The code has a dependency on EventHub package, therefore, add the NuGet Package **Microsoft.Azure.EventHubs** to the project. Add two constant strings to define the Event Hub connection string and Event Hub name.
 
-```CS
+```cs
 private const string EhConnectionString = "Endpoint=sb://EVENTHUBNAMESPACE.servicebus.windows.net/;SharedAccessKeyName=Key";
 
 private const string EhEntityPath = "EVENT HUB NAME";
@@ -120,7 +183,37 @@ The WebAPI component queries the data stored in Cosmos DB and exposes a REST API
 
 1. Create a WebAPI project by selecting either the **Azure API App** or **Web API** project template.
 2. Create a controller named **FieldSensorController**. Add the following code to the controller to fetch data from Cosmos DB and return it as a response to the request.
-   {{< gist rahulrai-in afaacefc9a662ffbbbd32d094c3a74dd >}}
+
+   ```cs
+   public class FieldSensorController : ApiController
+   {
+      private const string EndpointUri = "https://COSMOSDBNAME.documents.azure.com:443/";
+
+      private const string PrimaryKey = "COSMOS DB KEY";
+      private const string DatabaseName = "sensordata";
+      private const string CollectionName = "data";
+
+      // GET api/FieldSensor/5
+      [SwaggerOperation("GetById")]
+      [SwaggerResponse(HttpStatusCode.OK)]
+      [SwaggerResponse(HttpStatusCode.NotFound)]
+      public IHttpActionResult Get(int id)
+      {
+         var client = new DocumentClient(new Uri(EndpointUri), PrimaryKey);
+         FeedOptions queryOptions = new FeedOptions
+         {
+               MaxItemCount = -1
+         };
+         // Here we find the Building via its Id/building number
+         IQueryable<HumidityRecord> buildingQuery = client.CreateDocumentQuery<HumidityRecord>(UriFactory.CreateDocumentCollectionUri(DatabaseName, CollectionName), queryOptions).Where(f => f.Id == id.ToString());
+         if (buildingQuery != null)
+         {
+               return Ok(buildingQuery);
+         }
+         return NotFound();
+      }
+   }
+   ```
 
 3. Publish your Web API to Azure. If you get stuck, follow the steps mentioned [here](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-dotnet-sqldatabase#publish-to-azure-with-sql-database).
 4. You can test the response of the API by to the controller as shown below.
@@ -128,13 +221,13 @@ The WebAPI component queries the data stored in Cosmos DB and exposes a REST API
 
 Here is the format of response that you will receive in plain text.
 
-```JSON
+```json
 [
-    {
-        "Id": "1",
-        "TimestampUtc": "2018-03-14T03:31:14.7994193Z",
-        "Value": 54.227751239308972
-    }
+  {
+    "Id": "1",
+    "TimestampUtc": "2018-03-14T03:31:14.7994193Z",
+    "Value": 54.227751239308972
+  }
 ]
 ```
 

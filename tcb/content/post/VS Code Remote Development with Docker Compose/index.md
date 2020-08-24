@@ -4,8 +4,8 @@ date: 2020-05-26
 tags:
   - programming
   - docker
+comment_id: a9d0603b-7517-4c78-a293-f920ebd428f1
 slug: vs-code-remote-development-with-docker-compose-developing-services-in-standalone-and-integrated-modes
-comment_id: 19b8c556-9ba0-46a8-b927-a7c94ab4462b
 ---
 
 [VS Code remote development](https://code.visualstudio.com/docs/remote/remote-overview) is a brilliant feature from the VS Code team. Using the extensions available in the [VS Code remote extension pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack), you can develop your applications in an external development environment viz. a remote server (through SSH), containers, and WSL. The premise of the three modes of development is the same. The application code is stored either on your local system (on container and WSL through volume mount) or remote server (through SSH), and the local instance of the VS Code attaches itself to the external system through an exposed port (container and WSL), or SSH tunnel (remote server). For a developer, this experience is seamless and requires a one-off setup. VS Code is responsible for the heavy lifting of the entire experience of remote development.
@@ -92,7 +92,7 @@ In the preceding specification, you can see that we are instructing the remote d
 
 The following is the Docker Compose file for the Pong service.
 
-```docker
+```yaml
 version: "3"
 services:
   pong:
@@ -149,7 +149,7 @@ Let's first investigate the _devcontainer.json_ file of the Ping application whi
 
 To develop and debug the Ping service in standalone mode, we will bring up a container that runs only the Ping service. You will notice that in the previous code listing, I have commented out the links to Docker Compose files for the Pong service and the Docker Compose file, _docker-compose.yml_, which is responsible for orchestrating the containers of both the services. Open the Docker Compose file, _docker-compose-ping.yml_, so that we can investigate its contents.
 
-```docker
+```yaml
 version: "3"
 services:
   ping:
@@ -177,7 +177,7 @@ If you allow the application to execute further, you will notice that the applic
 
 Up to this point, we experienced debugging two separate services of an application running autonomously. Let's now launch the applications in integrated mode. Since the Ping service is dependent on the Pong service, we will use Docker Compose `link` attribute to connect the Ping service to the Pong service. Open the file _docker-compose.yml_ to inspect the code.
 
-```docker
+```yaml
 version: "3"
 services:
   ping:

@@ -5,13 +5,15 @@ tags:
   - azure
   - internet-of-things
   - mixed-reality
+comment_id: f8d6349a-0048-4d4d-96a5-43541de3552a
+slug: delivering-iot-mixed-reality-applications-using-the-msf-process-model-develop-stabilize-and-deploy-part-1
 ---
 
 > In this series
 >
-> 1. [Envision and Plan](/post/Delivering-IoT-Mixed-Reality-Applications-using-The-MSF-Process-Model-Envision-and-Plan-Part-1/)
-> 2. [Develop and Stabilize](/post/Delivering-IoT-Mixed-Reality-Applications-using-The-MSF-Process-Model-Develop-and-Stabilize-Part-2/)
-> 3. [Develop, Stabilize, and Deploy](/post/Delivering-IoT-Mixed-Reality-Applications-using-The-MSF-Process-Model-Develop-Stabilize-and-Deploy-Part-3/)
+> 1. [Envision and Plan](/post/delivering-iot-mixed-reality-applications-using-the-msf-process-model-develop-stabilize-and-deploy-part-1/)
+> 2. [Develop and Stabilize](/post/delivering-iot-mixed-reality-applications-using-the-msf-process-model-develop-stabilize-and-deploy-part-2/)
+> 3. [Develop, Stabilize, and Deploy](/post/delivering-iot-mixed-reality-applications-using-the-msf-process-model-develop-stabilize-and-deploy-part-3/)
 
 Delivery of enterprise scale projects requires a cohesive and structured framework in place. A robust delivery framework ensures that projects are carefully planned, and roles and tasks are identified and defined.
 

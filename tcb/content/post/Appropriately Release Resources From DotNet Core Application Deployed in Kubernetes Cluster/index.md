@@ -1,9 +1,11 @@
 ---
-title: "Appropriately Release Resources From DotNet Core Application Deployed in Kubernetes Cluste"
+title: "Appropriately Release Resources From DotNet Core Application Deployed in Kubernetes Cluster"
 date: 2018-09-08
 tags:
- - kubernetes
+  - kubernetes
+comment_id: 4cfc807e-324d-4d9e-a424-997bdd9c9444
 ---
+
 You have deployed your DNC (Dot Net Core) application on your Kubernetes cluster and to make it efficient, you have initialized resources, kept a database channel open, and did a ton of other things during the initialization of your application. Did you miss something?
 
 One of the critical tasks that you must do is cleaning up the resources, shutting down the open channels, and gracefully shutting off what you turned on and so on from your application when Kubernetes instructs your container to shut down.
@@ -24,7 +26,7 @@ If your service takes a long time to respond to requests from external services,
 
 Following is the code listing for a simple application that attaches a callback to the SIGTERM signal and sets the value of a variable that will be read by the API controller to respond to readiness probe.
 
-```CS
+```cs
 public static void Main(string[] args)
 {
     // Listen for the SIGTERM interrupt. You can also use the AppDomain.CurrentDomain.ProcessExit event.
@@ -41,7 +43,7 @@ private static void Cleanup(AssemblyLoadContext obj)
 
 Next, let's define an API controller that responds to the readiness probe.
 
-```CS
+```cs
 [Route("api/[controller]")]
 public class HealthController : Controller
 {
@@ -64,7 +66,7 @@ public class HealthController : Controller
 
 Let's now instruct Kubernetes to use our custom endpoint for the readiness probe.
 
-```
+```yaml
 apiVersion: v1
 kind: Service
 metadata:

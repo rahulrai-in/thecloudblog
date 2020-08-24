@@ -5,6 +5,7 @@ tags:
   - azure
   - devops
   - compute
+comment_id: 2aee98b9-ef2e-4dd6-afe3-08664500e383
 ---
 
 As a cloud developer, the current offering to add support for DevOps (CI\CD) to an a. In VSTS, tasks such as creating CI and CD workflows, linking the pipelines with code repository, and adding monitoring take a little time even though the quick start templates have considerably optimized the process. A new offering from Azure named [Microsoft Azure DevOps Projects](https://docs.microsoft.com/en-us/azure/devops-project/) fills this gap in the DevOps offering.
@@ -30,7 +31,7 @@ Notice that I have enabled Docker support in the dialog. However, you can easily
 
 You will notice that the solution that unfolds after completing the wizard contains a Dockerfile with instructions for building an image, and a Docker Compose project which contains definitions for multi-container Docker applications. Remove the Docker Compose project and replace the code in the Docker file to the following code listing. If you are starting with an existing .Net core project, then add a Dockerfile with the following code at the root of the project.
 
-```Dockerfile
+```dockerfile
 FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
 WORKDIR /app
 

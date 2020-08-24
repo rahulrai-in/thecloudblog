@@ -4,6 +4,7 @@ date: 2018-08-01
 tags:
   - azure
   - web
+comment_id: 9ae393e0-111c-47f2-84ea-cc62e4e588d0
 ---
 
 I have been following Dino Esposito's SignalR series from the last few MSDN Magazine editions. In the [May edition of the Magazine](https://msdn.microsoft.com/en-us/magazine/mt846655), Dino talked about the subtle details of ASP.Net Core SignalR. It is an excellent read, and it covers the topic in a much better and concise manner than I will ever be able to describe.
@@ -34,7 +35,7 @@ The code for this application is present in my GitHub repository.
 
 We will start by writing the hub class. Hub is the main point of connection between the server and the client. Clients can invoke functions on the hub, and the hub can invoke functions on the clients. The `Hub` base class which should be inherited by all custom hubs defines some necessary infrastructure to ease development effort. Our hub will increment and decrement a counter value when a client connects and disconnects from the hub respectively.
 
-```CS
+```cs
 public class UserCount : Hub
 {
     private static int Count;
@@ -59,13 +60,13 @@ public class UserCount : Hub
 
 Install the Microsoft.Azure.SignalR nuget package in your application. Now, navigate to the `Startup` class and add the SignalR service in the `ConfigureServices` method using the following code.
 
-```CS
+```cs
 services.AddSignalR().AddAzureSignalR();
 ```
 
 Next, we need to connect the hub to a path. To do that, add the following code snippet to the `Configure` method in the `Startup` class.
 
-```CS
+```cs
 app.UseAzureSignalR(routes =>
     {
         routes.MapHub<UserCount>("/chat");
@@ -74,41 +75,42 @@ app.UseAzureSignalR(routes =>
 
 The code snippets that we added in the `Startup` class will direct all calls from the client to the Azure SignalR Service. The SignalR service will then direct the calls to the hub. Finally, you need to add the SignalR service endpoint as application secret by executing the following command in the same directory as your application's project file.
 
-```BASH
+```bash
 dotnet user-secrets set Azure:SignalR:ConnectionString "Endpoint=<Your endpoint>;AccessKey=<Your access key>;"
 ```
 
 The client code requires the ASP.net Core SignalR JS library. You can read more about the library and how to use it in your application in [the documentation](https://docs.microsoft.com/en-us/aspnet/core/signalr/javascript-client). Here is the code that interacts with the hub and updates the count of visitors on the web page.
 
-```JS
-document.addEventListener('DOMContentLoaded', function () {
-    function bindConnectionMessage(connection) {
-        var messageCallback = function (message) {
-            console.log('message' + message);
-            if (!message) return;
-            var userCountSpan = document.getElementById('users');
-            userCountSpan.innerText = message;
-        };
-        connection.on("updateCount", messageCallback);
-        connection.onclose(onConnectionError);
+```js
+document.addEventListener("DOMContentLoaded", function () {
+  function bindConnectionMessage(connection) {
+    var messageCallback = function (message) {
+      console.log("message" + message);
+      if (!message) return;
+      var userCountSpan = document.getElementById("users");
+      userCountSpan.innerText = message;
+    };
+    connection.on("updateCount", messageCallback);
+    connection.onclose(onConnectionError);
+  }
+  function onConnected(connection) {
+    console.log("connection started");
+  }
+  function onConnectionError(error) {
+    if (error && error.message) {
+      console.error(error.message);
     }
-    function onConnected(connection) {
-        console.log('connection started');
-    }
-    function onConnectionError(error) {
-        if (error && error.message) {
-            console.error(error.message);
-        }
-    }
-    var connection = new signalR.HubConnectionBuilder().withUrl('/chat').build();
-    bindConnectionMessage(connection);
-    connection.start()
-        .then(function () {
-            onConnected(connection);
-        })
-        .catch(function (error) {
-            console.error(error.message);
-        });
+  }
+  var connection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
+  bindConnectionMessage(connection);
+  connection
+    .start()
+    .then(function () {
+      onConnected(connection);
+    })
+    .catch(function (error) {
+      console.error(error.message);
+    });
 });
 ```
 
