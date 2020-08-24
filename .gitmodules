@@ -1,0 +1,3 @@
+[submodule "tcb/themes/okayish-blog-fork"]
+	path = tcb/themes/okayish-blog-fork
+	url = https://github.com/rahulrai-in/hugo-theme-okayish-blog.git
