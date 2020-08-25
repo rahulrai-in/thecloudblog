@@ -1,25 +1,23 @@
-baseURL = "https://thecloudblog-v2.netlify.app"
+relativeURLs = true
 languageCode = "en-us"
 defaultContentLanguage = "en-us"
 title = "The Cloud Blog"
 theme = "okayish-blog-fork"
-
 enableGitInfo = true
 enableEmoji = true
+enableRobotsTXT = true
 
-[params]
-    # These will be used for OpenGraph, Twitter Card and Schema.org
-    description = "by Rahul Rai"
-    keywords = ["some", "keywords", "for", "your", "site"]
-    images = ["/images/banner.png"]
-    mainSections = ["post","lab"]
+# These will be used for OpenGraph, Twitter Card and Schema.org
+description = "by Rahul Rai"
+keywords = ["azure", "cloud", "blog", "tips", "ASP.net", "DevOps", "Web"]
+images = ["/images/banner.png"]
+mainSections = ["post","lab"]
+paginate = 100
 
 # This is the number of terms within a taxonomy per page
 termsPaginate = 50
 # Enable/disable share links (Facebook, Twitter and LinkedIn)
 shareLinksEnabled = true
-# Enable/disable Google Analytics in local server
-gaLocalEnabled = false
 
 # Add menu items to the navigation bar as below.
 # N.B. Use identifiers as the keys for translations.
