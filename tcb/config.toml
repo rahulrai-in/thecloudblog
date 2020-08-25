@@ -1,4 +1,4 @@
-relativeURLs = true
+baseURL = "https://thecloudblog-v2.netlify.app"
 languageCode = "en-us"
 defaultContentLanguage = "en-us"
 title = "The Cloud Blog"
