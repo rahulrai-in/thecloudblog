@@ -38,5 +38,9 @@ url = "/authors"
         source = "assets/lib/img"
         target = "static/lib/img"
 
+    [[module.mounts]]
+        source = "root"
+        target = "static"
+
 [social]
     twitter = "rahulrai-in"
