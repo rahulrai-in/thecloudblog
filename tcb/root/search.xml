@@ -3,7 +3,7 @@
   <ShortName>TheCloudBlog</ShortName>
   <Description>Search The Cloud Blog</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Image width="16" height="16" type="image/x-icon">/resources/thecloudblog.png</Image>
+  <Image width="16" height="16" type="image/x-icon">/favicon-16x16.png</Image>
   <Url type="text/html" method="GET" template="https://thecloudblog.net/search/?q={searchTerms}" />
   <SearchForm>https://thecloudblog.net/</SearchForm>
 </OpenSearchDescription>

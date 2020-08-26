@@ -10,7 +10,6 @@ enableRobotsTXT = true
 # These will be used for OpenGraph, Twitter Card and Schema.org
 description = "by Rahul Rai"
 keywords = ["azure", "cloud", "blog", "tips", "ASP.net", "DevOps", "Web"]
-images = ["/images/banner.png"]
 mainSections = ["post","lab"]
 paginate = 100
 
@@ -19,8 +18,10 @@ termsPaginate = 50
 # Enable/disable share links (Facebook, Twitter and LinkedIn)
 shareLinksEnabled = true
 
+[permalinks]
+    other = "/:slug"
+
 # Add menu items to the navigation bar as below.
-# N.B. Use identifiers as the keys for translations.
 [menu]
 
 [[menu.main]]
