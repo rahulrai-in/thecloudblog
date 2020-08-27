@@ -4,6 +4,7 @@ date: 2016-05-16
 tags:
   - azure
   - automation
+comment_id: 3429309d-9938-4ad9-bdc3-a84e3a50ef88
 ---
 
 Microsoft recently launched its own variant of [IFTTT](https://ifttt.com/) named [Microsoft Flow](https://flow.microsoft.com). Using Flow, you can create and deploy workflows that connect various apps and services. They are very similar to [Azure Logic Apps](/post/adding-business-logic-to-azure-logic-app-with-azure-api-app) and use the same grammar to define conditions (as we will soon see). Currently what sets both the services apart is the fact that Flow has a subset of functionalities of Azure Logic Apps available to it and comes with ready to use templates which are easy to deploy. Many of the common usage scenarios of Flow don’t even require any knowledge of programming.
@@ -32,7 +33,7 @@ I don’t want to deviate from the subject of this post, that is Microsoft Flow.
 
 ## Let’s Go
 
-First and foremost, sign up with your work or school account on the [Microsoft Flow](https://flow.microsoft.com/) website. If you are having troubles signing up for the service, here is the documentation [link](https://flow.microsoft.com/en-us/documentation/sign-up-sign-in/) for getting around sign up or sign in issues. Once you are done with the authentication step, you would need to navigate to [My Flows](https://flow.microsoft.com/manage/flows) page. The page will have no flows listed at the moment, but will, later on, list all the flows that you have created. Click on **Create from blank** on the page to navigate to the flow designer.
+First and foremost, sign up with your work or school account on the [Microsoft Flow](https://flow.microsoft.com/) website. If you are having troubles signing up for the service, here is the documentation [link](https://docs.microsoft.com/en-us/power-automate/) for getting around sign up or sign in issues. Once you are done with the authentication step, you would need to navigate to [My Flows](https://flow.microsoft.com/manage/flows) page. The page will have no flows listed at the moment, but will, later on, list all the flows that you have created. Click on **Create from blank** on the page to navigate to the flow designer.
 
 {{< img src="1.png" alt="Flow Create New" >}}
 
@@ -42,7 +43,7 @@ In the flow designer, you can create a Flow by linking various actions and condi
 
 You would need to connect Facebook to Microsoft Flow by clicking on **Sign in to Facebook** and granting permissions on your Facebook account to Microsoft Flow. Flow can supply the information it receives from any previous actions to the following actions. Through the trigger, till now you will have details of the post that was posted on your timeline. Now you need to see whether this post contains a congratulatory message. To evaluate your message, add a condition to your Flow that checks whether the post contains any of the congratulatory texts such as birthday, congratulations or congrats (you may add more words to this list). You would need to open the **advanced editor** view of the condition to write this condition (available at the bottom of the condition). Write the following condition in the editor.
 
-```SQL
+```plaintext
 @or(or(contains(toLower(triggerBody()['message']), 'birthday'), contains(toLower(triggerBody()['message']), 'congratulations')), contains(toLower(triggerBody()['message']), 'congrats'))
 ```
 

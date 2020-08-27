@@ -4,6 +4,8 @@ date: 2016-06-04
 tags:
   - azure
   - networking
+comment_id: ebc37a90-2a52-489c-9c07-99a33c568c4f
+slug: ditch-your-dns-for-microsoft-azure-dns-amp-moving-on
 ---
 
 This is my last post as Associate Architect at [Nagarro](http://www.nagarro.com/us/en). I would be moving to a new location and a new position very soon and therefore, I won’t be posting much for about a month. I'll have a lot more to say about the new organization that I would be joining once I get there, but for now, let me just say that everyone I've met at this new place has seemed smart and passionate. I'm very excited to join the team. Of course, I would miss the fantastic people at Nagarro and my laptop, which powers at least five of my peripherals at any point of time and helps me write and publish this blog.

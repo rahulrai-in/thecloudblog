@@ -4,6 +4,7 @@ date: 2016-05-04
 tags:
   - azure
   - storage
+comment_id: 6109dcd8-f807-420c-87d1-1227232db296
 ---
 
 [Azure File storage](https://azure.microsoft.com/en-in/documentation/articles/storage-dotnet-how-to-use-files/) is a lesser used and lesser known features of Azure storage. Azure File storage offers shared storage for applications using the standard SMB 2.1 or SMB 3.0 protocol. Microsoft Azure virtual machines, cloud services, and on-premises clients can share file data across application components via mounted shares or via File storage API. The most popular use cases of Azure File storage revolve around migrating existing applications to the cloud that use standard file system APIs such as `WriteFile` or `ReadFile`. Microsoft Azure File storage service lets you access SMB shares in the cloud without having to configure Windows Server virtual machines first, set up their networking and then create file shares. Since high availability and fault tolerance are taken care of by Azure, your applications can reliably read files from and write files to a shared storage (in several scenarios this helps existing applications become stateless). Azure File storage can act as cloud [NAS](https://en.wikipedia.org/wiki/Network-attached_storage) since it supports SMB protocols.
@@ -18,7 +19,7 @@ tags:
 - In many cases, you can review the original [yellow screen of death](http://en.wikipedia.org/wiki/Yellow_Screen_of_Death#ASP.NET) that ASP.NET generated for a given exception, even with <tt>customErrors</tt> mode turned off.
 - An e-mail notification of each error at the time it occurs.
 - An RSS feed of the last 15 errors from the log.
-- A number of backing storage implementations for the log, including in-memory, [Microsoft SQL Server](http://www.microsoft.com/sql/) and several [contributed by the community](http://groups.google.com/group/elmah/files).
+- A number of [backing storage implementations](https://elmah.github.io/) for the log, including in-memory, Microsoft SQL Server and several contributed by the community.
 
 ## Objective
 
@@ -42,7 +43,7 @@ In the list of file shares blade, create a new file share by setting a name and 
 
 Copy this command and replace the drive letter and the storage account access key with actual values. When you execute this command from an SMB 3.0 supported windows desktop machine (Windows 8+), it will create a mounted storage drive with the specified drive letter. For this sample, this is what the command is for me.
 
-```CS
+```cs
 net use Z: \\smb3share.file.core.windows.net\myfileshare /u:smb3share [storage account access key]
 ```
 
@@ -60,7 +61,7 @@ Now, add a web role in the solution and name it **LoggingWebApplication**.
 
 In the project template that unfolds, select MVC as the project type and install ELMAH.MVC nuget package in the project. Enable ELMAH to log errors to file store and allow remote access to ELMAH logs (not recommended for production deployments) through the following configuration in web config.
 
-```XML
+```xml
 <elmah>
   <security allowRemoteAccess="true"/>
   <errorLog type="Elmah.XmlFileErrorLog, Elmah" logPath="Z:/temp/Activity"/>
@@ -71,7 +72,7 @@ Once completed, throw an error from any controller in the application so that yo
 
 Now we need to mount the previously provisioned Azure File storage on the VM. The Azure Storage team has blogged about a way you can do so for the Cloud Services [here](https://blogs.msdn.microsoft.com/windowsazurestorage/2014/05/26/persisting-connections-to-microsoft-azure-files/). The code essentially pinvokes `WNetAddConnection2` to establish a mapping between a local drive letter and an Azure File share. To do so, replace the code in the **WebRole.cs** file with the following code and replace the placeholder texts from the `MountShare` function call.
 
-```CS
+```cs
 public class WebRole : RoleEntryPoint
 {
     public override bool OnStart()

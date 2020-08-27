@@ -5,6 +5,7 @@ tags:
   - azure
   - machine learning
   - internet of things
+comment_id: 6f3e1a90-5934-40b5-be42-5fae2ad732dd
 ---
 
 I covered building IoT Analytics Architecture prototype authored by [David Crook](https://channel9.msdn.com/Niners/DrCrook) from Microsoft in one of my [previous posts](/post/building-the-azure-iot-analytics-architecture-prototype). David graciously provided some great feedback on the architecture model and asked me to explore yet another aspect of his architecture, that is to take intelligent decisions on the streams of incoming data based on [Azure Machine Learning](https://azure.microsoft.com/en-in/services/machine-learning/) based predictive models. In this post, let's see how we can integrate MAML with Stream Analytics and extend David's IoT analytics architecture.
@@ -87,13 +88,13 @@ Similarly, setup Blob Storage as Output of the Stream Analytics job ([how](https
 
 Now let's write a query that fetches data from the storage container, executes the function that we just configured and directs the output of the query to the storage container. Select **Query** from the top menu and write the following query in the query editor.
 
-~~~SQL
+```SQL
 WITH subquery AS (
-    SELECT predictchurn(Age, CallsPerMonth, InternetUsageInMbPerMonth, Churn) AS result FROM input)  
+    SELECT predictchurn(Age, CallsPerMonth, InternetUsageInMbPerMonth, Churn) AS result FROM input)
 SELECT result.[Age], result.[CallsPerMonth], result.[InternetUsageInMbPerMonth], result.[Scored Labels], result.[Scored Probabilities]
-INTO output  
-FROM subquery  
-~~~
+INTO output
+FROM subquery
+```
 
 Click on the **Start** button in the bottom menu to start the job and wait for the job to get in running state.
 

@@ -4,9 +4,10 @@ date: 2016-08-26
 tags:
   - azure
   - security & identity
+comment_id: 67443ab3-a3b1-4b3f-b0c4-69cac3d43bf4
 ---
 
-I am going to retire the current stack of technologies used in this blog in favor of more recent technologies, mainly because I currently author this blog using [Windows Live Writer](https://www.microsoft.com/en-au/download/details.aspx?id=8621) which is outdated and has lost the love of community. I am also taking this opportunity to create a new technology stack that is much more modular and allows me to focus only on writing. I am also learning cool new stuff which might be useful to all of us. I am  super happy with a few components that I currently use and I would be reusing the things that are working well. The entire source code of this blog is available in my [GitHub repository](https://github.com/rahulrai-in/rahulrai) from where you can happily copy and paste stuff. You can also read about how I built the existing blog framework (v1) [here](/post/the-first-post). Of course, I would write about how I chose components for my new blogging platform and how you can set one up yourself, so stay tuned (even better, [subscribe](#subscribe)).
+I am going to retire the current stack of technologies used in this blog in favor of more recent technologies, mainly because I currently author this blog using [Windows Live Writer](https://www.microsoft.com/en-au/download/details.aspx?id=8621) which is outdated and has lost the love of community. I am also taking this opportunity to create a new technology stack that is much more modular and allows me to focus only on writing. I am also learning cool new stuff which might be useful to all of us. I am  super happy with a few components that I currently use and I would be reusing the things that are working well. The entire source code of this blog is available in my [GitHub repository](https://github.com/rahulrai-in/rahulrai) from where you can happily copy and paste stuff. You can also read about how I built the existing blog framework (v1) [here](/post/the-first-post). Of course, I would write about how I chose components for my new blogging platform and how you can set one up yourself, so stay tuned (even better, subscribe).
 
 > September 8, 2016: This activity is now complete and you are reading this post on my new blogging platform.
 
@@ -79,7 +80,7 @@ Download or clone the sample and follow along to get the application running. We
 
 - The application uses the following nuget packages. Try rebuilding the solution to restore the nuget packages.
 
-```
+```powershell
 PM> Install-Package Microsoft.Owin.Security.OpenIdConnect
 PM> Install-Package Microsoft.Owin.Security.Cookies
 PM> Install-Package Microsoft.Owin.Host.SystemWeb
@@ -103,7 +104,7 @@ PM> Install-Package Microsoft.Owin.Host.SystemWeb
 
 - Let's take a look at **Startup.Auth.cs** file that handles authentication for us. We have three instances of `OpenIdConnectAuthenticationMiddleware` (derived from `AuthenticationMiddleware`), one for each B2C policy in the authentication pipeline. We have also initialized three instances of `OpenIdConnectAuthenticationHandler` (derived from `AuthenticationHandler`) with values obtained from `OpenIdConnectAuthenticationOptions`. Since the authentication mechanism is passive, the `InvokeAsync` method in `OpenIdConnectAuthenticationHandler` returns an `AuthenticationTicket` and requests redirection to the resource in case the token is valid. The method `ApplyResponseChallengeAsync` is responsible for getting the  properties of a challenge by accepting its name as parameter and redirecting the user to the appropriate endpoint so that the challenge can be completed (keep this point in mind, we will use this knowledge very soon).
 
-```CS
+```cs
 app.UseOpenIdConnectAuthentication(CreateOptionsFromPolicy(SignUpPolicyId));
 app.UseOpenIdConnectAuthentication(CreateOptionsFromPolicy(ProfilePolicyId));
 app.UseOpenIdConnectAuthentication(CreateOptionsFromPolicy(SignInPolicyId));
@@ -111,7 +112,7 @@ app.UseOpenIdConnectAuthentication(CreateOptionsFromPolicy(SignInPolicyId));
 
 - The following code crates instances of `OpenIdConnectAuthenticationOptions`.
 
-```CS
+```cs
 private OpenIdConnectAuthenticationOptions CreateOptionsFromPolicy(string policy)
 {
     return new OpenIdConnectAuthenticationOptions
@@ -141,7 +142,7 @@ private OpenIdConnectAuthenticationOptions CreateOptionsFromPolicy(string policy
 
 - Now let's move to `AccountController` which will help us authenticate the user. Let's focus on `SignIn` action that is triggered when the user clicks on the **Sign In** link on the page.
 
-```CS
+```cs
 public void SignIn()
 {
     if (!this.Request.IsAuthenticated)
@@ -190,7 +191,7 @@ Let's now move on to integrate Azure AD in this solution. Do remember the point 
 
 - Now add the relevant configuration details to the **web.config** file of the application.
 
-```XML
+```xml
 <add key="ida:B2ETenant" value="{your tenant name}.onmicrosoft.com" />
 <add key="ida:B2EClientId" value="{your application client id}" />
 <add key="ida:B2EAadInstance" value="https://login.microsoftonline.com/{0}" />
@@ -200,13 +201,13 @@ Let's now move on to integrate Azure AD in this solution. Do remember the point 
 
 - Let's revisit the **Startup.Auth.cs** file. Here you will find the following statement that injects Azure AD middleware to the authentication pipeline.
 
-```CS
+```cs
 app.UseOpenIdConnectAuthentication(this.CreateB2EOptions());
 ```
 
 - The `CreateB2EOptions` method supplies necessary values to `OpenIdConnectAuthenticationHandler` through a new instance of `OpenIdConnectAuthenticationOptions`. Note that we have supplied a name to this middleware just as we did to the Azure AD B2C middleware.
 
-```CS
+```cs
 private OpenIdConnectAuthenticationOptions CreateB2EOptions()
 {
     return new OpenIdConnectAuthenticationOptions
@@ -225,7 +226,7 @@ private OpenIdConnectAuthenticationOptions CreateB2EOptions()
 
 - Now let's revisit the `AccountController` and check the action that allows an _employee_ to sign in. The code should look very familiar to you as it just raises a challenge for Azure AD middleware to complete.
 
-```CS
+```cs
 public void EmployeeSignIn()
 {
     if (!this.Request.IsAuthenticated)
@@ -241,7 +242,7 @@ public void EmployeeSignIn()
 
 - Take a look at another method named `EmployeeClaims` in Home controller that allows access only to users with the role **Employee**. We will invoke this method by accessing [https://localhost:port/Home/EmployeeClaims](https://localhost:port/Home/EmployeeClaims).
 
-```CS
+```cs
 [Authorize(Roles = "Employee")]
 public ActionResult EmployeeClaims()
 {

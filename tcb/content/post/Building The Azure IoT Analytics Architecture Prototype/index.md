@@ -5,7 +5,9 @@ tags:
   - azure
   - internet of things
   - analytics
+comment_id: 52578c98-84da-4f3e-b89f-4e98c50bffed
 ---
+
 Recently I was going through some IoT ([Internet of Things](https://en.wikipedia.org/wiki/Internet_of_Things)) videos on [Channel9](https://channel9.msdn.com/Azure). [David Crook](https://channel9.msdn.com/Niners/DrCrook) did a small [whiteboard session](https://channel9.msdn.com/Blogs/raw-tech/IOT-Analytics-Architecture-Whiteboard-with-David-Crook) on IoT analytics architecture which I really liked. Your clients are going to, if not already, demand analytics in each and every IoT engagement that you might already be working on or will pursue in the future. It makes sense to have a prototype handy to lock down your architecture and to build client demonstrations. Let's see how complex or easy it is to take David's whiteboard to reality. I encourage you to watch [the video](https://channel9.msdn.com/Blogs/raw-tech/IOT-Analytics-Architecture-Whiteboard-with-David-Crook) entirely so that you are clear about the architecture and the resources involved in building the prototype.
 
 Following is a high-level design of the system that was presented by David on the whiteboard. In a nutshell, the devices connect to the [IoT Hub](https://azure.microsoft.com/en-in/services/iot-hub/) through a gateway which intelligently handles how devices connect to the internet. The gateway is responsible for sending data to IoT Hub. Data from IoT Hub is consumed by [Stream Analytics](https://azure.microsoft.com/en-in/services/stream-analytics/), which can perform analysis on a stream of data. Stream Analytics is responsible for piping raw data to the [Data Lake](https://azure.microsoft.com/en-in/solutions/data-lake/) so that long-term analysis can be performed on the data. The Stream Analytics will also aggregate the data stream over a small duration (say 5 seconds) and pipe the aggregated data to [Power BI](https://powerbi.microsoft.com/en-us/) to power the dashboards. Any actionable or inconsistent aggregated data are sent as messages to a [Service Bus Queue](https://azure.microsoft.com/en-us/documentation/articles/service-bus-queues-topics-subscriptions/) so that they can be consumed by a [Web Job](https://azure.microsoft.com/en-in/documentation/articles/web-sites-create-web-jobs/) or an [Azure Function](https://azure.microsoft.com/en-in/services/functions/) to notify the field workers. To extend the functionality of the system, the web jobs and functions can send a message back to IoT Hub which in turn can send a message back to the gateway so that it can self stabilize the system.
@@ -20,7 +22,7 @@ The code for this sample application is available on my GitHub repository. {{< s
 
 Let's start the process of deploying the resources. For anything other than prototyping, using the classic resource deployment model (or worse deploying each resource manually through the portal) is not optimal (read Microsoft's [recommendation](https://azure.microsoft.com/en-in/documentation/articles/resource-manager-deployment-model/)). You should use the Azure Resource Manager deployment model with PowerShell. We will use the new [Azure Resource Manager experience in Visual Studio](https://azure.microsoft.com/en-in/documentation/articles/vs-azure-tools-resource-groups-deployment-projects-create-deploy/) to define and deploy our resources. You will love the way you can choose your resources and configure the resources from a GUI. Start by adding a new **Azure Resource Group** project in the solution. Name the project **ResourceDeployment** and click **Ok**. When the project template unfolds, you would find two templates present in the project. The **azuredeploy.json** template contains the definition of resources that need to be deployed. The **azuredeploy.parameters.json** file contains the parameter values for the parameters of **azuredeploy.json** template. Since most of the resources that we need are not yet present in the template wizard, you would need to write the resource definitions yourself in the **azuredeploy.json** template. Replace the code in **azuredeploy.json** with the following code.
 
-```JavaScript
+```json
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
@@ -38,8 +40,7 @@ Let's start the process of deploying the resources. For anything other than prot
       "type": "string"
     }
   },
-  "variables": {
-  },
+  "variables": {},
   "resources": [
     {
       "apiVersion": "2016-02-03",
@@ -111,14 +112,12 @@ Let's start the process of deploying the resources. For anything other than prot
               "apiVersion": "2015-08-01",
               "name": "sendmessage",
               "type": "AuthorizationRules",
-              "dependsOn": [
-                "[parameters('queueName')]"
-              ],
+              "dependsOn": ["[parameters('queueName')]"],
               "properties": {
                 "keyName": "sendmessage",
                 "claimType": "SharedAccessKey",
                 "claimValue": "None",
-                "rights": [ "Send" ],
+                "rights": ["Send"],
                 "revision": -1
               }
             },
@@ -126,14 +125,12 @@ Let's start the process of deploying the resources. For anything other than prot
               "apiVersion": "2015-08-01",
               "name": "readmessage",
               "type": "AuthorizationRules",
-              "dependsOn": [
-                "[parameters('queueName')]"
-              ],
+              "dependsOn": ["[parameters('queueName')]"],
               "properties": {
                 "keyName": "readmessage",
                 "claimType": "SharedAccessKey",
                 "claimValue": "None",
-                "rights": [ "Listen" ],
+                "rights": ["Listen"],
                 "revision": -1
               }
             }
@@ -142,8 +139,7 @@ Let's start the process of deploying the resources. For anything other than prot
       ]
     }
   ],
-  "outputs": {
-  }
+  "outputs": {}
 }
 ```
 
@@ -195,7 +191,7 @@ In the next step, select the same serialization settings as those of other resou
 
 Now, we need to connect the input to the outputs that we configured through a query. In the portal, navigate to your Stream Analytics Job and click on **Query**. Paste the following two queries in the query console and click **Save**.
 
-```SQL
+```sql
 SELECT
     DeviceId, COUNT(*) AS ReadingCount, Avg(WindSpeed) AS AverageWindSpeed, System.TimeStamp AS OutTime
 INTO
@@ -280,7 +276,7 @@ For the sake of brevity, we will send a POST request to a [RequestBin](http://re
 
 Next, add the following lines of code to your function.
 
-```CS
+```cs
 #r "Newtonsoft.Json"
 using System;
 using System.Threading.Tasks;
