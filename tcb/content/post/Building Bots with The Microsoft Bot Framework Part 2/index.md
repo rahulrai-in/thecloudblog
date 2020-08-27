@@ -4,15 +4,16 @@ date: 2017-05-19
 tags:
   - azure
   - bot-framework
+comment_id: a87a24f2-aa0f-4531-a981-7e9c4b0ea8d6
 ---
 
 > In this series
 >
-> 1. [Introduction](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-1/)
-> 2. [Adding Dialogs and State to your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-2/)
-> 3. [Using Form Flow](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-3/)
-> 4. [Adding intelligence to your bot using LUIS](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-4/)
-> 5. [Publishing your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-5/)
+> 1. [Introduction](/post/building-bots-with-the-microsoft-bot-framework-part-1/)
+> 2. [Adding Dialogs and State to your bot](/post/building-bots-with-the-microsoft-bot-framework-part-2/)
+> 3. [Using Form Flow](/post/building-bots-with-the-microsoft-bot-framework-part-3/)
+> 4. [Adding intelligence to your bot using LUIS](/post/building-bots-with-the-microsoft-bot-framework-part-4/)
+> 5. [Publishing your bot](/post/building-bots-with-the-microsoft-bot-framework-part-5/)
 
 Welcome to the second post in my blog series on Building Bots with The Microsoft Bot Framework. In today's post, we will learn how we can build a stateful bot that can carry out a meaningful conversation with the user. We will also find out how Dialogs can add reusability to our bots.
 
@@ -53,7 +54,7 @@ A bot should be able to store state in a persistent store to carry out a meaning
 
 The Bot State Service service takes care of maintaining the state, which simplifies the task of maitaining appplication state. You can use the state service in the following manner in your bot application (see code comments for description).
 
-```CS
+```cs
 // The client is responsible for getting\setting state of the bot.
 StateClient stateClient = activity.GetStateClient();
 // Retrieve User Data based on ChannelId and UserId (unique combination)
@@ -68,7 +69,7 @@ await stateClient.BotState.SetUserDataAsync(activity.ChannelId, activity.From.Id
 
 The code that we can use to save complex data types in the state is slightly different from that above. Following is a code snippet that saves and retrieves an object of a complex data type from the state. See code comments in the code snippet for description.
 
-```CS
+```cs
 // **Set State Data
 // The client is responsible for getting\setting state of the bot.
 StateClient stateClient = activity.GetStateClient();
@@ -95,7 +96,7 @@ Let's begin with creating a Dialog that greets the user and saves his\her name i
 
 To invoke this Dialog, go back to the `MessagesController` and empty the contents that appear within the `if (activity.Type == ActivityTypes.Message)` code block. Invoke the `HelloDialog` Dialog from within the code block with the following statement.
 
-```CS
+```cs
 if (activity.Type == ActivityTypes.Message)
 {
     // We will invoke the Dialog here.
@@ -107,7 +108,7 @@ When this statement gets processed, an instance of `HelloDialog` will be created
 
 Let's get inside the `HelloDialog` class and make it respond to the user with a message.
 
-```CS
+```cs
 public async Task StartAsync(IDialogContext context)
 {
     await context.PostAsync("Hi, I am Blog Bot");
@@ -116,7 +117,7 @@ public async Task StartAsync(IDialogContext context)
 
 If you execute the application at this moment, the bot would respond with the message but would throw an exception on subsequent requests. That is because we haven't directed the bot on how to continue the conversation. Let's add a method that will help the bot continue the conversation.
 
-```CS
+```cs
 public async Task StartAsync(IDialogContext context)
 {
     await context.PostAsync("Hi, I am Blog Bot");
@@ -131,7 +132,7 @@ private async Task ProcessConversation(IDialogContext context, IAwaitable<IMessa
 
 Note that in the `ProcessConversation` method we have the `context` variable that contains all the bot data and the `argument` variable that contains user input. Let's use these two inputs to store the name of the user in the state cache and greet the user after we get to know the user's name.
 
-```CS
+```cs
 public async Task StartAsync(IDialogContext context)
 {
     await context.PostAsync("Hi, I am Blog Bot");

@@ -2,17 +2,18 @@
 title: "Building Bots with The Microsoft Bot Framework - Part 1"
 date: 2017-05-05
 tags:
- - azure
- - bot-framework
+  - azure
+  - bot-framework
+comment_id: a484ed97-841d-4302-91f9-ae12ce797c8a
 ---
 
 > In this series
 >
-> 1. [Introduction](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-1/)
-> 2. [Adding Dialogs and State to your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-2/)
-> 3. [Using Form Flow](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-3/)
-> 4. [Adding intelligence to your bot using LUIS](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-4/)
-> 5. [Publishing your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-5/)
+> 1. [Introduction](/post/building-bots-with-the-microsoft-bot-framework-part-1/)
+> 2. [Adding Dialogs and State to your bot](/post/building-bots-with-the-microsoft-bot-framework-part-2/)
+> 3. [Using Form Flow](/post/building-bots-with-the-microsoft-bot-framework-part-3/)
+> 4. [Adding intelligence to your bot using LUIS](/post/building-bots-with-the-microsoft-bot-framework-part-4/)
+> 5. [Publishing your bot](/post/building-bots-with-the-microsoft-bot-framework-part-5/)
 
 I decided to spend some time learning the [Microsoft Bot Framework](https://dev.botframework.com/). I am going to write a series of blog posts to share with you what I learn so that we can go through this learning exercise together. This is the first post in the series with a few more to go. You might want to stay in the loop, so remember to [subscribe](#subscribe) to my mailing list and keep visiting this site to check out new content.
 
@@ -60,7 +61,7 @@ You will notice that the bot application template looks very similar to a WebAPI
 
 All of the bot interaction code is contained in the **MessagesController.cs** file. The `Post` method in the API handles all the messages that the bot receives. Let's modify the code in the method to reflect the following.
 
-```CS
+```cs
 public async Task<HttpResponseMessage> Post([FromBody]Activity activity)
 {
     if (activity.Type == ActivityTypes.Message)

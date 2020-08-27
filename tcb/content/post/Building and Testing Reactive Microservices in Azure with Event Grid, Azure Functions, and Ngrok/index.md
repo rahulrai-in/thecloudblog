@@ -4,8 +4,8 @@ date: 2018-04-12
 tags:
   - azure
   - integration
+comment_id: 1f6086b6-a29d-468a-bbec-c7543564618b
 ---
-
 
 According to the [Reactive Manifesto](https://www.reactivemanifesto.org/), a reactive system should have some essential characteristics which include: **responsiveness**, **resiliency**, **elasticity**, and being **message-driven**. Out of all the aspects, the most significant differentiating factor of Reactive Microservices from others is its characteristic of being message-driven. Using messages as the glue that holds your Microservices application together, you can design systems that isolated. High degree of isolation also helps enhance the scalability of a system which is an essential aspect of a Microservices application.
 
@@ -147,7 +147,7 @@ In Visual Studio, select the **Azure Function** template and in the following di
 
 Create a class named _EventGridEvent_ that has the same schema as the message schema used by the topic so that we can deserialize the messages that we receive from our subscription.
 
-```CS
+```cs
 internal class EventGridEvent<T>
 {
     public T Data { get; set; }
@@ -161,7 +161,7 @@ internal class EventGridEvent<T>
 
 Navigate to your function and modify the content of the file to reflect what is represented in the following code fragment.
 
-```CS
+```cs
 public static class InventoryFunction
 {
     [FunctionName("inventoryfunction")]

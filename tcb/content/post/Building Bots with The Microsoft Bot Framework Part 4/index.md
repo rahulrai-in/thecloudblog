@@ -4,15 +4,16 @@ date: 2017-10-22
 tags:
   - azure
   - bot-framework
+comment_id: a7c7b9db-1fda-4a51-861a-39be336fdaae
 ---
 
 > In this series
 >
-> 1. [Introduction](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-1/)
-> 2. [Adding Dialogs and State to your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-2/)
-> 3. [Using Form Flow](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-3/)
-> 4. [Adding intelligence to your bot using LUIS](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-4/)
-> 5. [Publishing your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-5/)
+> 1. [Introduction](/post/building-bots-with-the-microsoft-bot-framework-part-1/)
+> 2. [Adding Dialogs and State to your bot](/post/building-bots-with-the-microsoft-bot-framework-part-2/)
+> 3. [Using Form Flow](/post/building-bots-with-the-microsoft-bot-framework-part-3/)
+> 4. [Adding intelligence to your bot using LUIS](/post/building-bots-with-the-microsoft-bot-framework-part-4/)
+> 5. [Publishing your bot](/post/building-bots-with-the-microsoft-bot-framework-part-5/)
 
 Welcome to the fourth post in my blog series on Building Bots with The Microsoft Bot Framework. In this article, we will see how we can configure [LUIS](https://www.luis.ai/) to bring Natural Language Processing capabilities to our application. LUIS uses **Intents**, **Entities**, and **Utterances** to build its NLP models. We will discuss these aspects below.
 
@@ -94,7 +95,7 @@ Now if you enter one of the words that you supplied in the list in the test cons
 To connect LUIS to your bot, you require a LUIS App Id and LUIS API Key. YOu can get these two values from the LUIS console. To get the LUIS App ID, navigate to the dashboard and copy the App Id.
 To get the API Key, click on **Publish App** and copy the subscription key from one of the listed endpoints.
 
-```
+```plaintext
 https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/APPID?subscription-key=SUBSCRIPTION-KEY&timezoneOffset=0&verbose=true&q=
 ```
 

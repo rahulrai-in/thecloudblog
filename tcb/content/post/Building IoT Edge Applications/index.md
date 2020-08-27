@@ -4,6 +4,7 @@ date: 2018-04-25
 tags:
   - azure
   - internet-of-things
+comment_id: 5832cd43-2091-45e5-a383-dfff5b168d2d
 slug: building-applications-with-azure-iot-edge
 ---
 
@@ -113,7 +114,7 @@ The `Init` method sets MQTT as the transport protocol and then creates and opens
 You would be able to see this screen after you add this module to the edge device in the portal.
 Navigate to the `FilterMessage` method. This is where the business logic of the application is. Replace this method with the following code.
 
-```CS
+```cs
 static async Task<MessageResponse> FilterMessages(Message message, object userContext)
 {
     var counterValue = Interlocked.Increment(ref counter);
@@ -182,7 +183,7 @@ dotnet new aziotedgefunction -n FlagFunction -r <your container registry address
 
 You can view the boilerplate code inside this function in the _run.csx_ file. Replace the code inside the `Run` function with the code below.
 
-```CS
+```cs
 public static async Task Run(Message messageReceived, IAsyncCollector<Message> output, TraceWriter log)
 {
     const int highTemperatureThreshold = 31;
@@ -266,7 +267,7 @@ iotedgectl restart
 
 To visualize the data, we will configure the Stream Analytics job that we created to take all data from the IoT Hub and populate a PowerBI dataset with it. You can find the guidance for doing that [here](https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-live-data-visualization-in-power-bi). It is quite simple and straightforward, and therefore I would not be repeating the process here. You can write a simple query to send all data from your IoT Hub to Power BI. Following is the query that I have configured in my Stream Analytics service.
 
-```SQL
+```sql
 SELECT
     *
 INTO

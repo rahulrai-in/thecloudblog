@@ -1,9 +1,10 @@
 ---
-title: "Visualize Performance of Your Bots With The Ibex Dashboar"
+title: "Visualize Performance of Your Bots With The Ibex Dashboard"
 date: 2018-02-12
 tags:
   - azure
   - bot-framework
+comment_id: 07dffe89-1e7d-40ff-bfb6-01b52b5afb14
 ---
 
 I recently finished building a bot using the Microsoft Bot Framework for a major client. One of the standard requirement of the clients that develop Bot applications is to have bot-specific monitoring in place. Managing the bot that you have built involves adding monitoring and management capabilities to it. Adding monitoring and management aspects to your bot ensures that your bot implementation will be successful in the long run.
@@ -52,7 +53,7 @@ You'd need to configure your bot to push telemetry data to AppInsights in a form
 
 The above configuration will enable basic logging from your bot and would not perform any sentiment analysis on the text entered by the users. You can also use the following settings in addition to the previous one to perform sentiment analysis on the user input text.
 
-```XML
+```xml
     <!-- LUIS credentials-->
     <add key="LuisModelId" value="LUIS MODEL ID" />
     <add key="LuisSubscriptionKey" value="LUIS SUBSCRIPTION KEY" />
@@ -73,19 +74,19 @@ Next, add one of the following lines of code to start automatic telemetry collec
 
 1. If you want to use Cognitive Service and have configured your bot for it.
 
-   ```CS
+   ```cs
        public readonly BotFrameworkApplicationInsightsInstrumentation DefaultInstrumentation = DependencyResolver.Current.DefaultInstrumentationWithCognitiveServices;
    ```
 
 2. If you don't want to use Cognitive Services with your bot.
 
-   ```CS
+   ```cs
    	public readonly BotFrameworkApplicationInsightsInstrumentation DefaultInstrumentation = DependencyResolver.Current.DefaultBasicInstrumentation;
    ```
 
 In my case, I just added the code to Global.asax file at the very start. Being a static member, the member would be initialized at the start of the application.
 
-```CS
+```cs
     public class WebApiApplication : HttpApplication
     {
         public static readonly IBotFrameworkInstrumentation DefaultInstrumentation = DependencyResolver.Current.DefaultInstrumentationWithCognitiveServices;
@@ -95,7 +96,7 @@ In my case, I just added the code to Global.asax file at the very start. Being a
 
 - Finally, make your `LuisDialog` class inherit the `InstrumentedLuisDialog` class and supply the LUIS model id and LUIS subscription key as the constructor arguments.
 
-```CS
+```cs
     public class LuisDialogBase : InstrumentedLuisDialog<object>
     {
         public LuisDialogBase() : base("Model Id", "Subscription Key")

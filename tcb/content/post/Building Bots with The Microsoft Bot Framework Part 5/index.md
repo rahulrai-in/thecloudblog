@@ -4,15 +4,16 @@ date: 2017-11-10
 tags:
   - azure
   - bot-framework
+comment_id: 67b50e10-287f-421b-b0cd-589f4dd72693
 ---
 
 > In this series
 >
-> 1. [Introduction](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-1/)
-> 2. [Adding Dialogs and State to your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-2/)
-> 3. [Using Form Flow](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-3/)
-> 4. [Adding intelligence to your bot using LUIS](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-4/)
-> 5. [Publishing your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-5/)
+> 1. [Introduction](/post/building-bots-with-the-microsoft-bot-framework-part-1/)
+> 2. [Adding Dialogs and State to your bot](/post/building-bots-with-the-microsoft-bot-framework-part-2/)
+> 3. [Using Form Flow](/post/building-bots-with-the-microsoft-bot-framework-part-3/)
+> 4. [Adding intelligence to your bot using LUIS](/post/building-bots-with-the-microsoft-bot-framework-part-4/)
+> 5. [Publishing your bot](/post/building-bots-with-the-microsoft-bot-framework-part-5/)
 
 Welcome to the final post in my series of blogs on Building Bots with The Microsoft Bot Framework. Till now we were building our bot and adding features to it. In this article, we will be publishing our bot and later chat with our bot on Skype.
 

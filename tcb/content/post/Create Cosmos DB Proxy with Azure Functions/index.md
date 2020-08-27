@@ -4,7 +4,10 @@ date: 2018-05-09
 tags:
   - azure
   - compute
+comment_id: 36eda8ef-f3d8-492f-9a3b-dc525b34f1d4
+slug: building-zero-code-cosmos-db-proxy-with-azure-functions
 ---
+
 Using Azure Functions, you can free your projects from Cosmos DB API dependency. In this article, we will build a simple API using Azure Functions that interacts with Cosmos DB without requiring you to write any code.
 
 You have multiple options for building Azure Functions. You can write functions using Visual Studio tooling, or you can build one using VS Code with Azure CLI. However, for this demo, I will use the Azure Portal inbuilt function editor. I do not recommend using the online editor for enterprise-grade applications, because to use any of the source control goodness, you would need to download the code to your machine and push it to your version control system.
@@ -59,7 +62,7 @@ Follow the input sequence shown in the image below to complete the integration.
 
 After configuration, the parameter `outputDocument` would be available to us inside the function to push data to Cosmos DB. The rest of the parameters define the database and the collection in which the data would be stored. Now, let's modify the code in _run.csx_ to send data to Cosmos DB. The following code will insert a valid JSON object present in request body to Cosmos DB. I must add here that if you are planning to build an API\Repository using functions, then you must cast the data in a known object type and then use the object for further operations. For example, in this scenario, I would build functions such as `AddEmployee` function that casts the data in the request to an `Employee` object and then persists the object.
 
-```CS
+```cs
 #r "Newtonsoft.Json"
 
 using System.Net;
@@ -99,7 +102,7 @@ You can see that I have specified a placeholder for the `id` parameter in the ro
 
 Now, you can change the code in the _run.csx_ file to the following.
 
-```CS
+```cs
 using System.Net;
 public static HttpResponseMessage Run(HttpRequestMessage req, IEnumerable<dynamic> documents, TraceWriter log)
 {
@@ -118,7 +121,7 @@ I know, as soon as you pasted the code, you must have realized what all the para
 
 Do you know where all the bindings and the queries are saved? Let me show you where they are hiding. In your function click on the _View Files_ tab, and open the function.json file. You will find all the integration settings wrapped in the `bindings` section. Let's directly modify this file to query only those records that fulfill our criteria.
 
-```JSON
+```json
 {
   "bindings": [
     {
@@ -126,10 +129,7 @@ Do you know where all the bindings and the queries are saved? Let me show you wh
       "name": "req",
       "type": "httpTrigger",
       "direction": "in",
-      "methods": [
-        "get",
-        "post"
-      ],
+      "methods": ["get", "post"],
       "route": "GetRecord/{id}"
     },
     {

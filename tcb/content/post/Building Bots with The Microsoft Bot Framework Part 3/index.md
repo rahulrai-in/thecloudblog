@@ -4,15 +4,16 @@ date: 2017-09-14
 tags:
   - azure
   - bot-framework
+comment_id: d6e10ddb-4c22-4eb4-b4dc-9371b2512b05
 ---
 
 > In this series
 >
-> 1. [Introduction](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-1/)
-> 2. [Adding Dialogs and State to your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-2/)
-> 3. [Using Form Flow](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-3/)
-> 4. [Adding intelligence to your bot using LUIS](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-4/)
-> 5. [Publishing your bot](/post/Building-Bots-with-The-Microsoft-Bot-Framework-Part-5/)
+> 1. [Introduction](/post/building-bots-with-the-microsoft-bot-framework-part-1/)
+> 2. [Adding Dialogs and State to your bot](/post/building-bots-with-the-microsoft-bot-framework-part-2/)
+> 3. [Using Form Flow](/post/building-bots-with-the-microsoft-bot-framework-part-3/)
+> 4. [Adding intelligence to your bot using LUIS](/post/building-bots-with-the-microsoft-bot-framework-part-4/)
+> 5. [Publishing your bot](/post/building-bots-with-the-microsoft-bot-framework-part-5/)
 
 Welcome to the third post in my blog series on Building Bots with The Microsoft Bot Framework. In the last post, we saw how we could use Dialogs and State to carry out a meaningful conversation with the user. However, we also saw that interacting with the user using Dialogs involves a lot of complexity. Today we will discuss how we can reduce the complexity of Bot development using a feature called Form Flow.
 
@@ -60,7 +61,7 @@ There are seven attributes supported by the Bot Fx. They are:
    Just like `EnumSelectOne` template, there are several other templates that you can override. [Here is a list](http://bit.ly/2rX0YiR) of all the templates that you can use.
 7. **Terms**: This attribute lets you define alternate text for input. For example, for a volume field, you may want to enable the user to enter l, liter, ltr. etc. each of which should select the Litre option. You can apply a `Terms` attribute to allow the user to do that, e.g.,
 
-```CS
+```cs
 public enum Volume
 {
 	[Terms("l", "liter", "ltr.")]
@@ -87,7 +88,7 @@ In this exercise let’s extend our Blog Bot to accept user comments on aspects 
 
 Create a folder named **Models** in the solution. Add a class file named `BlogComment` to the folder. Let's add two properties to prompt the user to select an aspect of the blog they want to comment on and the actual comment that the user wants to post.
 
-```CS
+```cs
 public enum BlogAspectOptions
 {
     Profile,
@@ -115,7 +116,7 @@ Now let's go back to the **Dialog** folder and create a new class named `BlogBot
 
 We will use the fluent `Switch` function of `IDialog` to trigger the appropriate conversation.
 
-```CS
+```cs
 // This is a dialog chain. This gets triggered with user message as argument.
 public static readonly IDialog<string> dialog = Chain.PostToChain().Select(msg => msg.Text)
     // We will start with the Hello Dialog to greet user. Let's check whether user said "Hi"
@@ -130,7 +131,7 @@ public static readonly IDialog<string> dialog = Chain.PostToChain().Select(msg =
 
 Remember that we need to tell the bot about how to continue a conversation. The chained methods `ContinueHelloConversation` and `ContinueBotConversation` guide the bot through appropriate conversation continuations. Finally, the `Unwrap()` and `PostToUser()` functions direct the response to a new IDialog object and post the response to the user respectively. Let's go through both the continuation functions in detail. The `ContinueHelloConversation` function just terminates the conversation after posting a message to the user.
 
-```CS
+```cs
 private static async Task<IDialog<string>> ContinueHelloConversation(IBotContext context, IAwaitable<object> item)
 {
     var message = await item;
@@ -141,7 +142,7 @@ private static async Task<IDialog<string>> ContinueHelloConversation(IBotContext
 
 One of the common questions that get asked on most of the forums is how you can fork an ongoing communication based on user input.The `ContinueBotConversation` demonstrates how it can be achieved simply by extending the existing call chain to include a new Dialog.
 
-```CS
+```cs
 private static async Task<IDialog<string>> ContinueBlogConversation(IBotContext context, IAwaitable<BlogComment> item)
 {
     // This will contain a BlogComment object with entities populated.
