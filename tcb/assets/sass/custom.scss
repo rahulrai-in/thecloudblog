@@ -207,16 +207,19 @@ dark-mode-toggle {
     }
 }
 
+.go-top {
+    position: fixed;
+    bottom: 5px;
+    right: 10px;
+}
+
 // bug fix in template
 .post-content {
     word-wrap: break-word;
     word-break: break-word;
 }
 
-@media screen and (prefers-reduced-motion: no-preference) {
-
-    html,
-    body {
-        scroll-behavior: smooth;
-    }
+html,
+body {
+    scroll-behavior: smooth;
 }
