@@ -82,6 +82,19 @@ figure {
     }
 }
 
+.p-icon--subscribe {
+    &:before {
+        background: url('/lib/img/mouse.svg') center center no-repeat;
+        background-size: 25px 25px;
+        display: block;
+        width: 25px;
+        height: 25px;
+        content: "";
+        margin-right: 5px;
+        float: left;
+    }
+}
+
 dark-mode-toggle {
     --dark-mode-toggle-light-icon: url(/lib/img/moon.svg);
     --dark-mode-toggle-dark-icon: url(/lib/img/sun.svg);

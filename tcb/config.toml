@@ -10,8 +10,10 @@ enableRobotsTXT = true
 # These will be used for OpenGraph, Twitter Card and Schema.org
 description = "by Rahul Rai"
 keywords = ["azure", "cloud", "blog", "tips", "ASP.net", "DevOps", "Web"]
-mainSections = ["post","lab"]
 paginate = 100
+
+[params]
+    mainSections = ["post","lab"]
 
 # This is the number of terms within a taxonomy per page
 termsPaginate = 50
@@ -24,15 +26,15 @@ shareLinksEnabled = true
 # Add menu items to the navigation bar as below.
 [menu]
 
-[[menu.main]]
-name = "whoami"
-weight = 1
-url = "/whoami"
+    [[menu.main]]
+    name = "whoami"
+    weight = 1
+    url = "/whoami"
 
-[[menu.main]]
-name = "Publications"
-weight = 2
-url = "/authors"
+    [[menu.main]]
+    name = "Publications"
+    weight = 2
+    url = "/authors"
 
 [module]
     [[module.mounts]]

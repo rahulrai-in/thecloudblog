@@ -33,7 +33,7 @@
                     However, we still want the visual appearance of H3. Fortunately, Vanilla has a CSS class for that. 
                 -->
                 <h2 class="p-heading--3"><a href="{{ .Permalink }}">{{ if eq .Section "lab" }}<i class="lab-icon"
-                            data-title="Lab: Quick tip\Code sample"></i>{{ end }}{{ .Title | markdownify }}</a></h2>
+                            data-title="Lab: Tip\Code sample"></i>{{ end }}{{ .Title | markdownify }}</a></h2>
 
                 {{/*  Check to see if it has post info. */}}
                 {{ if or .Params.Date (or .Params.Authors .Params.Author) }}
