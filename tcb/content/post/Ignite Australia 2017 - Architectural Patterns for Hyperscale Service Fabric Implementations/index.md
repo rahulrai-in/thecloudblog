@@ -4,7 +4,9 @@ date: 2017-03-04
 tags:
   - presentation
   - service-fabric
+comment_id: 853caaa8-62a5-4579-b4ef-ae890e2854a6
 ---
+
 Last week [@Namit](http://namit.me/) and I were at [Ignite Australia](https://msftignite.com.au/). We had a great time interacting with technology enthusiasts from across Australia. We presented a lot of demos built using [Service Fabric](https://azure.microsoft.com/en-au/services/service-fabric/), [Hololens](https://www.microsoft.com/microsoft-hololens/en-us) and [Congnitie Services](https://www.microsoft.com/cognitive-services/en-us/apis) to the attendees and received thrilling feedback. The event was well worth our investment of time and effort. We would deliver many more such presentations in future.
 
 ## Microservices with Azure
@@ -19,6 +21,6 @@ At Ignite, we delivered a session on microservices architectural patterns. In ou
 
 > The slides are available for download from Channel 9 at this link: https://channel9.msdn.com/Events/Ignite/Australia-2017/ARC231
 
-{{< youtube LG-d5gvuiSY >}}
+{{< youtube 7MwJffEyq-Q >}}
 
 {{< subscribe >}}

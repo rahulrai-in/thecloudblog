@@ -4,6 +4,7 @@ date: 2017-03-26
 tags:
   - tools & gadgets
   - programming
+comment_id: 84e915d8-2fdf-46e8-b878-5b958dc1747c
 ---
 
 Visual Studio 2017 is currently the best IDE that is in-line with the Microsoft's strategy of embracing non Microsoft platforms and operating systems. I am a web developer, therefore, following is my outline of the most compelling features of Visual Studio 2017.
@@ -11,7 +12,9 @@ Visual Studio 2017 is currently the best IDE that is in-line with the Microsoft'
 ## Setup Experience
 
 Visual Studio no longer asks you to select options from a long list of checkboxes. It presents a more easy to comprehend list of workloads that are segregated by categories. You can choose the packages that are most suited to your role.
+
 {{< img src="1.png" alt="Installation Experience" >}}
+
 However, the long list of checkboxes is still available in Individual Components tab. The time required for installation obviously increases with the number of components that you select, but you would find that the installation takes significantly less time than previous Visual Studio installations. Once installed, when launching Visual Studio, you will immediately recognize better performance and faster startup than Visual Studio 2015.
 
 ## Start Page

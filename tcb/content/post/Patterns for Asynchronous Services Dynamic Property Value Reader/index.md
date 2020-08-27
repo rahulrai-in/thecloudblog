@@ -3,9 +3,10 @@ title: "Patterns for Asynchronous Services: Dynamic Property Value Reader"
 date: 2016-11-21
 tags:
   - cloud-patterns
+comment_id: c2ffa052-b0ed-4953-ba3c-8527f39e22f4
 ---
 
-Next in our series of patterns, we will discuss a problem that almost all of us have encountered and solved in a less than desirable manner almost every time. Today, we will talk about using reflection. Most of the applications use reflection to read values out of an unknown type of object. I will present you with a utility that helps you do just that with little performance implications using input that you can store in configuration files or your application's database. You can use this utility to read values of nested properties and extract filtered values out of lists using a much more developer\user friendly format of input. This use of this utility is even more pronounced in asynchronous services because you might not have or might not wish to use strongly typed contracts to communicate with other services. A change in a non neessary contract property should not break your system. You can avoid such failures by extracting the required information from service response rather than casting the response to a predefined type.
+Next in our series of patterns, we will discuss a problem that almost all of us have encountered and solved in a less than desirable manner almost every time. Today, we will talk about using reflection. Most of the applications use reflection to read values out of an unknown type of object. I will present you with a utility that helps you do just that with little performance implications using input that you can store in configuration files or your application's database. You can use this utility to read values of nested properties and extract filtered values out of lists using a much more developer\user friendly format of input. This use of this utility is even more pronounced in asynchronous services because you might not have or might not wish to use strongly typed contracts to communicate with other services. A change in a non necessary contract property should not break your system. You can avoid such failures by extracting the required information from service response rather than casting the response to a predefined type.
 
 ## Dynamic Property Value Reader
 
@@ -34,7 +35,7 @@ You can download the source code of the implementation from my GitHub repository
 
 Download the sample and open it in your Visual Studio. To test this function, I have created a complex object with nested lists and objects through this code:
 
-```CS
+```cs
 var complexList = CreateAnonymousList(new { Name = "SomeElementName", Value = "SomeElementValue" });
 complexList.Add(new { Name = "AnotherElementName", Value = "AnotherElementValue" });
 var testObject =
@@ -57,7 +58,7 @@ var testObject =
 
 Next, the retrieval of values of various objects happens in a straightforward manner as shown in the code below.
 
-```CS
+```cs
 Console.WriteLine(
     "Getting value of SimpleProperty: "
     + DynamicPropertyValueReader.GetPropertyValue(testObject, "SimpleProperty"));

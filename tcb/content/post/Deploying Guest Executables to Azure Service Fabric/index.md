@@ -4,7 +4,9 @@ date: 2017-03-09
 tags:
   - azure
   - service fabric
+comment_id: c3f247f7-08a2-431b-abcb-5edbb0c423c2
 ---
+
 One of my most popular blog posts on this site is [Hands-on with Azure Service Fabric Reliable Services](/post/hands-on-with-azure-service-fabric-reliable-services/). Referring to the blog post, many readers asked me about guidance to deploy various types of applications as [Guest Executables](https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-deploy-existing-app) on Service Fabric. In this post, I will try to answer most of those questions by demonstrating the process in a simple manner.
 
 ## The Application
@@ -22,7 +24,7 @@ I understand that you need sample code to refer to (a.k.a copy & paste). Here is
 
 I recommend using Visual Studio to package your application for the ease that it offers. However, you can [manually package your application](https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-deploy-existing-app#manually) as well. Either of the approaches will create a folder structure that is similar to the following:
 
-```
+```plaintext
 |-- ApplicationPackageRoot
     |-- GuestServicePkg
         |-- Code

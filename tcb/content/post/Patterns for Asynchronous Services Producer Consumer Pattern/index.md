@@ -3,6 +3,7 @@ title: "Patterns for Asynchronous Services: Producer-Consumer Pattern"
 date: 2016-11-22
 tags:
   - cloud-patterns
+comment_id: 4c4beebd-33f3-44be-97c3-e278871d790a
 ---
 
 Let's take our discussion forward to discuss the [Producer and Consumer problem](https://en.wikipedia.org/wiki/Producer%E2%80%93consumer_problem). According to the definition, the problem describes two processes, the producer and the consumer, who share a common, fixed-size buffer used as a queue. The producer's job is to generate data, put it into the buffer, and start again. At the same time, the consumer is consuming the data (i.e., removing it from the buffer), one record at a time. The problem is to make sure that the producer won't try to add data into the buffer if it's full and that the consumer won't try to remove data from an empty buffer.
@@ -25,7 +26,7 @@ You can implement this pattern in multiple scenarios such as:
 
 Using [TPL Data Flow](<https://msdn.microsoft.com/en-us/library/hh228603(v=vs.110).aspx>), this scenario can be realized in the easiest manner. We will use a [Buffer Block](https://msdn.microsoft.com/en-us/library/hh228603(v=vs.110).aspx#Predefined Dataflow Block Types) which contains the data that needs to be sent from the producer to the consumer. We would need to assign this buffer to both the producer and the consumer functions to keep them synchronized.
 
-```CS
+```cs
 private static void TestProducerConsumerFunction()
 {
     var sharedPayload = new BufferBlock<IList<int>>();
@@ -36,7 +37,7 @@ private static void TestProducerConsumerFunction()
 
 Next, the producer will run recursively and post data to this buffer.
 
-```CS
+```cs
 private static async void WorkTaskComposer(ITargetBlock<IList<int>> targetBlock)
 {
     await Task.Factory.StartNew(
@@ -64,7 +65,7 @@ private static async void WorkTaskComposer(ITargetBlock<IList<int>> targetBlock)
 
 The consumer consumes the data asynchronusly. As soon as data becomes available in the buffer, the consumer function starts working on it.
 
-```CS
+```cs
 private static async void AsynchronousConsumer(ISourceBlock<IList<int>> sourceBlock)
 {
     while (await sourceBlock.OutputAvailableAsync())
@@ -92,4 +93,3 @@ Simply run the sample that you downloaded from the repository. The producer in t
 With this pattern, I would like to conclude the ongoing patterns series. I would keep writing about cloud design patterns from time to time to help you get past some of the common design hurdles that you may face during solution development.
 
 {{< subscribe >}}
-s

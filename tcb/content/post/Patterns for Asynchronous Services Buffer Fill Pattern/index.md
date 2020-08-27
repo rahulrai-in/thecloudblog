@@ -3,6 +3,7 @@ title: "Patterns for Asynchronous Services: Buffer Fill Pattern"
 date: 2016-11-17
 tags:
   - cloud-patterns
+comment_id: e490d821-1f85-4a73-9765-1eaddf6a6dce
 ---
 
 Most of the times when working on distributed systems that involve asynchronous communication, you need to solve certain common problems. In this multi-part series, I would walk you through some common design challenges and their solutions backed with sample code that you can refer to while working on your projects.
@@ -30,7 +31,7 @@ You can download the source code of the implementation from my GitHub repository
 
 The test execution creates a buffer that can store five elements, which is the first argument of the constructor of the `SynchronusBatchBuffer` class. The second argument specifies the action to execute when the buffer gets filled to its capacity. This action must expect a list of data as input, as the contents of the buffer will be transferred to this function as an argument.
 
-```CS
+```cs
 using (var batchBuffer = new SynchronousBatchBuffer<int>(
     5,
     elementBatch =>

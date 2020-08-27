@@ -3,6 +3,7 @@ title: "Patterns for Asynchronous Services: Compiled Expressions"
 date: 2016-11-20
 tags:
   - cloud-patterns
+comment_id: 0b0abc82-c053-42d3-8be3-6bd071cbc492
 ---
 
 Previously we discussed the [Buffer Fill Pattern](/post/Patterns-for-Asynchronous-Services-Buffer-Fill-Pattern/) which can help eliminate bottlenecks in your applications. Let's tackle yet another challenge stopping you short from building your next flexible service that runs on distributed systems. The pattern that we are going to discuss today has little to do with distributed systems and is rather about component decoupling. This pattern will add flexibility to your system which you can manage through configurations stored in your application's database. Using the [Component Model](<https://msdn.microsoft.com/en-us/library/system.componentmodel(v=vs.110).aspx>), you will soon find out how we can dynamically invoke functions using their names and versions.
@@ -35,6 +36,7 @@ The simplest tool to pick to implement this design is the Component Model. You c
 #### Source Code
 
 You can download the source code of the implementation from my GitHub repository here.
+
 {{< sourceCode src="https://github.com/rahulrai-in/CompiledExpressions" >}}
 
 #### Executing the Sample
@@ -45,7 +47,7 @@ You can download the source code of the implementation from my GitHub repository
 4. The class, `ComposeExpression`, composes the container and returns the invoked expression by identifying and instantiating the class that contains the expression by identifying it from the CSV attribute which we placed on top of `SampleExpressionStore` class.
 5. Making a call to the functions is straightforward, as can be seen from the test code, which is just a single line of code.
 
-```CS
+```cs
 var expressionEvaluator = new ExpressionEvaluator();
 var testExpression1ReturnValue = expressionEvaluator.ComputeExpression(
     "TestExpression1",

@@ -2,8 +2,9 @@
 title: "Bring Your Own Protocol (BYOP) to Your Azure Service Fabric Applications"
 date: 2016-10-25
 tags:
- - azure
- - service-fabric
+  - azure
+  - service-fabric
+comment_id: c5ed3434-55f7-4b64-9099-0c9c5eec38a1
 ---
 
 Microsoft Azure Service Fabric: There are several reasons to switch to this brand new platform for building distributed systems. For one, Service Fabric can host itself literally anywhere: on your laptop, in your data center, in some else's data center, on Windows, on Linux... If you are still hugging Cloud Services (that thing with web roles and worker roles), you better mend your acts early, it is getting phased out and will become obsolete soon. If you have worked with cloud services, you must be aware of the fact that there are differences in the behaviors of the development emulator and Azure and the issues that arise from those differences are not pretty. Service Fabric ensures delivery consistency by providing you with exactly the same environment on your laptop and in your data center. There is no reason for you to not use Service Fabric in your production applications given that it is now [GA on Azure](https://azure.microsoft.com/en-us/updates/general-availability-azure-service-fabric/) and [Windows Server](https://azure.microsoft.com/en-us/updates/service-fabric-windows-server-ga/).
@@ -16,8 +17,8 @@ We have already discussed about Service Fabric in an earlier [post](/post/hands-
 
 Before we discuss about service communication any further, note that there are two kinds of communication that are involved in a Service Fabric application.
 
-1. {{< coloredText color="red" text="Client-Application" bold="true" >}}: The communication channel used by the clients to connect and interact with your Service Fabric Application.
-2. {{< coloredText color="red" text="Inter-Replica" bold="true" >}}: The communication channel used by the various replicas of your Microservice to talk to each other to replicate state data. This replication ensures that consistency of state data is maintained, so that when the primary replica goes down, one of the secondary replicas can resume processing without losing state.
+1. {{< coloredText color="red" text="Client-Application" >}}: The communication channel used by the clients to connect and interact with your Service Fabric Application.
+2. {{< coloredText color="red" text="Inter-Replica" >}}: The communication channel used by the various replicas of your Microservice to talk to each other to replicate state data. This replication ensures that consistency of state data is maintained, so that when the primary replica goes down, one of the secondary replicas can resume processing without losing state.
 
 Generally, we would want to control the behavior of the {{< coloredText color="red" text="Client-Application" >}} communication channel only. I will show you how you can configure both the communication channels in your Reliable Services.
 
@@ -47,7 +48,10 @@ The majority of applications doesn't need to have fine-grained control over inte
 
 We are going to build a Service Fabric Application that consists of a single Microservice that communicates with the clients using AMQP. Advanced Message Queuing Protocol ([AMQP](https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol)) is a very popular protocol for device to server and server to server communication in IoT applications. For building the sample, we are going to use a popular AMQP library named [AMQP.Net Lite](https://github.com/Azure/amqpnetlite) which takes care of the protocol and the implementation for us. We are going to use the [{{< coloredText color="red" text="peer-peer" >}} sample](https://github.com/Azure/amqpnetlite/tree/master/Examples/PeerToPeer) to build a server application (a Microservice) and a test client (a console application).
 
-You can download the source code of this sample from here: {{< sourceCode src="https://github.com/rahulrai-in/amqpservice" >}}
+You can download the source code of this sample from here.
+
+{{< sourceCode src="https://github.com/rahulrai-in/amqpservice" >}}
+
 We are going to build this sample from scratch (not the [install-tools-and-sdk](https://azure.microsoft.com/en-us/documentation/articles/service-fabric-get-started/) kind of scratch) so that you can follow along. However, I would be leaving out the non essentials bits of code to keep this article directed towards the objective.
 
 ### The Server: Service Fabric Application
@@ -64,7 +68,7 @@ Let's start implementing the communication stack now. First, install the [AMQP.N
 
 The _Naming Service_ is a cluster service that runs on every cluster. This service acts like a DNS for your Microservices. Since, in a cluster, your services may be scattered across the nodes, this service will help the clients discover your service. The value returned from the `OpenAsync` method will get registered with the _Naming Service_ and this is the value that the clients will see when they ask for the address of your service from the _Naming Service_.
 
-```CS
+```cs
 public Task<string> OpenAsync(CancellationToken cancellationToken)
 {
     var serviceEndpoint = this.context.CodePackageActivationContext.GetEndpoint("AMQPEndpoint");
@@ -82,14 +86,14 @@ public Task<string> OpenAsync(CancellationToken cancellationToken)
 
 I have simply picked the server code from the AMQP sample and plugged it here. But apart from that, I have retrieved the service endpoint from the _Service Manifest_ (ServiceManifest.xml) and applied it on the `ContainerHost`. I have returned this address back to the Naming Service so that the clients can discover it. You will note that I have appended the partition id and replica id to the listener endpoint. We will see why I did so in a moment. The rest of the method implementations just close and abort the host.
 
-```CS
+```cs
 public void Abort()
 {
     this.host.Close();
 }
 ```
 
-```CS
+```cs
 public Task CloseAsync(CancellationToken cancellationToken)
 {
     this.host.Close();
@@ -99,7 +103,7 @@ public Task CloseAsync(CancellationToken cancellationToken)
 
 The next step is to connect this listener to our Microservice. Navigate to the `DeviceMetricCollectorService` class and add an override of the `CreateServiceReplicaListeners` method (`CreateServiceInstanceListener` for `StatelessService`).
 
-```CS
+```cs
 protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
 {
     return new[] { new ServiceReplicaListener(context => new AMQPListener(context, this.StateManager), "AMQPEndpoint") };
@@ -114,7 +118,7 @@ We need only one endpoint on which the service should respond. Moreover, we want
 
 Lastly, we describe the endpoints that are required for the service in the service manifest under the section on endpoints.
 
-```XML
+```xml
 <Endpoints>
     <Endpoint Name="AMQPEndpoint" Protocol="tcp" Port="5672" />
     <Endpoint Name="ReplicatorEndpoint" />
@@ -137,7 +141,7 @@ This concludes the implementation of the server. Next, we need to build a client
 
 Let's quickly bring up a client that can talk to our service. Add a console application to your solution, name it **TestDevice** and set its target platform to **x64**. Let's start by implementing `ICommunicationClient` which will handle the communication for us. Create a class named `MyCommunicationClient` which implements this interface.
 
-```CS
+```cs
 public class MyCommunicationClient : ICommunicationClient
 {
 	...
@@ -146,7 +150,7 @@ public class MyCommunicationClient : ICommunicationClient
 
 This class will be instantiated by `CommunicationClientFactoryBase`. For clients that don't maintain a persistent connection, such as an HTTP client, the factory only needs to create and return the client. Other protocols that maintain a persistent connection, such as some binary protocols, should also be validated by the factory to determine whether the connection needs to be re-created. We will accept the endpoint on which the client-server communication will take place as a constructor argument.
 
-```CS
+```cs
 public MyCommunicationClient(string resolvedEndpoint)
 {
     this.address = resolvedEndpoint;
@@ -156,7 +160,7 @@ public MyCommunicationClient(string resolvedEndpoint)
 
 The `Setup` method is responsible for establishing a connection with the server. This code is lifted from the AMQP sample and applied here. Nothing fancy here.
 
-```CS
+```cs
 void Setup()
 {
     this.connection = new Connection(new Address(this.address));
@@ -175,7 +179,7 @@ void Setup()
 
 The `RunOnce` method, which is another method lifted from the AMQP sample, simply sends a request to the server and accepts a response and prints it on the console.
 
-```CS
+```cs
 void RunOnce()
 {
     var request = new Message("hello " + this.offset)
@@ -200,7 +204,7 @@ void RunOnce()
 
 To add a bit of error handling in the client, let's add an exception handler which is an implementation of `IExceptionHandler` that is responsible for determining the action to take when an exception occurs:
 
-```CS
+```cs
 class MyExceptionHandler : IExceptionHandler
 {
     public bool TryHandleException(ExceptionInformation exceptionInformation, OperationRetrySettings retrySettings, out ExceptionHandlingResult result)
@@ -214,7 +218,7 @@ class MyExceptionHandler : IExceptionHandler
 
 Finally, let's implement `MyCommunicationClientFactory` which is derived from `CommunicationClientFactoryBase` that instantiates `MyCommunicationClient` and integrates the `IExceptionHandler` implementation in the pipeline.
 
-```CS
+```cs
 public class MyCommunicationClientFactory : CommunicationClientFactoryBase<MyCommunicationClient>
 {
     public MyCommunicationClientFactory(
@@ -255,7 +259,7 @@ public class MyCommunicationClientFactory : CommunicationClientFactoryBase<MyCom
 
 We have already implemented all that is required in the client. To tie everything together, in the `Main` method, start the client and let it trigger the flow.
 
-```CS
+```cs
 static void Main(string[] args)
 {
     myCommunicationClientFactory = new MyCommunicationClientFactory();
@@ -269,7 +273,9 @@ static void Main(string[] args)
 ```
 
 Start a new instance of the service and put a breakpoint in the constructor of `MyCommunicationClient`. Once the service is up and running, launch your client in debug mode. Wait for the breakpoint to get hit. Inside the constructor, you would find the endpoint of the primary replica of the service getting automatically resolved.
+
 {{< img src="3.png" alt="Automatic Name Resolution" >}}
+
 Awesome! Now remove the breakpoint and let the client execute. Spend some time watching the client and server talk to each other using AMQP.
 
 > #### Too Intelligent
@@ -279,6 +285,7 @@ Awesome! Now remove the breakpoint and let the client execute. Spend some time w
 ## Output
 
 {{< img src="4.png" alt="Output From The AMQP Device Client" >}}
+
 I know it has been a long read, but I hope it has been valuable and informative to you. I hope you enjoyed working your way through this sample. Let me know about your experience and questions in the comments section below.
 
 {{< subscribe >}}
