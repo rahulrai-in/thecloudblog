@@ -7,13 +7,13 @@ enableGitInfo = true
 enableEmoji = true
 enableRobotsTXT = true
 
-# These will be used for OpenGraph, Twitter Card and Schema.org
-description = "by Rahul Rai"
-keywords = ["azure", "cloud", "blog", "tips", "ASP.net", "DevOps", "Web"]
 paginate = 100
 
 [params]
     mainSections = ["post","lab"]
+    # These will be used for OpenGraph, Twitter Card and Schema.org
+    description = "by Rahul Rai"
+    keywords = ["azure", "cloud", "blog", "tips", "ASP.net", "DevOps", "Web"]
 
 # This is the number of terms within a taxonomy per page
 termsPaginate = 50
