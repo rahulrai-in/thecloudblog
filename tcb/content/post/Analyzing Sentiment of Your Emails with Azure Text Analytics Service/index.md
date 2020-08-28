@@ -4,6 +4,7 @@ date: 2015-11-21
 tags:
   - azure
   - machine learning
+comment_id: eed8f1c7-caa9-47be-9313-282ffa082eb8
 ---
 
 [Azure Machine Learning](https://azure.microsoft.com/en-us/services/machine-learning/) allows data scientists to build and deploy predictive models. I am currently reading [Predictive Analytics with Microsoft Azure Machine Learning](http://www.apress.com/9781484204467), which in my opinion is a great resource to get started with ML. If you are a developer and don't really want to invest in learning ML, you can use [Azure ML web services](https://gallery.cortanaanalytics.com/browse/?categories=[%22Machine%20Learning%20API%22]) published by Microsoft and other publishers in the [Cortana Analytics Gallery](https://gallery.cortanaanalytics.com/). There are several interesting APIs, such as speech, face recognition and computer vision, available that you can use in your applications. Today, I will use [Text Analytics Service](https://azure.microsoft.com/en-us/documentation/articles/machine-learning-apps-text-analytics/), which is one of Azure ML web services available in the Cortana Analytics Gallery, to build an Outlook add-in that parses the subject of an email and classifies the email as one of :smile: :neutral_face: :angry:
@@ -30,7 +31,11 @@ Finally, to prepare your Visual Studio environment, you would need to install Of
 
 ## Source Code
 
-The entire source code of the application is available on GitHub. {{< sourceCode src="https://github.com/rahulrai-in/happymailfinder">}} In a very short time, we will have an Outlook add-in ready that analyzes the sentiment of the subject line of an email and displays an emoticon representing the sentiment. The solution has the following structure (the important files are highlighted).
+The entire source code of the application is available on GitHub.
+
+{{< sourceCode src="https://github.com/rahulrai-in/happymailfinder">}}
+
+In a very short time, we will have an Outlook add-in ready that analyzes the sentiment of the subject line of an email and displays an emoticon representing the sentiment. The solution has the following structure (the important files are highlighted).
 
 {{< img src="1.png" alt="HappyMailFinder Solution" >}}
 
@@ -53,7 +58,7 @@ On the next screen, select the options that make sure your app appears every tim
 
 In the solution that unfolds, navigate to **AppRead** > **Home.html** and replace the markup inside `<body>` tag with the following HTML code. This markup defines the appearance of our add-in.
 
-```XML
+```xml
 <div id="content-main">
     <div class="padding">
         <p><strong>Hi, I analyzed the subject line of your mail!</strong></p>
@@ -73,37 +78,39 @@ In the solution that unfolds, navigate to **AppRead** > **Home.html** and replac
 
 To invoke the **Text Analytics** service and display the sentiment scores in the web page that we modified, navigate to **AppRead** > **Home.js** and modify the `displayItemDetails` function and also add two more functions.
 
-```JavaScript
+```javascript
 function displayItemDetails() {
-    var item = Office.cast.item.toItemRead(Office.context.mailbox.item);
-    var encodedSubject = encodeURIComponent(item.subject);
-    getScoreAsync(encodedSubject, displayResult);
+  var item = Office.cast.item.toItemRead(Office.context.mailbox.item);
+  var encodedSubject = encodeURIComponent(item.subject);
+  getScoreAsync(encodedSubject, displayResult);
 }
 
 function displayResult(responseData) {
-    var score = JSON.parse(responseData).Score;
-    $('#subject').text(score);
-    $('#mailType').text(":-|");
-    if (score<0.4) {
-        $('#mailType').text(":-(");
-    }
-    if (score > 0.65) {
-        $('#mailType').text(":-)");
-    }
+  var score = JSON.parse(responseData).Score;
+  $("#subject").text(score);
+  $("#mailType").text(":-|");
+  if (score < 0.4) {
+    $("#mailType").text(":-(");
+  }
+  if (score > 0.65) {
+    $("#mailType").text(":-)");
+  }
 }
 
 function getScoreAsync(encodedSubject, callback) {
-    var xmlHttp = new XMLHttpRequest();
-    var theUrl = "https://api.datamarket.azure.com/data.ashx/amla/text-analytics/v1/GetSentiment?Text=" + encodedSubject;
-    xmlHttp.onreadystatechange = function () {
-        if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
-            callback(xmlHttp.responseText);
-        }
+  var xmlHttp = new XMLHttpRequest();
+  var theUrl =
+    "https://api.datamarket.azure.com/data.ashx/amla/text-analytics/v1/GetSentiment?Text=" +
+    encodedSubject;
+  xmlHttp.onreadystatechange = function () {
+    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+      callback(xmlHttp.responseText);
     }
-    xmlHttp.open("GET", theUrl, true);
-    xmlHttp.setRequestHeader("Authorization", "Basic YOUR BASE64 ENCODED KEY");
-    xmlHttp.setRequestHeader("Accept", "application/json");
-    xmlHttp.send(null);
+  };
+  xmlHttp.open("GET", theUrl, true);
+  xmlHttp.setRequestHeader("Authorization", "Basic YOUR BASE64 ENCODED KEY");
+  xmlHttp.setRequestHeader("Accept", "application/json");
+  xmlHttp.send(null);
 }
 ```
 

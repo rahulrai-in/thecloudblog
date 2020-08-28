@@ -3,7 +3,9 @@ title: "Review of Jabra Speak 410 Speakerphone - A Not So Necessary Utility"
 date: 2016-01-25
 tags:
   - tools & gadgets
+comment_id: 731cb76b-fbb9-4f6d-bb0a-a0948657ab19
 ---
+
 I was lucky (and fast... and skilled...) enough to claim a [Jabra Speak 410 Speakerphone](http://www.jabra.in/support/jabra-speak-410_7410-209) as my [AzureCon challenge](https://challenge.azurecon.com/) bounty. There were some challenges related to shipping and all the prizes got dispatched pretty late, but Microsoft resolved the impediments and was very communicative throughout the shipping process and my unit arrived today so no rants from me on this. My only concern is that I had to pay a USD 40 duty on the import about which I am not sure whether I was liable to or whether it could have been avoided. Anyways..
 
 ## What is This Stuff?

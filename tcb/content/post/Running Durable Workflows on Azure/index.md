@@ -4,6 +4,7 @@ date: 2016-01-08
 tags:
   - azure
   - app service
+comment_id: 9d0a90e8-0a23-4f97-a9ae-4a43a6d20681
 ---
 
 This post took a while to see the daylight. I was working on my code submission for [Azure Search for Search contest](https://azure.microsoft.com/en-us/blog/azure-search-search-for-search-contest/) and there were tons of things to catch up on. However, if you are a Windows Workflows developer and are working out ways to host your workflows on Azure or want to transfer control of business logic to your clients using Workflows, I will make up for the delay. Let's get started!!
@@ -12,9 +13,9 @@ Workflows can be broadly categorized as durable or non durable. [Durable Workflo
 
 Non-durable Workflows are readily supported by Windows Azure with a few configuration changes. However, if you want to host Durable Workflows in Azure you have a few options:
 
-1.  Use [Logic Apps](https://azure.microsoft.com/en-in/documentation/articles/app-service-logic-what-are-logic-apps/) to build your workflows. (Requires rewriting of workflows)
-2.  Use [Workflow Manager](<https://msdn.microsoft.com/en-us/library/jj193528(v=azure.10).aspx>). (Not updated for a while. Uses SQL databases to store persistence data)
-3.  Enjoy total control over persistence and tracking by building your own workflow host. (Use low cost Azure table storage to store tracking and persistence data)
+1. Use [Logic Apps](https://azure.microsoft.com/en-in/documentation/articles/app-service-logic-what-are-logic-apps/) to build your workflows. (Requires rewriting of workflows)
+2. Use [Workflow Manager](<https://msdn.microsoft.com/en-us/library/jj193528(v=azure.10).aspx>). (Not updated for a while. Uses SQL databases to store persistence data)
+3. Enjoy total control over persistence and tracking by building your own workflow host. (Use low cost Azure table storage to store tracking and persistence data)
 
 ### What We Need to Build?
 
@@ -26,7 +27,11 @@ The big buckets of functionality required to host durable Workflow Services are:
 
 ### Need Code?
 
-As always the sample that I have used is available for download here. {{< sourceCode src="https://github.com/rahulrai-in/workflowonazure">}} I post all code samples on my [GitHub](https://github.com/rahulrai-in) account for you to use.
+As always the sample that I have used is available for download here.
+
+{{< sourceCode src="https://github.com/rahulrai-in/workflowonazure">}}
+
+I post all code samples on my [GitHub](https://github.com/rahulrai-in) account for you to use.
 
 ### What We Will Build
 
@@ -88,7 +93,7 @@ I would not be able to demonstrate writing the whole code here. Therefore, I pro
 
 - `CopyBlobToContainer`
 
-{{< img src=" 8.png" alt="CopyBlobToContainer Properties" >}}
+{{< img src="8.png" alt="CopyBlobToContainer Properties" >}}
 
 - To prove that you can load workflows at runtime, I took the code of the xaml file of `CopyDocsToContainer` activity and pasted it as text in **CopyDocsToContainer.txt** file. What this means is that as long as the workflow host has the binaries of the custom code activities, it is independent of which workflows are running on it.
 - The `TestApplication` project is a console application that sends a single message to the queue our worker is listening on.
@@ -96,7 +101,7 @@ I would not be able to demonstrate writing the whole code here. Therefore, I pro
 
 - Once a message is received from the queue, the workflow xaml is read from the text file (ideally from database). The following code creates a new instance of `WorkflowApplication`. Note that we have also passed `ChannelData` object as argument to workflow.
 
-```CS
+```cs
 var workflowApplication =
     new WorkflowApplication(
 Routines.CreateWorkflowActivityFromXaml(workflowXaml, this.GetType().Assembly),
@@ -105,7 +110,7 @@ new Dictionary<string, object> { { "ChannelData", channelData } });
 
 - Next, we apply the various settings to our workflow host which mainly include setting up the instance store and attaching event handlers to the various events. The most important event handler here is the `PersistableIdle` event. This event gets invoked when an activity bookmarks its state. At this point we need to unload the workflow and add a message to the queue that the workflow host is listening on with the updated ChannelData object so that when the bookmark resumes we can pass the updated information back to the workflow.
 
-```CS
+```cs
 //// Setup workflow execution environment.
 //// 1\. Make the workflow synchronous
 workflowApplication.SynchronizationContext = new SynchronousSynchronizationContext();
@@ -143,7 +148,7 @@ workflowApplication.PersistableIdle = persistableIdleEventArgument =>
 
 - The `AddBookmarkMessage` method is responsible for adding bookmark message to the queue. Note that `WorkflowIdentifier` (necessary to identify the workflow instance) remains the same and an additional flag `IsBookmark` is used to differentiate between a new workflow and a bookmarked workflow.
 
-```CS
+```cs
 private void AddBookmarkMessage(Guid workflowId)
 {
     var hostQueueMessage = new HostQueueMessage
@@ -161,7 +166,7 @@ private void AddBookmarkMessage(Guid workflowId)
 
 - If the workflow is bookmarked, we follow a similar methodology of composing a workflow as we followed for composing a new one, but use `ResumeBookmark` function to resume the execution of the workflow.
 
-```CS
+```cs
 //// Prepare a new workflow instance as we need to resume bookmark.
 var bookmarkedWorkflowApplication =
     new WorkflowApplication(

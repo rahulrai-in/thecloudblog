@@ -4,6 +4,7 @@ date: 2016-02-18
 tags:
   - azure
   - web & mobile
+comment_id: d503ac57-8a6d-4f78-9c75-dd47a68b7ee3
 ---
 
 This project was my attempt at [Azure Search for Search Contest](https://azure.microsoft.com/en-us/blog/azure-search-search-for-search-contest/)! Although I got knocked out, but I learnt quite a bit about Azure Search and Universal Windows Platform by building this application. This application is a demonstration of how versatile Azure Search service is and how easily you can mash up this service with other cloud offerings and build something complex with little effort.
@@ -46,7 +47,11 @@ Before we dig into how this application was built, let's see this application in
 
 ## Source Code
 
-The entire source code for this application is available on GitHub. {{< sourceCode src="https://github.com/rahulrai-in/findmeacab">}} You can also find my other code samples on my [GitHub](https://github.com/rahulrai-in) repository. Since this is a UWP App, you would need Windows 10 OS installed on the developer machine to debug and deploy the application.
+The entire source code for this application is available on GitHub.
+
+{{< sourceCode src="https://github.com/rahulrai-in/findmeacab">}}
+
+You can also find my other code samples on my [GitHub](https://github.com/rahulrai-in) repository. Since this is a UWP App, you would need Windows 10 OS installed on the developer machine to debug and deploy the application.
 
 ## Code Walkthrough and Build Instructions
 
@@ -82,7 +87,7 @@ Note that we have written a simple pass through query which simply collects data
 
 Navigate to **FindMeACab.Tests.SensorClient** console application project and supply configuration values in the app.config file of the project.
 
-```XML
+```xml
 <appSettings>
   <add key="EventHubName" value="EVENT HUB NAME" />
   <add key="EventHubConnectionString" value="CONNECTION STRING VALUE" />
@@ -120,7 +125,7 @@ This is the final point of integration and fairly simple to achieve if you have 
 
 1.  We will first define the Voice Commands that we would use. The **VoiceCommandDefinition.xml** in **CabSearchUniversalApp** project defines the voice commands that we would use.
 
-```XML
+```xml
 <?xml version="1.0" encoding="utf-8" ?>
 <VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
   <CommandSet xml:lang="en" Name="FindMeACab_en">
@@ -149,14 +154,14 @@ This is the final point of integration and fairly simple to achieve if you have 
 
 1.  Next, we need to install this file. We will use the `OnLaunched` event of the application and use the following code for the operation.
 
-```CS
+```cs
 var vcdfile = await Package.Current.InstalledLocation.GetFileAsync(@"VoiceCommandDefinition.xml");
 await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vcdfile);
 ```
 
 1.  Lastly, we are going to create a Background Service named `CabSearchBackgroundService` and listen for the voice commands.
 
-```CS
+```cs
 this.voiceCommandServiceConnection =
     VoiceCommandServiceConnection.FromAppServiceTriggerDetails(triggerDetails);
 this.voiceCommandServiceConnection.VoiceCommandCompleted += (sender, args) => this.deferral?.Complete();
@@ -178,7 +183,7 @@ switch (voicecommand.CommandName)
 
 The rest of the code is responsible for querying the index, retrieving the results and sending the results to Cortana. Azure search supports [geospatial queries](https://msdn.microsoft.com/en-us/library/azure/dn798921.aspx) by which you can search for documents, that have a searchable Geo coordinate field, present inside a given polygon coordinates or within a certain distance from a given geographical coordinate. On querying for a location, Bing maps get you the bounding box coordinates of the location. We will use the bounding box coordinates to find cabs present within a region. The following function in class `CabSearch` in **CabSearchBackgroundService** project is responsible for executing this flow.
 
-```CS
+```cs
 private async Task SearchCabsInArea(string area)
 {
     var locationData = new LocationData(BingApiKey).GetBoundingBoxCoordinates($"{area},India").Result;
@@ -208,7 +213,7 @@ private async Task SearchCabsInArea(string area)
 
 We will use the user's device coordinates to search for cabs near the user. The following function in class `CabSearch` in **CabSearchBackgroundService** project is responsible for executing this flow.
 
-```CS
+```cs
 private async Task SearchCabsNearby()
 {
     var geolocator = new Geolocator();

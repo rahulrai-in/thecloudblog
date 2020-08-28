@@ -4,6 +4,7 @@ date: 2015-07-30
 tags:
   - azure
   - app service
+comment_id: b4e0dfd8-a234-4b36-99b3-b845f1036e9f
 ---
 
 Finally, my custom blogging platform is ready and raring to go. I will try to write as frequently as I can and keep making platform improvements. Since I have been working on building my blogging platform for some time, I think my opening blog should talk about how the platform works.
@@ -27,14 +28,14 @@ Another point I would like to make here is that the whole infrastructure is runn
 
 In a nutshell, the platform works as follows:
 
-1.  I author content using the beloved Windows Live Writer.
-2.  I push the content to the blog platform, in turn the platform does the following activities for me.
-    1.  It stores all the images and other media resources in Azure Blob Storage Service.
-    2.  It splits the content into small chunks and stores the chunks in Azure Table Storage Service. (Why? Because an entity in table storage can’t hold more than 64 KB of binary data)
-    3.  It uses Azure Search Service to index the content.
-3.  You request for the content through search service or by navigating to the content.
-4.  The platform pulls your requested data from the respective storage destinations.
-5.  I cache certain content because querying for them repetitively is pretty expensive. You are served that content from the Azure Redis Cache.
+1. I author content using the beloved Windows Live Writer.
+2. I push the content to the blog platform, in turn the platform does the following activities for me.
+   1. It stores all the images and other media resources in Azure Blob Storage Service.
+   2. It splits the content into small chunks and stores the chunks in Azure Table Storage Service. (Why? Because an entity in table storage can’t hold more than 64 KB of binary data)
+   3. It uses Azure Search Service to index the content.
+3. You request for the content through search service or by navigating to the content.
+4. The platform pulls your requested data from the respective storage destinations.
+5. I cache certain content because querying for them repetitively is pretty expensive. You are served that content from the Azure Redis Cache.
 
 For those who love diagrams, here is an image showing all the components.
 

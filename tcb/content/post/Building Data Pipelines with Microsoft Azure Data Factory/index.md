@@ -4,8 +4,10 @@ date: 2015-10-25
 tags:
   - azure
   - analytics
+comment_id: 7c7de466-43d2-4fb4-9f35-c2928c3bfee1
 ---
-My [Google Analytics](https://www.google.com/analytics/) and [Application Insights](https://azure.microsoft.com/en-in/services/application-insights/) Telemetry data indicates that it is time for me to thank you for appreciating my articles. If you are reading this, I would like to thank you for your support. I have met many people to whom cloud and its service offerings make little sense. I want to demonstrate how easy it is to get up to speed with using cloud offerings because I find most of the samples available online are a little tough to comprehend. I try keeping my samples short and fun, and always free for you to use. If you haven't already, please take a minute to [subscribe](#subscribe) and provide your feedback through comments on posts or through email at [rahulrai@rahulrai.in](mailto:rahulrai@rahulrai.in). I love reading your mails and comments, so keep them coming. Thanks a lot again!
+
+My [Google Analytics](https://www.google.com/analytics/) and [Application Insights](https://azure.microsoft.com/en-in/services/application-insights/) Telemetry data indicates that it is time for me to thank you for appreciating my articles. If you are reading this, I would like to thank you for your support. I have met many people to whom cloud and its service offerings make little sense. I want to demonstrate how easy it is to get up to speed with using cloud offerings because I find most of the samples available online are a little tough to comprehend. I try keeping my samples short and fun, and always free for you to use. If you haven't already, please take a minute to [subscribe](https://landing.mailerlite.com/webforms/landing/o2t0g4) and provide your feedback through comments on posts or through email at [rahul@rahul-rai.com](mailto:rahul@rahul-rai.com). I love reading your mails and comments, so keep them coming. Thanks a lot again!
 
 Let's discuss [Azure Data Factory](https://azure.microsoft.com/en-in/documentation/articles/data-factory-introduction/) today. Many of the customers that I work with have a common business problem. They have varying amounts of disparate data that is spread over various systems or data storages. They want to combine the data from multiple sources and convert it into meaningful business information. Tools such as [SSIS](https://msdn.microsoft.com/en-us/library/ms141026.aspx) perform the task of ETL quite well, but SSIS is not meant for working with Big Data and also not meant for extracting data from varied sources, which may be structured or unstructured. Often, such demands lead us to design custom logic which ultimately becomes difficult to manage and update.
 
@@ -29,7 +31,10 @@ Now that we have an understanding of what Data Factory is, it is a good time to 
 
 ## Download The Code Sample
 
-The complete code for the sample we are going to build is available for download here. {{< sourceCode src="https://github.com/rahulrai-in/integrationfactory">}}
+The complete code for the sample we are going to build is available for download here.
+
+{{< sourceCode src="https://github.com/rahulrai-in/integrationfactory">}}
+
 At this point you should download a copy of it. Although, I wrote the code using Data Factory SDK for Visual Studio (available by searching for **Microsoft Azure DataFactory Tools for Visual Studio** in extensions gallery), the Data Factory IDE is already embedded in the Azure management portal, therefore using Visual Studio is not a necessity. The IDE provides support for validating the JSON files on build and uploading them to your Data Factory on publish and is good for keeping artifacts in source control, sharing code etc. and therefore should be used for any code that you expect to move to production.
 
 ## Preparing The Database and The Test File
@@ -56,22 +61,22 @@ Now, in your Visual Studio create a new solution and add add an empty data facto
 
 Right click on **LinkedService** folder and add **Azure SQL Linked Service** and **On Premises FileSystem Linked Service**. A linked service contains information necessary for your Data Factory to connect to an external service. As the name suggests, **Azure SQL Linked Service** contains connection data for Azure SQL Database. Put the following code in the **Azure SQL Linked Service** JSON file:
 
-```JavaScript
+```json
 {
-    "$schema": "http://datafactories.schema.management.azure.com/schemas/2015-08-01/Microsoft.DataFactory.LinkedService.json",
-    "name": "AzureSqlLinkedService",
-    "properties": {
-        "type": "AzureSqlDatabase",
-        "typeProperties": {
-            "connectionString": "<<Azure SQL Database Connection string>>"
-        }
+  "$schema": "http://datafactories.schema.management.azure.com/schemas/2015-08-01/Microsoft.DataFactory.LinkedService.json",
+  "name": "AzureSqlLinkedService",
+  "properties": {
+    "type": "AzureSqlDatabase",
+    "typeProperties": {
+      "connectionString": "<<Azure SQL Database Connection string>>"
     }
+  }
 }
 ```
 
 Similarly, the **On Premises FileSystem Linked Service** contains information for connecting to your system through the gateway that you just installed. Replace the template code inside **On Premises FileSystem Linked Service** with the following code.
 
-```JavaScript
+```json
 {
   "$schema": "http://datafactories.schema.management.azure.com/schemas/2015-08-01/Microsoft.DataFactory.LinkedService.json",
   "name": "OnPremisesFileSystemLinkedService",
@@ -79,7 +84,7 @@ Similarly, the **On Premises FileSystem Linked Service** contains information fo
     "type": "OnPremisesFileServer",
     "typeProperties": {
       "host": "localhost",
-      "userId": "DOMAIN\USERNAME OR USERNAME",
+      "userId": "DOMAINUSERNAME OR USERNAME",
       "password": "YOUR SYSTEM PASSWORD",
       "gatewayName": "YOUR GATEWAY NAME"
     }
@@ -89,7 +94,7 @@ Similarly, the **On Premises FileSystem Linked Service** contains information fo
 
 This code contains information about the system that Data Factory pipeline needs to connect to and credentials that it can use to get the resource that it uses. Now, we need to create tables corresponding to the on premises file and Azure SQL Database so that data can be copied between the two tables through a copy activity, which we will configure soon. Right click on the **Tables** folder and select **Add** new **OnPremises FileShare Location**. Replace the code within the template with the following code.
 
-```JavaScript
+```json
 {
   "$schema": "http://datafactories.schema.management.azure.com/schemas/2015-08-01/Microsoft.DataFactory.Table.json",
   "name": "PremiseSystemDataTable",
@@ -169,7 +174,7 @@ This code specifies path to the folder which contains the file which we want to 
 
 Next, add new **Azure SQL** table in the tables folder and replace the code with the following code.
 
-```JavaScript
+```json
 {
   "$schema": "http://datafactories.schema.management.azure.com/schemas/2015-08-01/Microsoft.DataFactory.Table.json",
   "name": "AzureSQLDataTable",
@@ -221,51 +226,51 @@ This code specifies the table structure with the same name of columns as specifi
 
 The last thing we need to do is to copy data between these two data stores. Data Factory provides an activity to copy data between two data stores. The store can be either a cloud or on-premises store. It consumes one input and produces one output. The **type** of the activity should set to **CopyActivity** in the pipeline JSON definition. Right click on the pipeline folder and Add new **Copy Data Pipeline** to the project. Replace the template code with the following code.
 
-```JavaScript
+```json
 {
-    "name": "CopyActivityFileToDatabase",
-    "properties": {
-        "description": "Copy sales data batch file to sales database",
-        "activities": [
-            {
-                "type": "Copy",
-                "typeProperties": {
-                    "source": {
-                        "type": "FileSystemSource"
-                    },
-                    "sink": {
-                        "type": "SqlSink",
-                        "writeBatchSize": 1,
-                        "writeBatchTimeout": "00:30:00"
-                    }
-                },
-                "inputs": [
-                    {
-                        "name": "PremiseSystemDataTable"
-                    }
-                ],
-                "outputs": [
-                    {
-                        "name": "AzureSQLDataTable"
-                    }
-                ],
-                "policy": {
-                    "timeout": "00:10:00",
-                    "concurrency": 1,
-                    "retry": 1
-                },
-                "scheduler": {
-                    "frequency": "Day",
-                    "interval": 1
-                },
-                "name": "CopyPremiseBatchFileToDatabase"
-            }
+  "name": "CopyActivityFileToDatabase",
+  "properties": {
+    "description": "Copy sales data batch file to sales database",
+    "activities": [
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "FileSystemSource"
+          },
+          "sink": {
+            "type": "SqlSink",
+            "writeBatchSize": 1,
+            "writeBatchTimeout": "00:30:00"
+          }
+        },
+        "inputs": [
+          {
+            "name": "PremiseSystemDataTable"
+          }
         ],
-        "start": "2015-07-12T00:00:00Z",
-        "end": "2016-07-13T00:00:00Z",
-        "isPaused": false,
-        "hubName": "integrationfactory_hub"
-    }
+        "outputs": [
+          {
+            "name": "AzureSQLDataTable"
+          }
+        ],
+        "policy": {
+          "timeout": "00:10:00",
+          "concurrency": 1,
+          "retry": 1
+        },
+        "scheduler": {
+          "frequency": "Day",
+          "interval": 1
+        },
+        "name": "CopyPremiseBatchFileToDatabase"
+      }
+    ],
+    "start": "2015-07-12T00:00:00Z",
+    "end": "2016-07-13T00:00:00Z",
+    "isPaused": false,
+    "hubName": "integrationfactory_hub"
+  }
 }
 ```
 

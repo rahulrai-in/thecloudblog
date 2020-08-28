@@ -4,6 +4,7 @@ date: 2019-04-17
 tags:
   - azure
   - devops
+comment_id: 9330efad-f022-4419-aa51-cd0f7f288527
 ---
 
 I usually like to keep my application dependencies such as the database, and emulators packaged in containers. Running the dependencies in containers gives me the ability to keep my development process fluid as I can bring up the dependencies to the desired state no matter how massively I deform them.

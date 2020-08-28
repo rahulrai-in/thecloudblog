@@ -4,6 +4,7 @@ date: 2016-03-21
 tags:
   - azure
   - compute
+comment_id: 8b044aa5-3080-4e10-a22b-ad2be2ff3fea
 ---
 
 Microsoft acquired [Apiphany](http://techcrunch.com/2013/10/23/microsoft-acquires-apiphany-an-api-management-service-to-integrate-with-windows-azure/), backed it up with Azure compute and storage and has now made it available to users as API Management service. [Azure API Management](https://azure.microsoft.com/en-in/services/api-management/) is a reliable, secure and scalable way to publish, consume and manage APIs running on the Microsoft Azure platform. Azure API Management provides all essential tools required for end-to-end management of APIs. It ensures optimal performance of the APIs, tracks and enforces usage, authentication, and more.
@@ -33,7 +34,7 @@ Next, we need to [create an API Management instance](https://azure.microsoft.com
 
 ## Specify Operations
 
-If you take a look at the [REST operations for Azure Blob](https://msdn.microsoft.com/en-us/library/azure/dd179377.aspx) service, the base URL used for all the operations is [https://<yourstorageaccountname>.blob.core.windows.net](https://<yourstorageaccountname>.blob.core.windows.net). Therefore, the **Web Service URL** that the API should forward requests to should be [https://<yourstorageaccountname>.blob.core.windows.net/](https://<yourstorageaccountname>.blob.core.windows.net/). Next, you may supply an optional Web API URL suffix, which we have left blank. Choose HTTPS as the URL scheme to ensure message transport security.
+If you take a look at the [REST operations for Azure Blob](https://msdn.microsoft.com/en-us/library/azure/dd179377.aspx) service, the base URL used for all the operations is https://[yourstorageaccountname].blob.core.windows.net. Therefore, the **Web Service URL** that the API should forward requests to should be https://[yourstorageaccountname].blob.core.windows.net. Next, you may supply an optional Web API URL suffix, which we have left blank. Choose HTTPS as the URL scheme to ensure message transport security.
 
 In Azure API Management, a [product](https://azure.microsoft.com/en-in/documentation/articles/api-management-howto-add-products/) contains one or more APIs as well as a usage quota and the terms of use. Once a product is published, developers can subscribe to the product and begin to use the product's APIs. By default, two products, named **Starter** and **Unlimited**, are created when you create a new API management instance. You can add your API to both the products in the wizard and click **Save**.
 
@@ -58,7 +59,7 @@ In the applicable policy we want to define two operations:
 
 The following statements in the policy specify the headers that should be added to HTTP Request when it is forwarded to the back-end Azure Blob Storage service.
 
-```XML
+```xml
 <set-header name="date" exists-action="override">
     <value>@(context.Variables.GetValueOrDefault<string>("UTCNow"))</value>
 </set-header>
@@ -96,7 +97,7 @@ Note that we can write simple C# expressions in the policy definition. The [Poli
 
 We will use JWT passed in a request header to the API to validate the incoming request and authorize the access based on the value of the `canDownload` claim present in the token. The following declaration in the policy helps achieve this objective.
 
-```XML
+```xml
 <validate-jwt header-name="Token" failed-validation-httpcode="401" failed-validation-error-message="Unauthorized">
     <issuer-signing-keys>
         <key>@(context.Variables.GetValueOrDefault<string>("SigningKey"))</key>
@@ -111,7 +112,7 @@ We will use JWT passed in a request header to the API to validate the incoming r
 
 The above mentioned declaration helps the API decode the token with the key mentioned in the `key` element. Note that the API expects the token to arrive as value in the HTTP request header named `Token`. The API, then checks for a claim named `canDownload` with value `true` to be present in the token. Following is the complete code listing for the policy.
 
-```XML
+```xml
 <policies>
     <inbound>
         <set-variable name="APIVersion" value="2012-02-12" />
@@ -175,7 +176,7 @@ The above mentioned declaration helps the API decode the token with the key ment
 
 Azure API Management instance comes with a configurable developer portal available at [https://<your API Management service>.portal.azure-api.net](https://<your API Management service>.portal.azure-api.net) (also accessible through a link available on top right hand side of management portal). In the portal, click on APIs and select your API from the list of available APIs. On your API definition page, click on Try it button. You should now have a view that is similar to the following.
 
-{{< img src=5.png" alt="API Try It Screen" >}}
+{{< img src="5.png" alt="API Try It Screen" >}}
 
 Before proceeding any further, let us generate a JWT that we need to send to the API along with the request.
 

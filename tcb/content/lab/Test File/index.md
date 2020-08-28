@@ -3,7 +3,7 @@ title: Labz
 date: 2020-07-28
 tags:
   - Kubernetes
-comment_id: 49d850a0-74a3-4848-ad11-c7b908d981a3
+comment_id:
 draft: true
 ---
 

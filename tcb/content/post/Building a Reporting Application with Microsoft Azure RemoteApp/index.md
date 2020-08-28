@@ -4,6 +4,7 @@ date: 2015-08-10
 tags:
   - azure
   - networking
+comment_id: 28a72adf-4193-4c35-a17f-290b41b37be5
 ---
 
 Before I say anything else, let’s lay down a ground rule that I wish all blogs would follow: A sample that takes more than 30 minutes to get cranking up is a project. Get ready to learn about [Azure RemoteApp](https://azure.microsoft.com/en-us/documentation/services/remoteapp/) applications by building a SAMPLE that would be powered by [Microsoft Azure](https://azure.microsoft.com/).
@@ -22,14 +23,18 @@ Answers to that question are critical when you want to save business costs and\o
 
 Since the most common scenario that most windows applications cater to is capturing user input and generating reports from that data after applying some manipulations, a decent sample application should be able to capture user input and generate a simple report from it. If we can do so within thirty minutes, [Azure RemoteApp](https://azure.microsoft.com/en-us/documentation/services/remoteapp/) would have proved its utility.
 
-The sample application that we will build is a single form WPF application with two simple reports embedded in it. One of the reports will render how much each employee is earning and another report will render the fraction of income of each employee with respect to the overall compensation. You can use the steps mentioned [here](https://msdn.microsoft.com/en-us/library/hh273267.aspx) to create a simple WPF form with the report viewer embedded in it or download the sample application that I built from here. {{< sourceCode src="https://github.com/rahulrai-in/remoteappdemo" >}}I am using [VS 15 Community Edition](https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx), .Net framework 4.0 and Microsoft Report Viewer 14 to build the application. The application will use a [Microsoft Azure SQL Database](http://azure.microsoft.com/en-in/services/sql-database/) to store data from which it would serve the report. I did not build a form to capture user data and I am sure you would appreciate the great lack of skills I have with respect to UX and design, but I will get better with time and I invite you to contribute to any sample that I have on [GitHub](https://github.com/rahulrai-in). Follow the steps as mentioned below:
+The sample application that we will build is a single form WPF application with two simple reports embedded in it. One of the reports will render how much each employee is earning and another report will render the fraction of income of each employee with respect to the overall compensation. You can use the steps mentioned [here](https://msdn.microsoft.com/en-us/library/hh273267.aspx) to create a simple WPF form with the report viewer embedded in it or download the sample application that I built from here.
 
-1.  Create an empty [Microsoft Azure SQL Database](http://azure.microsoft.com/en-in/services/sql-database/) in your Azure account by following the steps mentioned [here](https://azure.microsoft.com/en-in/documentation/articles/sql-database-get-started/). Make sure that you have configured the firewall rules properly.
-2.  Copy the database [connection string](https://azure.microsoft.com/en-in/documentation/articles/sql-database-dotnet-how-to-use/) from the portal.
-3.  Use the connection string to populate the database with EmployeeSalary table by publishing the database project provided in the sample (take help of steps mentioned [here](<https://msdn.microsoft.com/en-us/library/hh272687(v=vs.103).aspx>)).
-4.  Add some sample data to the EmployeeSalary table that you just created. I generally use Server Explorer available in VS itself as explained [here](<https://msdn.microsoft.com/en-us/library/hh272699(v=vs.103).aspx>).
-5.  Paste the connection string in connection strings section of App.config file of RemoteAppDemo project.
-6.  Start the RemoteAppDemo project on your local system. You should be able to see a screen that looks likes this:
+{{< sourceCode src="https://github.com/rahulrai-in/remoteappdemo" >}}
+
+I am using [VS 15 Community Edition](https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx), .Net framework 4.0 and Microsoft Report Viewer 14 to build the application. The application will use a [Microsoft Azure SQL Database](http://azure.microsoft.com/en-in/services/sql-database/) to store data from which it would serve the report. I did not build a form to capture user data and I am sure you would appreciate the great lack of skills I have with respect to UX and design, but I will get better with time and I invite you to contribute to any sample that I have on [GitHub](https://github.com/rahulrai-in). Follow the steps as mentioned below:
+
+1. Create an empty [Microsoft Azure SQL Database](http://azure.microsoft.com/en-in/services/sql-database/) in your Azure account by following the steps mentioned [here](https://azure.microsoft.com/en-in/documentation/articles/sql-database-get-started/). Make sure that you have configured the firewall rules properly.
+2. Copy the database [connection string](https://azure.microsoft.com/en-in/documentation/articles/sql-database-dotnet-how-to-use/) from the portal.
+3. Use the connection string to populate the database with EmployeeSalary table by publishing the database project provided in the sample (take help of steps mentioned [here](<https://msdn.microsoft.com/en-us/library/hh272687(v=vs.103).aspx>)).
+4. Add some sample data to the EmployeeSalary table that you just created. I generally use Server Explorer available in VS itself as explained [here](<https://msdn.microsoft.com/en-us/library/hh272699(v=vs.103).aspx>).
+5. Paste the connection string in connection strings section of App.config file of RemoteAppDemo project.
+6. Start the RemoteAppDemo project on your local system. You should be able to see a screen that looks likes this:
 
 {{< img src="1.png" alt="Report In Debug" >}}
 

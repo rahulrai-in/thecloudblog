@@ -3,12 +3,14 @@ title: "Building a GraphQL Application with ASP.Net Core and TypeScript - Part 1
 date: 2019-05-04
 tags:
   - web
+comment_id: d368ae4a-7a0f-4544-bcb8-cf9bee49ac17
+slug: building-a-graphql-application-with-asp.net-core-and-typescript-part-1
 ---
 
 > In this series
 >
-> 1. [Building a GraphQL server](/post/building-applications-with-graphql-in-aspnet-core-and-typescript-part-1/)
-> 2. [Building a GraphQL client](/post/building-applications-with-graphql-in-aspnet-core-and-typescript-part-2/)
+> 1. [Building a GraphQL server](/post/building-a-graphql-application-with-asp.net-core-and-typescript-part-1/)
+> 2. [Building a GraphQL client](/post/building-a-graphql-application-with-asp.net-core-and-typescript-part-2/)
 
 [GraphQL (QL: Query Language)](https://graphql.org/) is a query language for your APIs. For a long time API clients have been dictated the format of data that they can receive from the backend API. For example, if a client sends a GET request to this endpoint: https://api.twitter.com/1.1/statuses/home_timeline.json (see [developer guide](https://developer.twitter.com/en/docs/tweets/timelines/api-reference/get-statuses-home_timeline.html)), it will get all the data in the format dictated by the API which the client will then have to filter to get just the desired field/s, e.g., Tweet text. The REST API approach has many disadvantages which we will discuss soon. However, now let's take a quick view of a typical GraphQL query. Since GraphQL is a query language, let's compare a GraphQL query to a query in a very well known query language - SQL. With GraphQL, you can write queries using object structures rather than string expressions. So the following statement in SQL...
 

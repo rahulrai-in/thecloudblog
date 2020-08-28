@@ -4,6 +4,7 @@ date: 2015-09-15
 tags:
   - azure
   - internet of things
+comment_id: 6b0d2986-fb71-438a-966f-c3a47d60aacb
 ---
 
 In this **two-part series** I will walk you through building an IOT solution on [Microsoft Azure](https://azure.microsoft.com/) using [Microsoft Orleans](https://dotnet.github.io/orleans/). The first part is an overview of Microsoft Orleans while the second part will cover building a simple application on [Microsoft Orleans](https://dotnet.github.io/orleans/) and deploying it to [Microsoft Azure](https://azure.microsoft.com/).
@@ -49,7 +50,7 @@ Grains can store state information beyond their lifetime. This feature is helpfu
 
 Grain classes that inherit from `Grain<T>` (where `T` is an application-specific state data type derived from `IGrainState`) will have their state loaded automatically from a specified storage. Grains will be marked with a `[StorageProvider]` attribute that specifies a named instance of a storage provider to use for reading/writing the state data for this Grain.
 
-```CS
+```cs
 [StorageProvider(ProviderName="store1")]
 public class MyGrain<IMyGrainState> ...
 {
@@ -59,7 +60,7 @@ public class MyGrain<IMyGrainState> ...
 
 The Grain’s state is available through the `Grain<T>.State` property. After making any appropriate changes to the Grain’s in-memory state, the Grain should call the `Grain<T>.State.WriteStateAsync()` method to write the changes to the persistent store. The Orleans Provider Manager framework provides a mechanism to specify & register different storage providers and storage options in the Silo config file.
 
-```XML
+```xml
 <StorageProviders>
    <Provider Type="Orleans.Storage.DevStorage" Name="DevStore" />
    <Provider Type="Orleans.Storage.AzureTableStorage" Name="store1"
@@ -71,9 +72,9 @@ The Grain’s state is available through the `Grain<T>.State` property. After ma
 
 ## Other Concepts
 
-1.  **Stateless Worker**: Stateless workers can be activated multiple times in each Silo by automatically scaling up and down according to the incoming demand. Orleans does this by inspecting the queue size of each stateless worker in the Silo and it will create a new activation if there are no stateless workers with empty queues. If a stateless worker is requested from another Grain inside the Orleans Silo, then it will be activated in the same Silo, thus removing the network hops. Therefore, requests to a stateless worker will never need to go across the network.
-2.  **Reentrant Grain**: Marking a Grain as reentrant basically enables the Grain to accept requests while it is awaiting an operation to get completed. This is a feature that must be used carefully, as you could have a situation where when you return from the awaiting operation, the internal state of the Grain is not as you left it and if you're relying on the state not changing, you could have a problem.
-3.  **Timers and Reminders**: **Timers** are used to create periodic Grain behavior that isn't required to span multiple activations (instantiations of the Grain). It is essentially identical to the standard .**NET System.Threading.Timer** class. In addition, it is subject to single threaded execution guarantees within the Grain activation that it operates. **Reminders** are similar to timers with a few important differences. Reminders are persistent and will continue to trigger in all situations (including partial or full cluster restarts) unless explicitly cancelled. Reminders are associated with a Grain, not any specific activation.
+1. **Stateless Worker**: Stateless workers can be activated multiple times in each Silo by automatically scaling up and down according to the incoming demand. Orleans does this by inspecting the queue size of each stateless worker in the Silo and it will create a new activation if there are no stateless workers with empty queues. If a stateless worker is requested from another Grain inside the Orleans Silo, then it will be activated in the same Silo, thus removing the network hops. Therefore, requests to a stateless worker will never need to go across the network.
+2. **Reentrant Grain**: Marking a Grain as reentrant basically enables the Grain to accept requests while it is awaiting an operation to get completed. This is a feature that must be used carefully, as you could have a situation where when you return from the awaiting operation, the internal state of the Grain is not as you left it and if you're relying on the state not changing, you could have a problem.
+3. **Timers and Reminders**: **Timers** are used to create periodic Grain behavior that isn't required to span multiple activations (instantiations of the Grain). It is essentially identical to the standard .**NET System.Threading.Timer** class. In addition, it is subject to single threaded execution guarantees within the Grain activation that it operates. **Reminders** are similar to timers with a few important differences. Reminders are persistent and will continue to trigger in all situations (including partial or full cluster restarts) unless explicitly cancelled. Reminders are associated with a Grain, not any specific activation.
 
 ## Next Steps
 
@@ -85,5 +86,4 @@ In the second part of this series, we will build a small sample in which we will
 
 - [Pluralsight](http://www.pluralsight.com/courses/microsoft-orleans-introduction)
 
-> The second part of this series is available [here](/post/building-iot-solutions-with-microsoft-orleans-and-microsoft-azure-part-2)
-> {{< subscribe >}}
+> The second part of this series is available [here](/post/building-iot-solutions-with-microsoft-orleans-and-microsoft-azure-part-2) > {{< subscribe >}}

@@ -4,6 +4,7 @@ date: 2015-10-13
 tags:
   - azure
   - compute
+comment_id: bb2c9536-72d7-4c0f-a86c-e84d00eb219d
 ---
 
 I hope you had a chance to watch or attend [AzureCon](https://azure.microsoft.com/en-us/azurecon/) lately. If you watch the keynotes, you would be overwhelmed by tons of great announcements that were made. All the sessions are available [on demand](https://azure.microsoft.com/en-us/azurecon/) and are classified by level and industry role. I hope the sessions prove to be a great learning experience for you. I also hope to work with a few of the new features and write about them for us to use.
@@ -41,6 +42,7 @@ Close the designer blade and execute the workflow at this point by clicking on *
 ### Create OneDrive Service API App
 
 The complete code for the API App is available for download here.
+
 {{< sourceCode src="https://github.com/rahulrai-in/OneDriveService" >}}
 
 In Visual Studio create a new API App from ASP.net Web Project Template (requires Azure SDK).
@@ -49,7 +51,7 @@ In Visual Studio create a new API App from ASP.net Web Project Template (require
 
 Add a new class `OneDriveConnectorRequest` in the Models folder and write the following code in it. As you might have already guessed, this is the same format in which OneDrive connector provides its output.
 
-```CS
+```cs
 public class OneDriveConnectorRequest
 {
     public string FileName { get; set; }
@@ -62,7 +64,7 @@ public class OneDriveConnectorRequest
 
 Next, replace the template code in Values controller with the following code. This code will place the OneDrive connector output in a local variable and expose that data formatted as HTML for Office365 connector, which we will add soon.
 
-```CS
+```cs
 public class ValuesController : ApiController
 {
     private static OneDriveConnectorRequest[] files;

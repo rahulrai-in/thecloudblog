@@ -4,7 +4,9 @@ date: 2020-04-21
 tags:
   - kubernetes
   - service-mesh
+comment_id: 0e8fdd02-359d-4ca7-bd06-7f96b7819740
 ---
+
 I am super happy to announce the release of my new eBook: [Istio Succictly](https://www.syncfusion.com/ebooks/istio-succinctly), published by Syncfusion. You can grab a copy of the book for free by [clicking this link](https://www.syncfusion.com/ebooks/istio-succinctly). If you are familiar with Kubernetes and want to augment your Kubernetes clusters with the most popular Service Mesh implementation, Istio, then this book is for you. In Istio Succinctly, we have tried to comprehensively cover the quintessence of Istio without sacrificing the necessary concepts and theory behind it.
 
 {{< img src="1.png" alt="Istio SuccinctlyIstio Succinctly" >}}

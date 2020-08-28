@@ -3,13 +3,14 @@ title: "Building a GraphQL Application with ASP.Net Core and TypeScript - Part 2
 date: 2019-05-19
 tags:
   - web
-slug: building-applications-with-graphql-in-aspnet-core-and-typescript-part-2
+comment_id: 1c770264-6fa8-44b4-b0d4-838d8d558f73
+slug: building-a-graphql-application-with-asp.net-core-and-typescript-part-2
 ---
 
 > In this series
 >
-> 1. [Building a GraphQL server](/post/building-applications-with-graphql-in-aspnet-core-and-typescript-part-1/)
-> 2. [Building a GraphQL client](/post/building-applications-with-graphql-in-aspnet-core-and-typescript-part-2/)
+> 1. [Building a GraphQL server](/post/building-a-graphql-application-with-asp.net-core-and-typescript-part-1/)
+> 2. [Building a GraphQL client](/post/building-a-graphql-application-with-asp.net-core-and-typescript-part-2/)
 
 In the first part of this series, we discussed steps to develop a GraphQL server using ASP.Net core. Since we have a server up and running now, we will build a client that works with the API we just created.
 

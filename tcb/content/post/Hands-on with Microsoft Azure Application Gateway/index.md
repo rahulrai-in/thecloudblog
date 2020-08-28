@@ -4,8 +4,10 @@ date: 2015-11-05
 tags:
   - azure
   - networking
+comment_id: ebbd6855-0d95-481d-b1ee-c2fc5b0059b5
 ---
-Cloud Architects tasked to [lift and shift workloads](http://www.questcloudcomputing.co.uk/so-what-exactly-is-the-lift-and-shift-cloud-migration-model/) frequently face some common challenges. Quite frequently they are handed over application dense servers containing applications which were never meant to scale (metal love) and limited budget and time. Not to forget the fact that the communication channel used by the applications was never secured because the applications were previously accessible only over local network (and maybe in house hacking was not a possibility or maybe internet was not invented till then :smile:) and the marketing team sold the idea of a mobile workforce to the customer.
+
+Cloud Architects tasked to lift and shift workloads frequently face some common challenges. Quite frequently they are handed over application dense servers containing applications which were never meant to scale (metal love) and limited budget and time. Not to forget the fact that the communication channel used by the applications was never secured because the applications were previously accessible only over local network (and maybe in house hacking was not a possibility or maybe internet was not invented till then :smile:) and the marketing team sold the idea of a mobile workforce to the customer.
 
 The Cloud Architects are expected to make the applications not only scalable, but also  secure over the wire (SSL Certificates). I personally had to call ARR ([Application Request Routing](http://www.iis.net/downloads/microsoft/application-request-routing)) into play in a few of such scenarios and apply some workarounds and proxies in some others.
 
@@ -19,31 +21,31 @@ Load Balancer layer 7 sounds like science fiction if you are not a little famili
 
 A brief overview of the OSI layers is as follows:
 
-**Layer 1: The Physical Layer**
+### Layer 1: The Physical Layer
 
 It activates, maintain and deactivate the physical connection. Voltages and data rates needed for transmission are defined in the physical layer. It converts the digital bits into electrical signals.
 
-**Layer 2: Data Link Layer**
+### Layer 2: Data Link Layer
 
 Data link layer synchronizes the information which is to be transmitted. Error controlling is done at this layer. The encoded data is then passed to the physical layer. Error detection bits are used and errors are also corrected. Outgoing messages are assembled into frames and transmitted. The system then waits for the acknowledgements to be received after the transmission. It sends messages reliably.
 
-**Layer 3: The Network Layer**
+### Layer 3: The Network Layer
 
 It routes the signal through different channels to the other end. It acts as a network controller. It decides the route data should take. It divides the outgoing messages into packets and assembles incoming packets into messages for higher levels.
 
-**Layer 4: Transport Layer**
+### Layer 4: Transport Layer
 
 It decides whether data transmission should be on parallel paths or single path. Functions such as multiplexing, segmenting or splitting of the data are performed by the transport layer. Transport layer breaks the message (data) into small units so that they are handled more efficiently by the network layer.
 
-**Layer 5: The Session Layer**
+### Layer 5: The Session Layer
 
 Session layer manages and synchronizes the conversation between two different applications. Transfer of data from one destination to another are marked as sessions and are resynchronized properly so that the ends of the messages are not cut prematurely and data loss is avoided.
 
-**Layer 6: The presentation Layer**
+### Layer 6: The presentation Layer
 
 Presentation layer takes care that the data is sent in such a way that the receiver will understand the information (data) and will be able to use the data. Languages (syntax) of the two communicating systems may be different. Under this condition presentation layer plays the role of a translator.
 
-**Layer 7: Application Layer**
+### Layer 7: Application Layer
 
 It is the topmost layer. Manipulation of data (information) in various ways is done in this layer. Transferring of files and distributing the results to the user is also done in this layer. Mail services, directory services, network resource, etc. are services provided by the application layer.
 
@@ -53,7 +55,7 @@ A **layer 4 load-balancer** takes routing decision based on IPs and TCP or UDP p
 
 A **layer 7 load-balancer** takes routing decision based on IPs, TCP or UDP ports or any information it can get from the application protocol (mainly HTTP). The layer 7 load-balancer acts as a proxy, which means it maintains two TCP connections: one with the client and one with the server. The packets are re-assembled by the time they reach layer 7 so the load balancer can take routing decisions based on the information it can find in the application requests or responses. The processing is not very slow and is usually completed in a few milliseconds.
 
-At layer 7, a load balancer is aware of the application and can use this additional information to make more complex and informed load balancing decisions. Because it operates with protocols such as HTTP, it can use cookies to identify client sessions.  Azure also has a built in [layer 4 load balancer](https://azure.microsoft.com/en-in/documentation/articles/load-balancer-overview/), which you might have already been explicitly specifying in configurations to scale out your applications deployed on [Azure Virtual Machines](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-about/). In fact, layer 4 load balancer is in play in Azure Application Gateway as well since the endpoint of Azure Application Gateway is itself load balanced by the Azure layer 4 load balancer. Once traffic reaches the Application Gateway through [Azure Load Balancer](https://azure.microsoft.com/en-in/documentation/articles/load-balancer-overview/), it will route the HTTP traffic based on its configuration to a virtual machine endpoint, cloud service endpoint, web app or an external IP address.
+At layer 7, a load balancer is aware of the application and can use this additional information to make more complex and informed load balancing decisions. Because it operates with protocols such as HTTP, it can use cookies to identify client sessions.  Azure also has a built in [layer 4 load balancer](https://azure.microsoft.com/en-in/documentation/articles/load-balancer-overview/), which you might have already been explicitly specifying in configurations to scale out your applications deployed on [Azure Virtual Machines](https://docs.microsoft.com/en-us/azure/virtual-machines/). In fact, layer 4 load balancer is in play in Azure Application Gateway as well since the endpoint of Azure Application Gateway is itself load balanced by the Azure layer 4 load balancer. Once traffic reaches the Application Gateway through [Azure Load Balancer](https://azure.microsoft.com/en-in/documentation/articles/load-balancer-overview/), it will route the HTTP traffic based on its configuration to a virtual machine endpoint, cloud service endpoint, web app or an external IP address.
 
 {{< img src="2.png" alt="Azure Gateway" >}}
 
@@ -71,9 +73,9 @@ Following is a screenshot of the solution structure. The various components of t
 
 {{< img src="3.png" alt="Solution Structure" >}}
 
-1.  **ApplicationGateway.Applications.NoScale**: This is an MVC application that we would be deploying on Azure Virtual Machines.
-2.  **GatewayConfiguration.xml**: This file contains configuration information for Azure Application Gateway.
-3.  **GatewayCreationScript.ps1**: By executing this script you would be able to create and configure an Azure Application Gateway for the VMs that host your application.
+1. **ApplicationGateway.Applications.NoScale**: This is an MVC application that we would be deploying on Azure Virtual Machines.
+2. **GatewayConfiguration.xml**: This file contains configuration information for Azure Application Gateway.
+3. **GatewayCreationScript.ps1**: By executing this script you would be able to create and configure an Azure Application Gateway for the VMs that host your application.
 
 ## Build Phase
 
@@ -81,7 +83,7 @@ We’ll start by creating (downloading works better) an application that is not 
 
 - Create an MVC application and place the following code in the default view. This code will help identify the server that is serving the request and display the updated session value on every refresh (happens automatically every 5 seconds).
 
-```HTML
+```html
 <head>
     <title>Test Application</title>
     <link rel="stylesheet" href="~/Scripts/Style.css" type="text/css" />
@@ -117,11 +119,11 @@ We’ll start by creating (downloading works better) an application that is not 
 ```
 
 - In Azure Management Portal create a VNet and a subnet in that VNet named Subnet-1 (gets created by default). Follow the steps mentioned [here](https://azure.microsoft.com/en-in/documentation/articles/virtual-networks-create-vnet-arm-pportal/).
-- Create two Windows Server VMs connected to the VNet and enable IIS in them. You can follow the steps mentioned [here](https://azure.microsoft.com/en-in/documentation/articles/virtual-machines-create-custom/) to create VMs inside the VNet.
+- Create two Windows Server VMs connected to the VNet and enable IIS in them. You can follow the steps mentioned [here](https://docs.microsoft.com/en-us/azure/virtual-machines/network-overview) to create VMs inside the VNet.
 - [Enable port 80](https://azure.microsoft.com/en-in/documentation/articles/virtual-machines-set-up-endpoints/) on your VMs and [deploy your site in the VMs](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-dotnet-create-visual-studio-powershell/).
 - Execute **GatewayCreationScript.ps1** script to create an Application Gateway named **noscaleapplicationgateway** in your VNet. Note that there are two configurable variables, **SubscriptionName** (which is the name of your subscription) and **GatewayconfigurationFilePath** (which is the path to **GatewayConfiguration.xml**), for which you should provide values to execute the script successfully. The following commands are responsible for creating the Gateway, configuring it and starting it.
 
-```PowerShell
+```powershell
 $checkGateway = Get-AzureApplicationGateway noscaleapplicationgateway
 if($checkGateway -eq $null)
 {
