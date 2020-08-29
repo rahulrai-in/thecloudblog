@@ -207,6 +207,57 @@ dark-mode-toggle {
     }
 }
 
+.location-icon {
+    line-height: 30px;
+    font-size: 1.2em;
+    font-style: normal;
+
+    &:before {
+        background: url('/lib/img/location.svg') center center no-repeat;
+        background-size: 30px 30px;
+        width: 30px;
+        height: 30px;
+        content: "";
+        margin-right: 5px;
+        display: inline-flex;
+        vertical-align: middle;
+    }
+}
+
+.work-icon {
+    line-height: 30px;
+    font-size: 1.2em;
+    font-style: normal;
+
+    &:before {
+        background: url('/lib/img/work.svg') center center no-repeat;
+        background-size: 30px 30px;
+        width: 30px;
+        height: 30px;
+        content: "";
+        margin-right: 5px;
+        vertical-align: middle;
+        display: inline-flex;
+    }
+}
+
+.logo-bg {
+    position: relative;
+    z-index: 0;
+
+    &:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: url('/lib/img/logo.svg') center center no-repeat;
+        opacity: 0.1;
+    }
+}
+
 .go-top {
     position: fixed;
     bottom: 5px;

@@ -1,0 +1,63 @@
+{{ define "main" }}
+<header class="p-strip page-banner">
+  <div class="row">
+    <h1>{{ .Title | markdownify }}</h1>
+  </div>
+
+  {{ partial "single/post-meta.html" . }}
+</header>
+
+<section class="p-strip is-shallow">
+  <main class="row post-content">
+    <div class="p-media-object--large">
+      <img
+        src="/lib/img/profile_picture.jpg"
+        class="p-media-object__image is-round"
+      />
+      <div class="p-media-object__details">
+        <h1 class="p-media-object__title">
+          <a href="mailto:rahul@rahul-rai.com">Rahul Rai</a>
+        </h1>
+        <p class="p-media-object__content">
+          <i class="work-icon"></i>Cloud Architect
+          <i class="location-icon"></i>Sydney, AU
+        </p>
+      </div>
+    </div>
+    <div class="logo-bg">
+      <p>
+        Hi, my name is Rahul. I jot my thoughts and experiments with the cloud
+        on this blog. I work as Technical Team Lead at
+        <a href="https://zip.co/">Zip</a>. I wrote some free e-Books as well,
+        you can find them in
+        <a href="/publications">this section of the website</a>. The website
+        footer contains links to my socials that you can use to connect with me.
+        If you are a recruiter or if you are searching for my speaker profile,
+        then use the text below.
+      </p>
+      <h2>Speaker Profile</h2>
+      <p>
+        I am a versatile Cloud Architect with a passion for leadership and
+        problem-solving. I have over <span id="experience"></span> of hands-on
+        experience in cloud and web technologies and have a proven track record
+        of applying emerging technologies and processes to drive efficiency in
+        enterprise technology operations. I have thorough experience of working
+        with clients to design enterprise applications and foster innovation,
+        collaboration, and development in teams.
+      </p>
+      <p>
+        I possess excellent interpersonal communication, creative, and team
+        management skills which enable me to manage cross-functional resources
+        in an organisation. I have authored three books on Microservices
+        orchestrators: Azure Service Fabric- <i>Microservices with Azure</i>, by
+        Packt, Kubernetes- <i>Kubernetes Succinctly</i>, and
+        <i>Istio Succinctly</i>, by Syncfusion.
+      </p>
+    </div>
+  </main>
+</section>
+<script>
+  document.getElementById("experience").innerHTML =
+    new Date().getFullYear() - 2008 + " years (&#8617; live counter)";
+</script>
+{{ end }}

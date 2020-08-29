@@ -27,9 +27,9 @@ shareLinksEnabled = true
 [menu]
 
     [[menu.main]]
-    name = "whoami"
+    name = "Profile"
     weight = 1
-    url = "/whoami"
+    url = "/profile"
 
     [[menu.main]]
     name = "Publications"
