@@ -52,7 +52,7 @@ figure {
         }
 
         100% {
-            box-shadow: 0 0 10px 8px transparent;
+            box-shadow: 0 0 5px 10px transparent;
         }
     }
 
@@ -62,7 +62,7 @@ figure {
         display: block;
         content: "";
         background: url(/lib/img/email.svg) center center no-repeat;
-        background-size: 30px;
+        background-size: 32px;
         width: 40px;
         height: 40px;
         margin-top: 5px;
@@ -98,8 +98,7 @@ figure {
 dark-mode-toggle {
     --dark-mode-toggle-light-icon: url(/lib/img/moon.svg);
     --dark-mode-toggle-dark-icon: url(/lib/img/sun.svg);
-    --dark-mode-toggle-icon-filter: invert(80%);
-    --dark-mode-toggle-icon-size: 20px;
+    --dark-mode-toggle-icon-size: 25px;
 }
 
 .blinkers {
