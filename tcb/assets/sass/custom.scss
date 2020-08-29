@@ -1,3 +1,5 @@
+$breakpoint-medium: 772px;
+
 figure {
     text-align: center;
 
@@ -206,55 +208,63 @@ dark-mode-toggle {
     }
 }
 
-.location-icon {
-    line-height: 30px;
-    font-size: 1.2em;
-    font-style: normal;
+// publication styles
 
+@mixin publishing-icons($icon-link) {
     &:before {
-        background: url('/lib/img/location.svg') center center no-repeat;
-        background-size: 30px 30px;
-        width: 30px;
-        height: 30px;
+        background: url($icon-link) center center no-repeat;
+        background-size: 35px;
+        width: 35px;
+        height: 35px;
         content: "";
         margin-right: 5px;
-        display: inline-flex;
         vertical-align: middle;
+        display: inline-flex;
     }
+}
+
+.location-icon {
+    @include publishing-icons('/lib/img/location.svg');
 }
 
 .work-icon {
-    line-height: 30px;
-    font-size: 1.2em;
-    font-style: normal;
-
-    &:before {
-        background: url('/lib/img/work.svg') center center no-repeat;
-        background-size: 30px 30px;
-        width: 30px;
-        height: 30px;
-        content: "";
-        margin-right: 5px;
-        vertical-align: middle;
-        display: inline-flex;
-    }
+    @include publishing-icons('/lib/img/work.svg');
 }
 
+.diary-icon {
+    @include publishing-icons('/lib/img/diary.svg');
+}
+
+.pen-stand-icon {
+    @include publishing-icons('/lib/img/pen-stand.svg');
+}
+
+.share-icon {
+    @include publishing-icons('/lib/img/share.svg');
+}
+
+// publications and profile
 .logo-bg {
     position: relative;
     z-index: 0;
 
-    &:before {
-        content: "";
-        position: absolute;
-        z-index: -1;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: url('/lib/img/logo.svg') center center no-repeat;
-        opacity: 0.1;
+    @media (min-width: #{$breakpoint-medium}) {
+        &:before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: url('/lib/img/logo.svg') center center no-repeat;
+            opacity: 0.1;
+        }
     }
+}
+
+.publication-img {
+    max-height: 400px;
 }
 
 .go-top {

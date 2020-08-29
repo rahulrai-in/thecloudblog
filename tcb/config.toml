@@ -34,7 +34,7 @@ shareLinksEnabled = true
     [[menu.main]]
     name = "Publications"
     weight = 2
-    url = "/authors"
+    url = "/publications"
 
 [module]
     [[module.mounts]]
