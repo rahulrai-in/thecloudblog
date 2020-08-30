@@ -20,11 +20,12 @@
         <div class="u-align--left">
             <p>
                 {{ $.Site.Copyright | default (delimit (slice "©" (now.Format "2006") $.Site.Title) " ") | markdownify }}
+                <br />
+                <a rel="noopener" href="https://gohugo.io/" target="_blank" class="decorated-link">Hugo</a> + <a
+                    rel="noopener" href="https://themes.gohugo.io/hugo-theme-okayish-blog/" target="_blank"
+                    class="decorated-link">Okayish
+                    Theme</a>
             </p>
-            <a rel="noopener" href="https://gohugo.io/" target="_blank" class="decorated-link">Hugo</a> + <a
-                rel="noopener" href="https://themes.gohugo.io/hugo-theme-okayish-blog/" target="_blank"
-                class="decorated-link">Okayish
-                Theme</a>
         </div>
         <div class="u-align--right">
             <p>
@@ -33,10 +34,11 @@
                 <br />
                 <img src="https://api.netlify.com/api/v1/badges/a996429d-5415-4826-a879-185bfde5f09f/deploy-status"
                     alt="deploy status" />
+                <br />
+                {{ with .GitInfo }}#{{ .AbbreviatedHash }} {{ end }}
+                <a rel="noopener" target="_blank" href="http://creativecommons.org/licenses/by/4.0/"><img
+                        src="/lib/img/cc.svg" class="cc-logo" alt="Creative Commons Attribution 4.0" /></a>
             </p>
-            {{ with .GitInfo }}#{{ .AbbreviatedHash }} {{ end }}
-            <a rel="noopener" target="_blank" href="http://creativecommons.org/licenses/by/4.0/"><img
-                    src="/lib/img/cc.svg" class="cc-logo" alt="Creative Commons Attribution 4.0" /></a>
         </div>
     </div>
 </footer>
