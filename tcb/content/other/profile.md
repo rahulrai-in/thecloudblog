@@ -1,5 +1,5 @@
 ---
-title: "$ whoami"
+title: "whoami"
 slug: profile
 type: profile
 ---
