@@ -267,10 +267,24 @@ dark-mode-toggle {
     max-height: 400px;
 }
 
+.mobile-br {
+    display: inline;
+
+    @media (min-width: #{$breakpoint-medium}) {
+        display: none;
+    }
+}
+
 .go-top {
     position: fixed;
     bottom: 5px;
     right: 10px;
+}
+
+.subscription-footer {
+    position: fixed;
+    bottom: 5px;
+    right: 50px;
 }
 
 // bug fix in template
