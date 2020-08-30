@@ -59,7 +59,9 @@ Once your API App is deployed, add a new **HTTP + Swagger** action to the workfl
 
 Now, all that we need to do is send a personalized reply to your friend who posted the comment on your timeline. To do so, add a new action of type **HTTP** that links to the **HTTP + Swagger** action that we created earlier (inside the **If Yes** section). You can read the documentation of [Comments API](https://developers.facebook.com/docs/graph-api/reference/v2.6/object/comments/) of the Facebook Graph API to get an overview of how to post comments to a Facebook post. I am using Graph API **version 2.6** to perform this operation. In the **HTTP** action that you just added, set the HTTP method as **POST**. Next, in the URI section, mention the link to comments edge of Graph API. This URI that you provide should be of the following form:
 
-`https://graph.facebok.com/v2.6/YOUR-NUMERIC-FACEBOOK-IDENTIFIER_POSTID/comments`
+```plaintext
+https://graph.facebok.com/v2.6/YOUR-NUMERIC-FACEBOOK-IDENTIFIER_POSTID/comments
+```
 
 Since we already have the **Post Id** that we received from the call to our API App, we can supply the response **Body** parameter as the value of **Post Id** required in the Uri.
 

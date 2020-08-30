@@ -40,7 +40,7 @@ Utterances are combinations of Intents and Entities that help LUIS conclude the 
 
 ## Configuring LUIS
 
-Now we will add Entities, Intents, and Utterances to LUIS so that we can use it in our bot. Navigate to the [LUIS portal](htttp://luis.ai) and log in with your Microsoft account. Click on the **New App** button to create a new application. Supply an application name and set the culture to **English** and leave the other fields blank.
+Now we will add Entities, Intents, and Utterances to LUIS so that we can use it in our bot. Navigate to the [LUIS portal](http://luis.ai) and log in with your Microsoft account. Click on the **New App** button to create a new application. Supply an application name and set the culture to **English** and leave the other fields blank.
 
 {{< img src="2.png" alt="Create LUIS App" >}}
 

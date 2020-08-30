@@ -6,8 +6,7 @@ theme = "okayish-blog-fork"
 enableGitInfo = true
 enableEmoji = true
 enableRobotsTXT = true
-
-paginate = 100
+paginate = 10
 
 [params]
     mainSections = ["post","lab"]

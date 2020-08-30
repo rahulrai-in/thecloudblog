@@ -6,13 +6,13 @@ tags:
   - internet-of-things
   - mixed-reality
 comment_id: 262d033c-e4a1-4c10-a7fd-064480ea9d98
-slug: delivering-iot-mixed-reality-applications-using-the-msf-process-model-develop-stabilize-and-deploy-part-2
+slug: delivering-iot-mixed-reality-applications-using-the-msf-process-model-develop-and-stabilize-part-2
 ---
 
 > In this series
 >
-> 1. [Envision and Plan](/post/delivering-iot-mixed-reality-applications-using-the-msf-process-model-develop-stabilize-and-deploy-part-1/)
-> 2. [Develop and Stabilize](/post/delivering-iot-mixed-reality-applications-using-the-msf-process-model-develop-stabilize-and-deploy-part-2/)
+> 1. [Envision and Plan](/post/delivering-iot-mixed-reality-applications-using-the-msf-process-model-envision-and-plan-part-1/)
+> 2. [Develop and Stabilize](/post/delivering-iot-mixed-reality-applications-using-the-msf-process-model-develop-and-stabilize-part-2/)
 > 3. [Develop, Stabilize, and Deploy](/post/delivering-iot-mixed-reality-applications-using-the-msf-process-model-develop-stabilize-and-deploy-part-3/)
 
 In the [previous article](/post/Delivering-IoT-Mixed-Reality-Applications-using-The-MSF-Process-Model-Envision-and-Plan-Part-1/), we went through the Envisioning and Planning phases for delivering a Mixed Reality IoT application. In this article, we will start building the components of the architecture that we developed in the previous phase. Since we have a clear objective with all the plans laid out, let's kick off the development phase.
