@@ -10,7 +10,7 @@ Don't forget to subscribe to **[The Cloud Blog](https://thecloudblog.net)**.
 
 ### GH Pipeline
 
-![Deploy to Netlify:Prod](https://github.com/rahulrai-in/thecloudblog_update/workflows/Deploy%20to%20Netlify:Prod/badge.svg)
+![Deploy to Netlify:Prod](https://github.com/rahulrai-in/thecloudblog_update/workflows/GH%20Deploy/badge.svg)
 
 ### Deployment Status
 
