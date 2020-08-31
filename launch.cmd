@@ -4,4 +4,4 @@
 
 cd tcb
 
-./hugo_e_0.73.0 server --buildDrafts --disableFastRender --verbose
+hugo server --buildDrafts --disableFastRender --verbose

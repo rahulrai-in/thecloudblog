@@ -18,26 +18,28 @@ figure {
 }
 
 .lab-icon {
-    border-bottom: 1px dotted #00efd1;
-    margin-right: 5px;
-    padding-bottom: 2px;
+    border: 1px dashed #3DE9F2;
+    border-radius: 100%;
+    padding: 3px;
+    margin-right: 3px;
     position: relative;
     display: inline-flex;
+    font-size: 0;
 
     &:before {
         display: block;
         content: '';
         background-image: url(/lib/img/lab.svg);
-        height: 1.7rem;
-        width: 1.7rem;
+        height: 2rem;
+        width: 2rem;
     }
 
     &:hover:after {
         background: rgba(0, 0, 0, .8);
-        top: 0px;
+        top: 0;
         font-weight: 100;
         font-style: normal;
-        font-size: 15px;
+        font-size: 1rem;
         color: #fff;
         content: attr(data-title);
         left: 100%;
@@ -60,7 +62,7 @@ figure {
 
     &:before {
         animation: anim-glow 3s ease infinite;
-        border-radius: 50%;
+        border-radius: 100%;
         display: block;
         content: "";
         background: url(/lib/img/email.svg) center center no-repeat;

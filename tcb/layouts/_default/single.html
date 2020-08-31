@@ -1,7 +1,9 @@
 {{ define "main" }}
 <header class="p-strip page-banner">
     <div class="row">
-        <h1>{{ .Title | markdownify }}</h1>
+        <h1>{{ if eq .Section "lab" }}
+            <i class="lab-icon" data-title="Lab: Tip\Code sample"></i>
+            {{ end }}{{ .Title | markdownify }}</h1>
     </div>
 
     {{ partial "single/post-meta.html" . }}
