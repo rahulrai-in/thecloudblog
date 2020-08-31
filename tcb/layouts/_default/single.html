@@ -24,6 +24,7 @@
 <div class="p-strip u-no-padding--bottom is-shallow">
     <div class="row">
         <i class="comments-icon blinkers">Speak your mind<span>.</span><span>.</span><span>.</span></i>
+        {{ if not .Site.IsServer }}
         <div id="graphcomment"></div>
         <script defer type="text/javascript">
             window.gc_params = {
@@ -44,6 +45,7 @@
                     gc);
             })();
         </script>
+        {{ end }}
     </div>
 </div>
 
