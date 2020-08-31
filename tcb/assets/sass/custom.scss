@@ -9,14 +9,6 @@ figure {
     }
 }
 
-.content-button {
-    display: flex;
-    align-items: center;
-    font-weight: 500;
-    color: black;
-    justify-content: center;
-}
-
 .lab-icon {
     border: 1px dashed #3DE9F2;
     border-radius: 100%;
@@ -227,7 +219,7 @@ dark-mode-toggle {
         content: "";
         margin-right: 5px;
         vertical-align: middle;
-        display: inline-flex;
+        display: inline-block;
     }
 }
 
@@ -249,6 +241,22 @@ dark-mode-toggle {
 
 .share-icon {
     @include publishing-icons('/lib/img/share.svg');
+}
+
+// source code button
+.content-button {
+    @include publishing-icons('/lib/img/gh_logo.svg');
+    padding: 12px;
+    background-color: #0E8420;
+    font-weight: 600;
+
+    span {
+        color: #FFF;
+    }
+
+    &:hover {
+        text-decoration: none;
+    }
 }
 
 // publications and profile
