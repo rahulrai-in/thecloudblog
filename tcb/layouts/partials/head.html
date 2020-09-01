@@ -10,8 +10,7 @@
     {{ end }}
 
     {{/* Change: Optimize css delivery */}}
-    <link rel="preload" href='{{ "css/style.css" | absURL }}' as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href='{{ "css/style.css" | absURL }}' as="style" onload="this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet" href='{{ "css/style.css" | absURL }}'>
     </noscript>
