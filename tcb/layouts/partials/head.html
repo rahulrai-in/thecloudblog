@@ -10,11 +10,11 @@
     {{ end }}
 
     {{/* Change: Optimize css delivery */}}
-    <link rel="preload" href='{{ "css/style.css" | relURL }}' as="style"
+    <link rel="preload" href='{{ "css/style.css" | absURL }}' as="style"
         onload="this.onload=null;this.rel='stylesheet'">
-    <!-- <noscript>
-        <link rel="stylesheet" href='{{ "css/style.css" | relURL }}'>
-    </noscript> -->
+    <noscript>
+        <link rel="stylesheet" href='{{ "css/style.css" | absURL }}'>
+    </noscript>
     <script defer type="module" src='{{ "js/main.min.mjs" | relURL }}'></script>
 
     {{ partial "head-extension.html" . }}
