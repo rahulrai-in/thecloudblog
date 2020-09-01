@@ -15,6 +15,4 @@ Here is some text.
 
 > Cgg
 
-![](/uploads/img-20200730-wa0002.jpg)
-
 {{< subscribe >}}
