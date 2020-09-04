@@ -18,15 +18,11 @@
             </a>
         </div>
         <div class="u-align--left">
-
-
             {{ $.Site.Copyright | default (delimit (slice "©" (now.Format "2006") $.Site.Title) " ") | markdownify }}
             <br />
             <a rel="noopener" href="https://gohugo.io/" target="_blank" class="decorated-link">Hugo</a> + <a
                 rel="noopener" href="https://themes.gohugo.io/hugo-theme-okayish-blog/" target="_blank"
-                class="decorated-link">Okayish
-                Theme</a>
-
+                class="decorated-link">Okayish Theme</a>
         </div>
         <div class="u-align--right">
             {{ with .GitInfo }}#{{ .AbbreviatedHash }} {{ end }}
