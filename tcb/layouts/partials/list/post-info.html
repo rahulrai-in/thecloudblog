@@ -1,8 +1,7 @@
 {{ partial "list/authors.html" . }}
 
 {{ if .Params.Date }}
-<span class="{{ if not (or .Params.Author .Params.Authors) }} u-capitalized {{ end }}">
-    {{ i18n "onDate" | default "on" }}
-</span>
-{{ .Date.Format "January 2, 2006" }}
+<small>
+    {{ .Date.Format "Jan 02, 2006" }} &middot; {{ .ReadingTime }} {{ i18n "minutes" | default "min" }} read
+</small>
 {{ end }}
