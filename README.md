@@ -6,7 +6,7 @@ Source code for my blog hosted on Azure and built on Hugo. If you want to contri
 
 Don't forget to subscribe to **[The Cloud Blog](https://thecloudblog.net)**.
 
-## Code Health & Metrices
+## Code Health & Metrics
 
 ### GH Pipeline
 
@@ -14,4 +14,4 @@ Don't forget to subscribe to **[The Cloud Blog](https://thecloudblog.net)**.
 
 ### Deployment Status
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/797b3b75-80e0-41f2-a128-5bf69e00e94c/deploy-status)](https://app.netlify.com/sites/thecloudblog/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a996429d-5415-4826-a879-185bfde5f09f/deploy-status)](https://app.netlify.com/sites/thecloudblog/deploys)
