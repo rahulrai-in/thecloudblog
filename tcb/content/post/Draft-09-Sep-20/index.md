@@ -40,7 +40,14 @@ The source code of the sample contains
 - Install KEDA https://keda.sh/docs/1.4/deploy/
 - Instructions here https://docs.microsoft.com/en-us/azure/azure-functions/functions-kubernetes-keda
 - Image available here: rahulrai/az-fx-k8s-dac:latest
-- func kubernetes deploy --name az-fx-k8s-dac --registry rahulrai/az-fx-k8s-dac:latest
+- func kubernetes deploy --name az-fx-k8s-dac --registry rahulrai
+
+```
+        AdmissionControlFx - [httpTrigger]
+        Invoke url: http://52.237.212.114/api/admissioncontrolfx
+
+        Master key: 4oO1LD2Fb2u1AQ3zSH1LhrAkvKLdRLFbI3HneSlQQAcF/DZ5xWopxw==
+```
 
 {{< img src="" alt="" >}}
 

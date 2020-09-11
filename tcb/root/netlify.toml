@@ -1,0 +1,26 @@
+[[plugins]]
+  package = "netlify-plugin-submit-sitemap"
+
+	[plugins.inputs]
+	baseUrl = "https://example.com"
+	sitemapPath = "/sitemap.xml"
+	providers = [
+		"google",
+		"bing",
+		"yandex"
+	]
+
+[[plugins]]
+package = "netlify-plugin-inline-critical-css"
+
+  [plugins.inputs]
+  extract = false
+  minify = true
+
+  [[plugins.inputs.dimensions]]
+  height = 896
+  width = 414
+  
+  [[plugins.inputs.dimensions]]
+  height = 1080
+  width = 1920
