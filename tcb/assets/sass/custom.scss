@@ -26,17 +26,19 @@ figure {
         width: 2rem;
     }
 
-    &:hover:after {
+    &:hover:after,
+    &:focus:after,
+    &:active:after {
         background: rgba(0, 0, 0, .8);
         display: inline-block;
         top: 0;
-        font-weight: 100;
+        font-weight: normal;
         font-style: normal;
         font-size: 1rem;
         color: #fff;
         content: attr(data-title);
         left: 100%;
-        padding: 0 5px 0;
+        padding: 0 10px 0;
         position: absolute;
         white-space: nowrap;
     }
