@@ -7,13 +7,15 @@ draft: true
 comment_id: https://www.uuidgenerator.net/version4
 ---
 
-In Kubernetes you have the flexibility to enforce policies on Kubernetes environment using the [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper). [Azure Policy](https://docs.microsoft.com/en-us/azure/governance/policy/concepts/policy-for-kubernetes) for Azure Kuberntes Service (AKS) extends the Gatekeeper to apply policies on your cluster in a centralized and consistent manner.
+Controlling resource deployments in your [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-au/services/kubernetes-service/) cluster can become a difficult challenge. For instance, pushing changes to a production environment might introduce undesirable vulnerabilities to the application. By creating custom admission webhooks for Kubernetes, we can define custom policies that regulate the deployment of resoures to our cluster. The Kubernetes ecosystem is not completely devoid of solutions that you can use to govern the resources on your cluster. [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper) is one such solution that is used to enforce policies on a Kubernetes cluster. [Azure Policy](https://docs.microsoft.com/en-us/azure/governance/policy/concepts/policy-for-kubernetes) for Azure Kuberntes Service (AKS) extends the Gatekeeper to apply policies on your cluster in a centralized and consistent manner. The Gatekeeper and hence Azure Policy are built using the admission webhook feature of the Kubernetes.
 
-You can install Azure Policy as an extension to AKS. It has several [in-built policies](https://docs.microsoft.com/en-us/azure/governance/policy/samples/built-in-policies#kubernetes) that you can simply enable on your cluster. An example of such a policy is to enforce pods to only listen to an allowed list of ports. Are you curious about how these policies are enforced? Let's discuss the secret sauce of of Gatekeeper or Azure Policy.
+You can install Azure Policy as an extension to AKS. It has several [in-built policies](https://docs.microsoft.com/en-us/azure/governance/policy/samples/built-in-policies#kubernetes) that you can simply enable on your cluster. An example of such a policy is to enforce pods to only listen to an allowed list of ports. I have spoken about admission webhooks twice now. Let's understand it in detail.
 
 ## Dynamic Admission Control
 
-Kubernetes version 1.9 introduced two code packages that allow you to write custom admission plugins: ValidatingAdmissionWebhook and MutatingAdmissionWebhook. These plugins give you a great deal of flexibility to integrate directly into the resource admission process. Gatekepper and hence Azure Policy is a simple Validating Admission Webhooks that intercepts every request to create or update a Kubernetes object and accepts or rejects the request based on whether it meets the specified constraints.
+Kubernetes version 1.9 introduced two code packages that allow you to write custom admission plugins: ValidatingAdmissionWebhook and MutatingAdmissionWebhook. These plugins give you a great deal of flexibility to integrate directly into the resource admission process. An admission webhook\controller is a piece of code that in invoked by the Kubernetes API server intercepts requests to the Kubernetes API prior to persistence of the object, but after the request is authenticated and authorized. Several admission controllers are built into Kubernetes and cover a range of functionality. One such admission controller is `namespace exists` that throws an error if you attempt to create a resource in a namespace that does not exist.
+
+Gatekepper and hence Azure Policy are simply Validating Admission Webhooks that intercepts every request to create or update a Kubernetes object and accepts or rejects the request based on whether it meets the specified constraints.
 
 ## Making Dynamic Admission Control Serverless
 
@@ -23,7 +25,12 @@ In the session I covered one such scenario in which I wrote a validating admissi
 
 {YT Link}
 
-Although the approach to use an extneral serverless service works well with EKS, or GKE, it doesn't work with AKS. The admission controllerers are part of the Kubernetes API server, which is managed by Azure. Azure does not allow the API server to access to external HTTP endpoints. Does this mean that we will miss out on the serverless fun with AKS? the answer is No. We can host Azure Functions inside AKS, which grants us the benefits of using serverless admission webhooks with the added advantage that we don't have to worry much about the security of the Function.
+Although the approach to use an extneral serverless service works well with EKS, or GKE, it doesn't work with AKS. The admission controllerers are part of the Kubernetes API server, which is managed by Azure. Firewall policies in Azure do not allow the API server to access to external HTTP endpoints. However, it does allow the API server to communicate with services in the cluster. As you saw in the video, that we could not use the token based security features of Azure functions. By routing traffic to an Admission control serverless function through a service running within the cluster, you can not only implement whatever security measure that you like, you can also implement custom policies within your service itself. Even if you are using 
+
+## Reverse Proxy
+
+
+
 
 ## Azure Functions in AKS with KEDA
 
