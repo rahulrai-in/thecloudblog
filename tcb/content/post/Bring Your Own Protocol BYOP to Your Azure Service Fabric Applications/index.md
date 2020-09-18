@@ -5,6 +5,7 @@ tags:
   - azure
   - service-fabric
 comment_id: c5ed3434-55f7-4b64-9099-0c9c5eec38a1
+slug: bring-your-own-protocol-byop-to-your-azure-service-fabric-applications
 ---
 
 Microsoft Azure Service Fabric: There are several reasons to switch to this brand new platform for building distributed systems. For one, Service Fabric can host itself literally anywhere: on your laptop, in your data center, in some else's data center, on Windows, on Linux... If you are still hugging Cloud Services (that thing with web roles and worker roles), you better mend your acts early, it is getting phased out and will become obsolete soon. If you have worked with cloud services, you must be aware of the fact that there are differences in the behaviors of the development emulator and Azure and the issues that arise from those differences are not pretty. Service Fabric ensures delivery consistency by providing you with exactly the same environment on your laptop and in your data center. There is no reason for you to not use Service Fabric in your production applications given that it is now [GA on Azure](https://azure.microsoft.com/en-us/updates/general-availability-azure-service-fabric/) and [Windows Server](https://azure.microsoft.com/en-us/updates/service-fabric-windows-server-ga/).
