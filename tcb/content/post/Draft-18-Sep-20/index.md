@@ -1,6 +1,6 @@
 ---
 title: "Draft 18 Sep 20"
-date: 2020-09-18T13:08:24+10:00
+date: 2020-09-18
 tags:
   - azure
 draft: true
