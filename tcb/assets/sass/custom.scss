@@ -227,14 +227,6 @@ dark-mode-toggle {
     }
 }
 
-.location-icon {
-    @include publishing-icons('/lib/img/location.svg');
-}
-
-.work-icon {
-    @include publishing-icons('/lib/img/work.svg');
-}
-
 .diary-icon {
     @include publishing-icons('/lib/img/diary.svg');
 }
@@ -287,14 +279,6 @@ dark-mode-toggle {
     max-height: 400px;
 }
 
-.mobile-br {
-    display: inline;
-
-    @media (min-width: #{$breakpoint-medium}) {
-        display: none;
-    }
-}
-
 .go-top {
     position: fixed;
     bottom: 5px;
@@ -316,6 +300,12 @@ dark-mode-toggle {
 html,
 body {
     scroll-behavior: smooth;
+}
+
+a {
+    &:visited {
+        color: #06c;
+    }
 }
 
 blockquote {

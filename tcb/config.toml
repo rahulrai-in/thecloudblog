@@ -26,14 +26,19 @@ shareLinksEnabled = true
 [menu]
 
     [[menu.main]]
-    name = "Profile"
+    name = "🧐 Profile"
     weight = 1
     url = "/profile"
 
     [[menu.main]]
-    name = "Publications"
+    name = "🔖 Publications"
     weight = 2
     url = "/publications"
+
+    [[menu.main]]
+    name = "🏆 Affiliations"
+    weight = 3
+    url = "/affiliations"
 
 [module]
     [[module.mounts]]
