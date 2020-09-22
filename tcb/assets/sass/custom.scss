@@ -317,3 +317,17 @@ html,
 body {
     scroll-behavior: smooth;
 }
+
+blockquote {
+    p {
+        a {
+            background-color: #333;
+            padding: 0 3px;
+            color: #F99B11;
+
+            &:visited {
+                color: #F99B11;
+            }
+        }
+    }
+}
