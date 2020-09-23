@@ -43,10 +43,8 @@
         </a>
       </li>
     </ul>
-    <h3>Coming soon...</h3>
+    {{ $path := printf "other/%s" $.Params.slug}}
+    {{ partial $path . }}
   </main>
 </section>
-<script>
-  document.getElementById("experience").innerHTML = new Date().getFullYear() - 2008 + " years (&#8617; to date) ";
-</script>
 {{ end }}

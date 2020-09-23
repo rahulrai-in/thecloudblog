@@ -1,5 +1,5 @@
 ---
-title: "Affiliations"
+title: Affiliations
 slug: affiliations
-type: affiliations
+type: other
 ---

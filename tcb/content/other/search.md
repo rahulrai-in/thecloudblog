@@ -1,5 +1,5 @@
 ---
 title: "Let's Find It..."
-slug: "search"
-type: "search"
+slug: search
+type: search
 ---

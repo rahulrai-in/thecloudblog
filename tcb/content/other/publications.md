@@ -1,5 +1,5 @@
 ---
-title: "Publications"
-slug: "publications"
-type: "publications"
+title: Publications
+slug: publications
+type: other
 ---

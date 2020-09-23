@@ -5,3 +5,5 @@
 cd tcb
 
 hugo server --buildDrafts --disableFastRender --verbose
+
+cd ..
