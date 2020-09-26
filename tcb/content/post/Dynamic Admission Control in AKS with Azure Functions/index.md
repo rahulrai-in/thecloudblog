@@ -199,7 +199,7 @@ openssl req -new -key key.pem -subj "/CN=az-fx-dac-rp.default.svc" \
 openssl base64 -in ca.crt -out b64ca.crt
 
 # The generated certificate has newline characters which need to be removed.
-cat b64ca.crt | tr -d '\n' > b64ca.crt
+cat b64ca.crt | tr -d '\n' > b64ca-formatted.crt
 ```
 
 The set of commands in the previous code listing will generate the certificates used by our reverse proxy. We will now publish the generated certificates as secrets in our AKS cluster with the following command.
@@ -223,33 +223,31 @@ kind: Service
 metadata:
   name: az-fx-dac-rp
   labels:
-    name: az-fx-dac-rp
+    app: az-fx-dac-rp
 spec:
   ports:
-    - name: http
-      protocol: TCP
+    - name: https
       port: 443
       targetPort: 8080
   selector:
-    name: az-fx-dac-rp
-    type: ClusterIP
+    app: az-fx-dac-rp
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: az-fx-dac-rp
   labels:
-    name: az-fx-dac-rp
+    app: az-fx-dac-rp
 spec:
   selector:
     matchLabels:
-      name: az-fx-dac-rp
+      app: az-fx-dac-rp
   replicas: 1
   template:
     metadata:
-      name: az-fx-dac-rp
+      name: az-fx-dac-rp 
       labels:
-        name: az-fx-dac-rp
+        app: az-fx-dac-rp
     spec:
       containers:
         - name: az-fx-dac-rp
@@ -291,7 +289,7 @@ webhooks:
         namespace: default
         path: "/"
         port: 443
-      caBundle: "<value copied from b64.crt>"
+      caBundle: "<value copied from b64-formatted.crt>"
     rules:
       - apiGroups: ["apps"]
         apiVersions: ["*"]
