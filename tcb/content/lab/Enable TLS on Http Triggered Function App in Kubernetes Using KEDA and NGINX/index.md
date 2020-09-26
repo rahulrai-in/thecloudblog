@@ -1,5 +1,5 @@
 ---
-title: Enable TLS on Http Triggered Function App in Kubernetes Using KEDA and NGINX
+title: Enable TLS on HTTP Triggered Function App in Kubernetes Using KEDA and NGINX
 date: 2020-09-26
 tags:
   - azure
