@@ -291,6 +291,23 @@ dark-mode-toggle {
     right: 50px;
 }
 
+.buymecoffee-footer {
+    position: fixed;
+    padding: 0;
+    bottom: 5px;
+    left: 10px;
+    width: auto;
+    max-height: 40px;
+}
+
+.mobile-footer {
+    margin-bottom: 40px;
+
+    @media (min-width: #{$breakpoint-medium}) {
+        margin-bottom: 0px;
+    }
+}
+
 // bug fix in template
 .post-content {
     word-wrap: break-word;
