@@ -1,9 +1,14 @@
 {{ define "main" }}
 <header class="p-strip page-banner">
     <div class="row">
-        <h1>{{ if eq .Section "lab" }}
-            <i class="lab-icon" data-title="Lab: Tip\Code sample"></i>
-            {{ end }}{{ .Title | markdownify }}</h1>
+        <h1>
+            {{ if eq .Section "lab" }}
+            <i class="p-tooltip--right lab-icon" aria-describedby="right">
+                <span class="p-tooltip__message" role="tooltip" id="right">Lab: Tip/Code sample</span>
+            </i>
+            {{ end }}
+            {{ .Title | markdownify }}
+        </h1>
     </div>
 
     {{ partial "single/post-meta.html" . }}
