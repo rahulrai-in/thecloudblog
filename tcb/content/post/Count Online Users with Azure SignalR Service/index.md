@@ -7,6 +7,8 @@ tags:
 comment_id: 9ae393e0-111c-47f2-84ea-cc62e4e588d0
 ---
 
+> **September 28, 2020**: I have updated the code sample to .NET Core 3.1 and updated the article to reflect the changes as well. Enjoy!
+
 I have been following Dino Esposito's SignalR series from the last few MSDN Magazine editions. In the [May edition of the Magazine](https://msdn.microsoft.com/en-us/magazine/mt846655), Dino talked about the subtle details of ASP.Net Core SignalR. It is an excellent read, and it covers the topic in a much better and concise manner than I will ever be able to describe.
 
 In his [latest article](https://msdn.microsoft.com/magazine/mt847189?MC=Vstudio&MC=WebDev&MC=MobileDev&MC=ASPNET&f=255&MSPPError=-2147217396), Dino discussed the various use cases of SignalR. If you have been watching the Azure space closely, then you must have noticed that a new service named Azure SignalR Service joined the Azure family. I thought of implementing one of the use cases that Dino discussed in the articles using the Azure SignalR Service.
@@ -67,10 +69,10 @@ services.AddSignalR().AddAzureSignalR();
 Next, we need to connect the hub to a path. To do that, add the following code snippet to the `Configure` method in the `Startup` class.
 
 ```cs
-app.UseAzureSignalR(routes =>
-    {
-        routes.MapHub<UserCount>("/chat");
-    });
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<UserCount>("/chat");
+});
 ```
 
 The code snippets that we added in the `Startup` class will direct all calls from the client to the Azure SignalR Service. The SignalR service will then direct the calls to the hub. Finally, you need to add the SignalR service endpoint as application secret by executing the following command in the same directory as your application's project file.
