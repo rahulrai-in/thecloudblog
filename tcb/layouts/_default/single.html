@@ -15,7 +15,7 @@
 </header>
 
 <section class="p-strip is-shallow">
-    <main class="row post-content">
+    <main class="post-content">
         {{ .Content }}
     </main>
 </section>
@@ -28,7 +28,7 @@
 </footer>
 {{ end }}
 
-<div class="p-strip u-no-padding--bottom is-shallow">
+<div class="p-strip u-no-padding--bottom is-shallow no-print">
     <div class="row">
         <i class="comments-icon blinkers">Speak your mind<span>.</span><span>.</span><span>.</span></i>
         {{ if not .Site.IsServer }}

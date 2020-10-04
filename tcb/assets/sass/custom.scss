@@ -299,6 +299,12 @@ dark-mode-toggle {
     }
 }
 
+@media only print {
+    .no-print {
+        display: none;
+    }
+}
+
 // bug fix in template
 .post-content {
     word-wrap: break-word;
