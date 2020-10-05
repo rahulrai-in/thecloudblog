@@ -31,8 +31,8 @@
             {{ if $.Site.Params.searchGoogleEnabled | default true }}
             {{ partial "search-google.html" . }}
             {{ end }}
-            <dark-mode-toggle permanent appearance="toggle" mode="dark" aria-hidden="true"></dark-mode-toggle>
-            <a onclick="toggleModal()" aria-label="Click to subscribe"><i class="email-icon"></i></a>
+            <dark-mode-toggle permanent appearance="toggle" mode="dark" class="dark-mode" aria-hidden="true"></dark-mode-toggle>
+            <a onclick="toggleModal()" aria-label="Click to subscribe" class="subscribe-btn-top"><i class="email-icon"></i></a>
         </nav>
     </div>
 </header>

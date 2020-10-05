@@ -1,5 +1,6 @@
 $breakpoint-medium: 772px;
 $breakpoint-large: 1036px;
+$breakpoint-small-menu: 900px;
 
 figure {
     text-align: center;
@@ -305,6 +306,20 @@ dark-mode-toggle {
     }
 }
 
+.dark-mode {
+    @media (max-width: #{$breakpoint-small-menu}) {
+        margin-left: 1rem;
+    }
+}
+
+.subscribe-btn-top {
+    @media (max-width: #{$breakpoint-small-menu}) {
+        margin-left: 1.25rem;
+        margin-bottom: 5px;
+    }
+}
+
+
 // bug fix in template
 .post-content {
     word-wrap: break-word;
@@ -319,6 +334,13 @@ body {
 a {
     &:visited {
         color: #06c;
+    }
+}
+
+// In small screen search box hits other controls
+.p-search-box {
+    @media (max-width: #{$breakpoint-small-menu}) {
+        margin-top: 12px !important;
     }
 }
 
