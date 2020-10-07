@@ -19,6 +19,7 @@ figure {
     position: relative;
     display: inline-flex;
     font-size: 0;
+    cursor: pointer;
 
     &:before {
         display: block;
@@ -50,33 +51,39 @@ figure {
     &:before {
         animation: anim-glow 3s ease infinite;
         border-radius: 100%;
-        display: block;
         content: "";
         background: url(/lib/img/email.svg) center center no-repeat;
-        background-size: 32px;
+        background-size: 30px;
         width: 40px;
         height: 40px;
+        display: block;
         margin-top: 5px;
+        cursor: pointer;
+
+        @-moz-document url-prefix() {
+            margin-top: 5px;
+        }
     }
 }
 
 .p-link--logo {
     &:before {
         background: url('/lib/img/logo.svg') center center no-repeat;
-        background-size: 70px 70px;
+        background-size: contain;
         display: block;
         width: 70px;
         height: 70px;
         content: "";
         margin-right: 5px;
         float: left;
+        cursor: pointer;
     }
 }
 
 .p-icon--subscribe {
     &:before {
         background: url('/lib/img/mouse.svg') center center no-repeat;
-        background-size: 25px 25px;
+        background-size: contain;
         display: block;
         width: 25px;
         height: 25px;
@@ -195,7 +202,7 @@ dark-mode-toggle {
 
     &:before {
         background: url('/lib/img/comment.svg') center center no-repeat;
-        background-size: 50px 50px;
+        background-size: contain;
         width: 50px;
         height: 50px;
         content: "";
@@ -209,7 +216,7 @@ dark-mode-toggle {
 @mixin publishing-icons($icon-link) {
     &:before {
         background: url($icon-link) center center no-repeat;
-        background-size: 35px;
+        background-size: contain;
         width: 35px;
         height: 35px;
         content: "";
@@ -308,14 +315,18 @@ dark-mode-toggle {
 
 .dark-mode {
     @media (max-width: #{$breakpoint-small-menu}) {
-        margin-left: 1rem;
+        margin-left: 15px;
     }
 }
 
 .subscribe-btn-top {
     @media (max-width: #{$breakpoint-small-menu}) {
-        margin-left: 1.25rem;
+        margin-left: 20px;
         margin-bottom: 5px;
+
+        @-moz-document url-prefix() {
+            margin-left: 10px;
+        }
     }
 }
 

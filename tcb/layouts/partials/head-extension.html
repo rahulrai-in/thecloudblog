@@ -1,6 +1,6 @@
 {{ $options := (dict "targetPath" "css/custom.css" "outputStyle" "compressed" "enableSourceMap" true) }}
 {{ $customCSS := resources.Get "sass/custom.scss" | resources.ToCSS $options }}
-<link rel="preload" href={{ $customCSS.Permalink }} as="style" onload="this.rel='stylesheet'">
+<link rel="preload" href={{ $customCSS.Permalink }} as="style" script-lazy-load>
 <noscript>
     <link rel="stylesheet" href={{ $customCSS.Permalink }}>
 </noscript>
