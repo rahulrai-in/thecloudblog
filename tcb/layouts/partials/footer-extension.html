@@ -35,7 +35,11 @@
         }
     }
 
+    function setStylesheet(element) {
+        element.rel = 'stylesheet';
+    }
+
     document
         .querySelectorAll('[script-lazy-load]')
-        .forEach(link => link.addEventListener('DOMContentLoaded', link.rel='stylesheet'));
+        .forEach(link => link.addEventListener('DOMContentLoaded', setStylesheet(link)));
 </script>
