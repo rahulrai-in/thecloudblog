@@ -139,7 +139,7 @@ Finally, execute the following command to upload your function artifacts and kic
 func azure functionapp publish <function app name> --build remote
 ```
 
-Once deployed, you can add the query string `t=Puppeteer on Azure Function` to the URL of the function and send a request to the resultant URL, which should return an image in the response.
+Once deployed, you can add the query string `t=Azure Functions Rock!!` to the URL of the function and send a request to the resultant URL, which should return an image in the response.
 
 {{< img src="3.png" alt="Puppeteer on Azure Function" >}}
 
