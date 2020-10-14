@@ -43,13 +43,10 @@ Next, let's check out the schema of the response from the server - `CountResult`
 
 ```cs
 [DataContract]
-public class CountRequest
+public class CountResult
 {
     [DataMember(Order = 1)]
-    public int LowerBound { get; set; }
-
-    [DataMember(Order = 2)]
-    public int UpperBound { get; set; }
+    public int Value { get; set; }
 }
 ```
 
