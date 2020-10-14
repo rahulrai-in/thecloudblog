@@ -2,19 +2,21 @@
     <div class="row container mobile-footer">
         <div class="u-align--center">
             <a rel="noopener" href="https://github.com/rahulrai-in" target="_blank">
-                <img class="logo" src="/lib/img/gh_logo.svg" alt="github" loading="lazy" />
+                <img class="logo" width="30px" height="30px" src="/lib/img/gh_logo.svg" alt="github" loading="lazy" />
             </a>
             <a rel="noopener" href="mailto:rahul@rahul-rai.com" target="_blank">
-                <img class="logo" src="/lib/img/email_logo.svg" alt="email" loading="lazy" />
+                <img class="logo" width="30px" height="30px" src="/lib/img/email_logo.svg" alt="email" loading="lazy" />
             </a>
             <a rel="noopener" href="https://www.linkedin.com/in/rahulrai-in" target="_blank">
-                <img class="logo" src="/lib/img/linkedin_logo.svg" alt="linkedin" loading="lazy" />
+                <img class="logo" width="30px" height="30px" src="/lib/img/linkedin_logo.svg" alt="linkedin"
+                    loading="lazy" />
             </a>
             <a rel="noopener" href="https://twitter.com/rahulrai_in" target="_blank">
-                <img class="logo" src="/lib/img/twitter_logo.svg" alt="twitter" loading="lazy" />
+                <img class="logo" width="30px" height="30px" src="/lib/img/twitter_logo.svg" alt="twitter"
+                    loading="lazy" />
             </a>
             <a href="/index.xml" target="_blank">
-                <img class="logo" src="/lib/img/rss.svg" alt="twitter" loading="lazy" />
+                <img class="logo" width="30px" height="30px" src="/lib/img/rss.svg" alt="twitter" loading="lazy" />
             </a>
         </div>
         <div class="u-align--left">
@@ -27,13 +29,14 @@
         <div class="u-align--right">
             {{ with .GitInfo }}SHA: {{ .AbbreviatedHash }} {{ end }}
             <a rel="noopener" target="_blank" href="http://creativecommons.org/licenses/by/4.0/"><img
-                    src="/lib/img/cc.svg" class="cc-logo" alt="Creative Commons Attribution 4.0" /></a>
+                    src="/lib/img/cc.svg" class="cc-logo" width="30px" height="30px"
+                    alt="Creative Commons Attribution 4.0" /></a>
             <br />
             <img src="https://github.com/rahulrai-in/thecloudblog_update/workflows/GH Deploy/badge.svg"
-                alt="build status" loading="lazy" />
+                alt="build status" width="136px" height="20px" loading="lazy" />
             <br />
             <img src="https://api.netlify.com/api/v1/badges/a996429d-5415-4826-a879-185bfde5f09f/deploy-status"
-                alt="deploy status" loading="lazy" />
+                alt="deploy status" width="136px" height="20px" loading="lazy" />
         </div>
     </div>
     {{ partial "footer-extension.html" . }}

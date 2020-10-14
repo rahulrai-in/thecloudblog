@@ -152,18 +152,14 @@ dark-mode-toggle {
 
         a {
             img {
-                width: auto;
-                height: auto;
+                width: 30px;
+                height: 30px;
 
                 &.logo {
                     margin-right: 25px;
-                    height: 30px;
-                    width: 30px;
                 }
 
                 &.cc-logo {
-                    height: 30px;
-                    width: 30px;
                     vertical-align: middle;
                     margin-bottom: 5px;
                 }
