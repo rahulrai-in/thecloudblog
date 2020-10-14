@@ -69,7 +69,7 @@ figure {
 .p-link--logo {
     &:before {
         background: url('/lib/img/logo.svg') center center no-repeat;
-        background-size: contain;
+        background-size: 70px;
         display: block;
         width: 70px;
         height: 70px;
@@ -83,7 +83,7 @@ figure {
 .p-icon--subscribe {
     &:before {
         background: url('/lib/img/mouse.svg') center center no-repeat;
-        background-size: contain;
+        background-size: 25px;
         display: block;
         width: 25px;
         height: 25px;
@@ -202,7 +202,7 @@ dark-mode-toggle {
 
     &:before {
         background: url('/lib/img/comment.svg') center center no-repeat;
-        background-size: contain;
+        background-size: 50px;
         width: 50px;
         height: 50px;
         content: "";
@@ -216,7 +216,7 @@ dark-mode-toggle {
 @mixin publishing-icons($icon-link) {
     &:before {
         background: url($icon-link) center center no-repeat;
-        background-size: contain;
+        background-size: 35px;
         width: 35px;
         height: 35px;
         content: "";
