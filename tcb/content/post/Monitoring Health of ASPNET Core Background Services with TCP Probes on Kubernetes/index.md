@@ -1,27 +1,27 @@
 ---
 title: Monitoring Health of ASP.NET Core Background Services with TCP Probes on Kubernetes
-date: 2020-10-18
+date: 2020-10-24
 tags:
-  - azure
-draft: true
-comment_id: https://www.uuidgenerator.net/version4
+  - programming
+  - kubernetes
+comment_id: b7fced9b-b667-4c6f-bd6d-cfe74293ae2b
 ---
 
-Many microservices applications require background tasks and scheduled jobs to process requests asynchronously. In the .NET Core ecosystem, background services are called _Hosted services_ because a single host such as a web host or a console host can run several such services in the background while it is alive. In terms of implementation, a hosted service is required to implement the [`IHostedService`](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.ihostedservice) interface. You can implement the `IHostedService` interface yourself, or even better, leverage the `BackgroundService` class that implements some of the common concerns such as cancellation token management and error propagation to the host for you. A class inheriting from the `BackgroundService` abstract class only needs to implement the `ExecuteAsync` method to define the background task's business logic. If you want to read more about the internals of ASP.NET Core background tasks, please refer to the [Microsoft documentation](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services).
+Many microservices applications require background tasks and scheduled jobs to process requests asynchronously. In the .NET Core ecosystem, background services are called _Hosted services_ because a single host, such as a web host or a console host, can run several such services in the background while it is alive. In terms of implementation, a hosted service is required to implement the [`IHostedService`](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.ihostedservice) interface. You can implement the `IHostedService` interface yourself, or even better, leverage the `BackgroundService` class that implements some common concerns such as cancellation token management and error propagation to the host for you. A class inheriting from the `BackgroundService` abstract class only needs to implement the `ExecuteAsync` method to define the background task's business logic. If you want to read more about the internals of ASP.NET Core background tasks, please refer to the [Microsoft documentation](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services).
 
-Kubernetes relies on probes in your application to assess whether your application is healthy. If you are not familiar with the types of health probes used by Kubernetes, you can read more about them on the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/). If your application continuously fails to respond or responds with an error to several probe requests, Kubernetes restarts the pod.
+Kubernetes relies on probes in your application to assess whether your application is healthy. If you are not familiar with the health probes used by Kubernetes, you can read more about them on the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/). If your application continuously fails to respond or responds with an error to several probe requests, Kubernetes restarts the pod.
 
-In ASP.NET Core, you can use the implicitly referenced package `Microsoft.AspNetCore.Diagnostics.HealthChecks` to add health checks to your application. The core health check package does not support probing external services such as a database. If your application's health depends on external services, you can add custom probes by implementing the `IHealthCheck` interface. We will shortly see how simple it is to implement one. Refer to the official [Microsoft guidance on health checks](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks) for ASP.NET Core applications that describes this concept in detail.
+In ASP.NET Core, you can use the implicitly referenced package `Microsoft.AspNetCore.Diagnostics.HealthChecks` to add health checks to your application. The core health check package does not support probing external services such as a database. If your application's health depends on external services, you can add custom probes by implementing the `IHealthCheck` interface. We will shortly see how simple it is to implement one. Refer to the official [Microsoft guidance on health checks](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks) for ASP.NET Core applications that describes this concept.
 
-The default implementation of health checks on ASP.NET Core consists of a middleware, a hosted service, and a few libraries. The health check probes are exposed by your application over HTTP. Since there is a lot of goodness packaged in the ASP.NET Core health check framework, we will leverage it to expose health checks over TCP. But why should you consider the modified TCP based implementation of health checks over the default HTTP based one? You might not want to include the whole shebang of routing and middleware in your background services on which the ASP.NET Core health checks depend. In such cases, exposing a single port attached to a TCP listener is a suitable choice.
+The default implementation of health checks on ASP.NET Core comprises a middleware, a hosted service, and a few libraries. The health check probes are exposed by your application over HTTP. Since there is a lot of goodness packaged in the ASP.NET Core health check framework, we will leverage it to expose health checks over TCP. But why should you consider the modified TCP based implementation of health checks over the default HTTP based one? You might not want to include the whole shebang of routing and middleware in your background services on which the ASP.NET Core health checks depend. In such cases, exposing a single port attached to a TCP listener is a suitable choice.
 
 ## The Nine to Five Application
 
-There are days at the office when you are just counting minutes until the clock strikes five. For pushing through such days, I built a simple background service that displays the number of minutes left in the workday from Monday to Friday between 9 A.M and 5 P.M. The source code of the application is available on my Github repository.
+There are days at the office when you are just counting minutes until the clock strikes five. For pushing through such days, I built a simple background service that displays the number of minutes left in the workday from Monday to Friday between 9 A.M and 5 P.M. The source code of the application is available on my GitHub repository.
 
 {{< sourceCode src="https://github.com/rahulrai-in/worker-service-kubernetes" >}}
 
-We will configure health checks on this service and deploy it to our local Kubernetes cluster. I recommend using either [Docker Desktop](https://www.docker.com/products/docker-desktop) or [KinD](https://kind.sigs.k8s.io/) for running a local Kubernetes cluster. Let's discuss the details of the implementation of this service next.
+We will configure health checks on this service and deploy it to our local Kubernetes cluster. I recommend using either [Docker Desktop](https://www.docker.com/products/docker-desktop) or [KinD](https://kind.sigs.k8s.io/) for running a local Kubernetes cluster. Let's discuss the details of implementing this service next.
 
 ## Hosted Service
 
@@ -90,7 +90,7 @@ Let's now add health checks to our service and deploy it to Kubernetes.
 
 ## Health Check Service
 
-You can add custom health checks to your application by implementing the `IHealthCheck` interface, which requires defining the `CheckHealthAsync` method. The following health check implementation always reports the application state as healthy. You can add custom logic to this method to return an appropriate response denoting the actual health of the service.
+You can add custom health checks to your application by implementing the `IHealthCheck` interface, which requires defining the `CheckHealthAsync` method. The following health check implementation always reports the application state as healthy. You can add custom logic to this method to return an appropriate response, denoting the actual health of the service.
 
 ```cs
 public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context,
@@ -111,7 +111,7 @@ return Host.CreateDefaultBuilder(args)
     });
 ```
 
-We now need to attach a TCP listener to the health check port that will report the service's health when Kubernetes executes a liveness or readiness probe on the pod hosting the service. Following is the implementation of the `TcpHealthProbeService` which is a hosted service that does that.
+We now need to attach a TCP listener to the health check port to report the service's health when Kubernetes executes a liveness or readiness probe on the pod hosting the service. Following is the implementation of the `TcpHealthProbeService` which is a hosted service that does that.
 
 ```cs
 public sealed class TcpHealthProbeService : BackgroundService
@@ -183,11 +183,11 @@ public sealed class TcpHealthProbeService : BackgroundService
 }
 ```
 
-Inside the `UpdateHeartbeatAsync` method, which is invoked every second, we call the `CheckHealthAsync` method of the `HealthCheckService` class that requests all the registered health check services to report the health of the service. Based on the response that we receive, we either respond to the probe or halt the TCP listener and thereby do not report the service's health. Kubernetes treats unresponded requests as a permanent error after reaching the consecutive failure threshold. Unlike HTTP probes that give you the option to respond to every probe request with the appropriate status code to indicate whether the service is healthy or not, with TCP probes, you can either accept or reject a TCP connection from Kubernetes to denote the health of the service.
+Inside the `UpdateHeartbeatAsync` method, which is invoked every second, we call the `CheckHealthAsync` method of the `HealthCheckService` class that requests all the registered health check services to report the health of the service. Based on the response that we receive, we either respond to the probe or halt the TCP listener and do not report the service's health. Kubernetes treats unresponded requests as a permanent error after reaching the consecutive failure threshold. Unlike HTTP probes that give you the option to respond to every probe request with the appropriate status code to indicate the health of the service, with TCP probes, you can either accept or reject a TCP connection from Kubernetes to indicate the health of the service.
 
 ## Deploy to Kubernetes
 
-Use the following command to build the container image using the Dockerfile present in the `OfficeCountdownClock` project.
+Use the following command to build a container image named `nine-to-five:1.0.0` using the Dockerfile present in the `OfficeCountdownClock` project.
 
 ```sh
 docker build . -t nine-to-five:1.0.0
@@ -242,13 +242,13 @@ Following is a screenshot of the background service in action. I use the [K9S CL
 
 {{< img src="1.png" alt="Hosted service logs" >}}
 
-In the previous output you can also see the log events generated on execution of TCP health probes. Execute the following shell commands to continuously monitor the Kubernetes events generated in the `demo-ns` namespace.
+In the previous output, you can also see the log events generated on the execution of TCP health probes. Execute the following shell commands to monitor the Kubernetes events generated in the `demo-ns` namespace continuously.
 
 ```sh
 watch -n .5 kubectl get events -n demo-ns
 ```
 
-The following screenshot presents the output generated on execution of the previous command. You wouldn't see any error events yet because the service is working as expected and the health of the service is good as well.
+The following screenshot presents the output generated on the execution of the previous command. You wouldn't see any error events yet because the service works as expected and the health of the service is good.
 
 {{< img src="2.png" alt="Kubernetes events on the demo-ns namespace" >}}
 
@@ -256,7 +256,7 @@ Let's now update the custom health check to change the health state of the servi
 
 ## Simulating Health Check Failure
 
-Navigate to the `CustomHealthCheck` class and update the code as follows to simulate unhealthy state of service.
+Navigate to the `CustomHealthCheck` class and update the code as follows to simulate an unhealthy state of service.
 
 ```cs
 public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context,
@@ -308,15 +308,15 @@ spec:
 EOF
 ```
 
-Let's revisit the Kubernetes events which we are monitoring with the `watch` command.
+Let's revisit the Kubernetes events that we are monitoring with the `watch` command.
 
 {{< img src="3.png" alt="Kubernetes events on the demo-ns namespace" >}}
 
-In the previous output you can see that due to repeated probe failure, Kubernetes determined that the service is unhealthy. Let's check the state of the application by inspecting its logs now.
+In the previous output, you can see that Kubernetes determined that the service is unhealthy because of repeated probe failure. Let’s check the state of the application by inspecting its logs now.
 
 {{< img src="4.png" alt="Hosted service logs" >}}
 
-You can view the logs generated by failed health checks. Due to the repeated failed probes, Kubernetes decided to restart the pod and hence our application's final log statement indicates the shutdown of the application.
+You can view the logs generated by failed health checks. Because of the repeated failed probes, Kubernetes restarted the pod, and hence our application’s final log statement indicates the shutdown of the application.
 
 ## Conclusion
 
