@@ -334,6 +334,10 @@ dark-mode-toggle {
     user-select: none;
 }
 
+.p-icon--reddit {
+    background-image: url(/lib/img/reddit.svg);
+}
+
 // bug fix in template
 .post-content {
     word-wrap: break-word;
