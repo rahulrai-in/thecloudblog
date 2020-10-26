@@ -310,6 +310,13 @@ dark-mode-toggle {
 }
 
 .dark-mode {
+    width: 50px;
+    height: 50px;
+
+    @-moz-document url-prefix() {
+        margin-left: 10px;
+    }
+
     @media (max-width: #{$breakpoint-small-menu}) {
         margin-left: 15px;
     }
