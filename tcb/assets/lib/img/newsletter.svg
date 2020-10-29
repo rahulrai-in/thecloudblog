@@ -1,11 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve"
-    xmlns="http://www.w3.org/2000/svg">
-    <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="m2 3.5h20c0.8 0 1.5 0.7 1.5 1.5v14c0 0.8-0.7 1.5-1.5 1.5h-20c-0.8 0-1.5-0.7-1.5-1.5v-14c0-0.8 0.7-1.5 1.5-1.5z"/>
-        <rect x="16.5" y="6.5" width="4" height="5"/>
-        <line x1="4.5" x2="15.5" y1="17.5" y2="17.5"/>
-        <line x1="4.5" x2="10.5" y1="14.5" y2="14.5"/>
-    </g>
-</svg>
-
+<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve"><g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m2 3.5h20c0.8 0 1.5 0.7 1.5 1.5v14c0 0.8-0.7 1.5-1.5 1.5h-20c-0.8 0-1.5-0.7-1.5-1.5v-14c0-0.8 0.7-1.5 1.5-1.5z"/><rect width="4" height="5" x="16.5" y="6.5"/><line x1="4.5" x2="15.5" y1="17.5" y2="17.5"/><line x1="4.5" x2="10.5" y1="14.5" y2="14.5"/></g></svg>
