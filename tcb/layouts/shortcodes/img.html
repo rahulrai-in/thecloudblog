@@ -1,7 +1,9 @@
 <figure>
     {{ $src := .Get "src" }}
+    {{ if $src }}
     {{ $img := imageConfig (print "content/" .Page.File.Dir "/" $src) }}
     <img class="p-image--bordered" loading="lazy" src="{{ $src }}" alt="{{ .Get "alt" }}" title="{{ .Get "alt" }}"
         width="{{ $img.Width }}" height="{{ $img.Height }}" />
     <figcaption>{{ .Get "alt" }}</figcaption>
+    {{ end }}
 </figure>
