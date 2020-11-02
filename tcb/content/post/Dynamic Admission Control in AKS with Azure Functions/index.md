@@ -12,6 +12,8 @@ comment_id: 409b820c-fb58-11ea-adc1-0242ac120002
 >
 > Find out more about how Microsoft Azure enables your Serverless functions at [https://docs.microsoft.com/azure/azure-functions/](https://docs.microsoft.com/azure/azure-functions/?WT.mc_id=servsept20-devto-cxaall).
 
+> **Nov 02,2020**: The implementation of validating webhook Azure Function that uses [Azure Communication Service](https://azure.microsoft.com/en-au/services/communication-services/) is available in the [feature/impl-azure-comm-service](https://github.com/rahulrai-in/az-fx-k8s-admission-control/tree/feature/impl-azure-comm-service) branch. The Twilio based implementation is available in the [master](https://github.com/rahulrai-in/az-fx-k8s-admission-control/tree/master) branch.
+
 Controlling resource deployments in your [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-au/services/kubernetes-service/) cluster can quickly become quite challenging. For instance, pushing a change to the production environment might introduce undesirable vulnerabilities to the application. By creating custom admission webhooks for Kubernetes, we can define custom policies that regulate the deployment of resources to our cluster. The Kubernetes ecosystem is not entirely devoid of solutions that you can use to govern the resources on your cluster. [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper) is one such solution that is commonly used to enforce policies on a Kubernetes cluster. [Azure Policy](https://docs.microsoft.com/en-us/azure/governance/policy/concepts/policy-for-kubernetes) for Azure Kubernetes Service (AKS) extends the Gatekeeper to apply policies on your cluster in a centralized and consistent manner. The Gatekeeper and hence Azure Policy is built using the admission webhook feature of the Kubernetes.
 
 You can install Azure Policy as an extension to AKS. It has several [in-built policies](https://docs.microsoft.com/en-us/azure/governance/policy/samples/built-in-policies#kubernetes) that you can enable on your cluster. One example of such policy is to enforce pods to only listen to an allowed list of ports. I have mentioned admission webhooks twice now. Let's discuss it in detail.
@@ -245,7 +247,7 @@ spec:
   replicas: 1
   template:
     metadata:
-      name: az-fx-dac-rp 
+      name: az-fx-dac-rp
       labels:
         app: az-fx-dac-rp
     spec:

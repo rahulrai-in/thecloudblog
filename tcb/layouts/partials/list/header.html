@@ -18,7 +18,7 @@
         <div class="col-12">
             <h1>{{ .Title | default $.Site.Title }}</h1>
         </div>
-            <div class="row col-12">{{ .Content | default $.Site.Params.Description }}</div>
+        <div class="row col-12">{{ .Content | default $.Site.Params.HomePageDescription }}</div>
     </div>
 </div>
 

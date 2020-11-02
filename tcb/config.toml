@@ -11,8 +11,9 @@ paginate = 10
 [params]
     mainSections = ["post","lab"]
     # These will be used for OpenGraph, Twitter Card and Schema.org
-    description = "by Rahul Rai"
-    keywords = ["azure", "cloud", "blog", "tips", "ASP.net", "DevOps", "Web"]
+    description = "Articles on Cloud, Kubernetes and Open Source technologies by Rahul Rai (T: @rahulrai_in). Subscribe for updates."
+    homePageDescription = "Cloud Computing, Cloud Native & Kubernetes by Rahul"
+    keywords = ["azure", "aws", "cloud", ".NET Core", "Kubernetes", "blog", "tips", "ASP.net", "DevOps", "Web"]
 
 # This is the number of terms within a taxonomy per page
 termsPaginate = 50
