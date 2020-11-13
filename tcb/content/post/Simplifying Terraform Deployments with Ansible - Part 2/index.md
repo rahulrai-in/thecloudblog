@@ -3,7 +3,6 @@ title: Simplifying Terraform Deployments with Ansible - Part 2
 date: 2020-11-13
 tags:
   - devops
-draft: true
 comment_id: 3930f2ab-5c26-478c-a014-a683c0d90809
 ---
 
