@@ -386,3 +386,10 @@ blockquote {
         }
     }
 }
+
+// Display image in center if specified in markdown
+.post-content p img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
