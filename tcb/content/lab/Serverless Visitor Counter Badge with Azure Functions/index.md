@@ -28,7 +28,7 @@ I plan to develop this service further if there is interest. So, it is essential
 
 Here is the badge in its default configuration.
 
-![Visitor counter badge (Broken? Turn off shield on Brave browser)](https://badge.tcblab.net/api/hc/rahul/blog-post "Visitor counter badge")
+![Visitor counter badge](https://badge.tcblab.net/api/hc/rahul/blog-post "Visitor counter badge")
 
 ## Source Code
 
