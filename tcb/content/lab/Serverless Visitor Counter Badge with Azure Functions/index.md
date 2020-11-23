@@ -59,7 +59,7 @@ Let's take a look at the code that is responsible for registering the user. The 
 ```cs
 [FunctionName(FxName)]
 public async Task<IActionResult> Run(
-    [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = FxName + "/{user}/{pageId?}")]
+    [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "hc/{user}/{pageId?}")]
     Options options,
     string user,
     string pageId,
@@ -123,7 +123,7 @@ Let's take a look at how the Function services the request. Here is the trimmed 
 ```cs
 [FunctionName(FxName)]
 public async Task<IActionResult> Run(
-    [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = FxName + "/{user}/{pageId?}")]
+    [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "hc/{user}/{pageId?}")]
     Options options,
     string user,
     string pageId,
