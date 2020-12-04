@@ -295,8 +295,25 @@ dark-mode-toggle {
     max-height: 40px;
 }
 
+.mvp-footer {
+    position: fixed;
+    padding: 0;
+    bottom: 50px;
+    left: 10px;
+    width: auto;
+    max-height: 58px;
+
+    @media (max-width: #{$breakpoint-medium}) {
+        display: none;
+    }
+}
+
 .mobile-footer {
     margin-bottom: 40px;
+
+    @media (min-width: #{$breakpoint-medium}) {
+        margin-bottom: 100px;
+    }
 
     @media (min-width: #{$breakpoint-large}) {
         margin-bottom: 0px;
