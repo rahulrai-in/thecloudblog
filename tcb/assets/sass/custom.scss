@@ -1,5 +1,6 @@
 $breakpoint-medium: 772px;
 $breakpoint-large: 1036px;
+$breakpoint-custom-large: 1400px;
 $breakpoint-small-menu: 900px;
 
 figure {
@@ -302,8 +303,23 @@ dark-mode-toggle {
     left: 10px;
     width: auto;
     max-height: 58px;
+    border-radius: 8px;
 
-    @media (max-width: #{$breakpoint-medium}) {
+    @media (max-width: #{$breakpoint-custom-large}) {
+        display: none;
+    }
+}
+
+.mvp-avatar-footer {
+    position: fixed;
+    padding: 0;
+    bottom: 5px;
+    left: 150px;
+    width: auto;
+    max-height: 40px;
+    border-radius: 5px;
+
+    @media (min-width: #{$breakpoint-custom-large}) {
         display: none;
     }
 }
@@ -311,12 +327,8 @@ dark-mode-toggle {
 .mobile-footer {
     margin-bottom: 40px;
 
-    @media (min-width: #{$breakpoint-medium}) {
-        margin-bottom: 100px;
-    }
-
     @media (min-width: #{$breakpoint-large}) {
-        margin-bottom: 0px;
+        margin-bottom: 10px;
     }
 }
 
