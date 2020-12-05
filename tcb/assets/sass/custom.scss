@@ -22,10 +22,9 @@ figure {
     font-size: 0;
     cursor: pointer;
 
-    &:before {
+    img {
         display: block;
         content: '';
-        background-image: url(/lib/img/lab.svg);
         height: 2rem;
         width: 2rem;
     }
