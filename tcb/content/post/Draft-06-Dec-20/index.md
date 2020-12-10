@@ -7,7 +7,7 @@ draft: true
 comment_id: https://www.uuidgenerator.net/version4
 ---
 
-I discussed how you can use [Ansible with Terraform]({{< ref "/post/Simplifying Terraform Deployments with Ansible - Part 1" >}} "Terraform and Ansible") to simplify configuration management in my previous post. If instead of Terraform, you prefer using [Azure Resource Manager (ARM) templates](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview) to define the infrastructure and configuration for your project, you can use Ansible for managing parameters that customize each environment by dynamically generating a [Resource Manager parameters](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/parameter-files) file.
+I discussed how you could use [Ansible with Terraform]({{< ref "/post/Simplifying Terraform Deployments with Ansible - Part 1" >}} "Terraform and Ansible") to simplify configuration management in my previous post. If, instead of Terraform, you prefer using [Azure Resource Manager (ARM) templates](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview) to define the infrastructure and configuration for your project, you can use Ansible for managing parameters that customize each environment by dynamically generating a [Resource Manager parameters](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/parameter-files) file.
 
 A great thing about using Ansible for your ARM configuration needs is that it includes a [suite of modules](https://docs.ansible.com/ansible/latest/scenario_guides/guide_azure.html) for interacting with Azure Resource Manager. You can install the modules using [Ansible Galaxy](https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html) which is a repository of [Ansible Roles that](({{< ref "/post/Simplifying Terraform Deployments with Ansible - Part 1" >}} "Terraform and Ansible")) you can drop directly in your Playbooks.
 
@@ -192,7 +192,7 @@ Let's now inspect the behavior of the playbook when we induce a bug. Set an unsu
 
 {{< img src="3.png" alt="Error on playbook execution" >}}
 
-> 💡 If your terminal is not producing clean output like mine. Here are the three settings that you need to add/update in the **/etc/ansible/ansible.cfg** file under the **[defaults]** collection.
+> 💡 **Tip**: If your terminal is not producing clean output like mine. Here are the three settings that you need to add/update in the **/etc/ansible/ansible.cfg** file under the **[defaults]** collection.
 >
 > _bin_ansible_callbacks = True_
 >
