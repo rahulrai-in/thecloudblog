@@ -183,6 +183,10 @@ dark-mode-toggle {
             &:nth-child(3) {
                 grid-column: span 6;
             }
+
+            &:last-child {
+                grid-column: span 12;
+            }
         }
     }
 }
