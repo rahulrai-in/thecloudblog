@@ -190,13 +190,13 @@ Let's now inspect the behavior of the playbook when we induce a bug. Set an unsu
 
 {{< img src="3.png" alt="Error on playbook execution" >}}
 
-> 💡 **Tip**: If your terminal does not present a clean output like mine. Following are the three settings that you need to add/update in the **/etc/ansible/ansible.cfg** file under the **[defaults]** collection.
+> 💡 **Tip**: If your terminal does not present a clean output like mine, add/update the following configurations in the **/etc/ansible/ansible.cfg** file under the [defaults] collection.
 >
-> _bin_ansible_callbacks = True_
+> bin_ansible_callbacks = True
 >
-> _stdout_callback = yaml_
+> stdout_callback = yaml
 >
-> _stderr_callback = yaml_
+> stderr_callback = yaml
 
 Did you notice that we specified configuration values for provisioning the production environment as well? I have left it as an exercise for you.
 
