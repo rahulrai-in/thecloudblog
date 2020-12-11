@@ -1,3 +1,17 @@
+{{ if .IsHome }}
+{{ else }}
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement":
+        [
+            {{ partial "breadcrumbs-head" . | safeJS }}
+        ]
+    }
+</script>
+{{ end }}
+
 {{ $options := (dict "targetPath" "css/custom.css" "outputStyle" "compressed" "enableSourceMap" true) }}
 {{ $customCSS := resources.Get "sass/custom.scss" | resources.ToCSS $options }}
 <link rel="preload" href={{ $customCSS.Permalink }} as="style" script-lazy-load>
