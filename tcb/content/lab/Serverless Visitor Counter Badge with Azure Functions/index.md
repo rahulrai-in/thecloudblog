@@ -28,7 +28,7 @@ I plan to develop this service further if there is interest. So, it is essential
 
 Here is the badge in its default configuration.
 
-![Visitor counter badge](https://badge.tcblab.net/api/hc/rahul/blog-post "Visitor counter badge")
+![Visitor counter badge](https://badge.tcblabs.net/api/hc/rahul/blog-post "Visitor counter badge")
 
 ## Source Code
 
@@ -45,7 +45,7 @@ To use the Function, you first need to register a username and subsequently requ
 To use this badge, you first need to register a username. To do that, use an HTTP client of your choice, such as cURL or POSTMAN, to make a POST request to the following endpoint.
 
 ```sh
-curl -X POST -d "" 'https://badge.tcblab.net/api/hc/[Your Username]'
+curl -X POST -d "" 'https://badge.tcblabs.net/api/hc/[Your Username]'
 ```
 
 To store state, I use [Azure Table Storage](https://docs.microsoft.com/en-us/azure/storage/tables/table-storage-overview), which is [pretty inexpensive](https://azure.microsoft.com/en-au/pricing/details/storage/tables/) and provides high throughput for queries that involve the inbuilt indexes - [Partition Key and Row Key](https://docs.microsoft.com/en-us/rest/api/storageservices/designing-a-scalable-partitioning-strategy-for-azure-table-storage).
@@ -105,13 +105,13 @@ The method returns either true or false depending on whether the function succes
 After the registration, it's now time to get a shiny badge. A page is uniquely identified through a page identifier (case insensitive) and your username. You can use any unique string to identify your page within your account. The most common choices are the title of the page, a number, or a GUID. Once you select an identifier, you can apply the badge on an HTML page, such as a blog post, using the following code.
 
 ```xml
-<img src="https://badge.tcblab.net/api/hc/[Your Username]/[Page Identifier]" />
+<img src="https://badge.tcblabs.net/api/hc/[Your Username]/[Page Identifier]" />
 ```
 
 If you want to apply the badge on a markdown file such as README.md or your GitHub profile, use the following code.
 
 ```markdown
-![](https://badge.tcblab.net/api/hc/[Your Username]/[Page Identifier])
+![](https://badge.tcblabs.net/api/hc/[Your Username]/[Page Identifier])
 ```
 
 Following is the sequence of the interactions between the systems in the fetch badge workflow.
