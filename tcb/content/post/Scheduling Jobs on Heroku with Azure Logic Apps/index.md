@@ -138,7 +138,7 @@ You must have noticed that we used a couple of environment variables to configur
 Let's execute the following command to set the values of the config vars/environment variables for our application.
 
 ```sh
-$ heroku config:set BOT_EMAIL=rahulrai@live.com RECEIVER_EMAIL=rahulrai@ymail.com SG_KEY=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 -a scheduled-task-demo
+$ heroku config:set BOT_EMAIL=<Bot Email Address> RECEIVER_EMAIL=<Receiver Email Address> SG_KEY=<SendGrid API Key> -a scheduled-task-demo
 ```
 
 Heroku doesn't yet know how it can start our application. We'll add a [Procfile](https://devcenter.heroku.com/articles/procfile) that specifies the command that Heroku will use to launch our application.
@@ -257,7 +257,7 @@ All resources in Azure must exist under a [Resource Group](https://docs.microsof
 
 ```sh
 $ az group create -l australiaeast -n picletter-rg
-$ az deployment group create --resource-group picletter-rg --template-file picletter-app.definition.json --parameters heroku_token=89126a66-bec0-40e3-a604-6ce16cf0079f workflows_picletter_app_name=picletter-logic-app
+$ az deployment group create --resource-group picletter-rg --template-file picletter-app.definition.json --parameters heroku_token=<Heroku Auth Token> workflows_picletter_app_name=picletter-logic-app
 ```
 
 After executing the commands, let’s visit the [Azure management portal](https://portal.azure.com/) to inspect the Logic App that we just created. Since we did not configure the start time of the recurrence schedule, you will notice that the workflow executes soon after we deploy it and every 24 hours after then. Click on the latest workflow run in the **Runs History** section to view the details of the run.
