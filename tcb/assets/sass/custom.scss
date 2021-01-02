@@ -302,7 +302,7 @@ dark-mode-toggle {
     left: 10px;
     width: auto;
     max-height: 58px;
-    border-radius: 8px;
+    border-radius: 4px;
 
     @media (max-width: #{$breakpoint-custom-large}) {
         display: none;
@@ -316,7 +316,7 @@ dark-mode-toggle {
     left: 150px;
     width: auto;
     max-height: 40px;
-    border-radius: 5px;
+    border-radius: 4px;
 
     @media (min-width: #{$breakpoint-custom-large}) {
         display: none;
