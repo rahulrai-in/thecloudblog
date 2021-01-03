@@ -47,7 +47,7 @@ We will create a resource group named _myresourcegroup_, a Service Bus namespace
 
 ```cmd
 az group create -l westus -n myresourcegroup
-az servicebus namespace create --resource-group myresourcegroup --name rahulr --location westus --tags tag1=value1 tag2=value2 --sku Standard
+az servicebus namespace create --resource-group myresourcegroup --name rahulr --location westus --sku Standard
 az servicebus queue create --resource-group myresourcegroup --namespace-name rahulr --name SessionQ --enable-session true
 ```
 
