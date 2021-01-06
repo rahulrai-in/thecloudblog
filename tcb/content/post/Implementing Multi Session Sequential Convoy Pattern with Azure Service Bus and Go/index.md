@@ -200,7 +200,7 @@ func (sh *StepSessionHandler) Handle(ctx context.Context, msg *servicebus.Messag
 
 Let's now prepare to run the application by setting up the configurations required by it.
 
-## Executing The Application
+## Executing the Application
 
 Our application requires two values, the connection string of the Service Bus namespace and the name of the queue, present as environment variable values to initialize itself. Set the connection string of the Service Bus namespace that you recorded previously as the value of the `SERVICEBUS_CONNECTION_STRING` environment variable and the name of the queue as the value of the `QUEUE_NAME` environment variable. The application supports reading environment variables from a **.env** file as well. You can store the two values in the following format in a **.env** file that you can create in the application's root directory.
 
@@ -215,13 +215,13 @@ It's now time to launch the application and observe its behavior. The Azure port
 
 Launch the application by executing the command `go run main.go`. After initialization, the application will be ready to consume messages. Let's test the application with a few scenarios.
 
-### Consume Messages From Single Session
+### Consume Messages from Single Session
 
 In this scenario, we will send two messages to the same session ID- 1. The consumer will consume both the messages from the session as follows.
 
 {{< video src="1.mp4" alt="Consuming messages from single session demo" >}}
 
-### Consume Messages From Multiple Sessions
+### Consume Messages from Multiple Sessions
 
 We will now send some messages to session ID 1 to process its messages. While the application is waiting for more messages in Session ID 1, we will add some messages to session ID 2 and wait for the application to close session ID 1 and begin processing messages in session ID 2.
 

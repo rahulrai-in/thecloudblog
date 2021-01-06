@@ -65,11 +65,12 @@ figure {
 .p-link--logo {
     &:before {
         background: url('/lib/img/logo.svg') center center no-repeat;
-        background-size: 70px;
+        background-size: 80px;
         display: block;
         width: 70px;
         height: 70px;
         content: "";
+        margin-top: 20px;
         margin-right: 5px;
         float: left;
         cursor: pointer;
