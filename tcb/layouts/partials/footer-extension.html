@@ -51,3 +51,21 @@
         .querySelectorAll('[script-lazy-load]')
         .forEach(link => link.addEventListener('DOMContentLoaded', setStylesheet(link)));
 </script>
+
+<script defer type="text/javascript">
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+            .register('/sw.js?version={{ .Site.LastChange.Format "2006-01-02" }}', {
+                scope: '/'
+            })
+            .then(() => {
+                console.info('The Cloud Blog Service Worker Registered');
+            }, err => console.error("The Cloud Blog Service Worker registration failed: ", err));
+
+        navigator.serviceWorker
+            .ready
+            .then(() => {
+                console.info('The Cloud Blog Service Worker Ready');
+            });
+    }
+</script>
