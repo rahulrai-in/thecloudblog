@@ -34,7 +34,7 @@ class Pwa {
   canCache(url) {
     let urlSplits = url.split(".").reverse()[0].split("?")[0];
     let extension = urlSplits.endsWith("/") ? "/" : urlSplits;
-    return this.CACHE_EXCEPTIONS.includes(extension);
+    return !this.CACHE_EXCEPTIONS.includes(extension);
   }
 
   async installServiceWorker() {
