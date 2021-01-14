@@ -55,7 +55,7 @@
 <script defer type="text/javascript">
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker
-            .register('/sw.js?version=1-{{ .Site.LastChange.Format "2006-01-02" }}', {
+            .register('/sw.js?version={{ .Site.LastChange.Format "2006-01-02" }}', {
                 scope: '/'
             })
             .then(() => {
