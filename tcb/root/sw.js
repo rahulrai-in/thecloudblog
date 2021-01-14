@@ -17,6 +17,7 @@ class Pwa {
     this.OFFLINE_PAGE = "/offline/";
     this.NOT_FOUND_PAGE = "/404.html";
     this.CACHE_NAME = `data-v.${this.CACHE_VERSION}`;
+    this.CACHE_EXCEPTIONS = ["mp4", "gif"];
   }
 
   async deleteOldCaches() {
@@ -28,6 +29,12 @@ class Pwa {
     } catch (err) {
       console.error(err);
     }
+  }
+
+  canCache(url) {
+    let urlSplits = url.split(".").reverse()[0].split("?")[0];
+    let extension = urlSplits.endsWith("/") ? "/" : urlSplits;
+    return this.CACHE_EXCEPTIONS.includes(extension);
   }
 
   async installServiceWorker() {
@@ -66,8 +73,12 @@ class Pwa {
 
     this.scope.addEventListener("fetch", (event) => {
       event.respondWith(
-        // Cache then network strategy
+        // Network first strategy
         caches.open(this.CACHE_NAME).then(async (cache) => {
+          if (!this.canCache(event.request.url)) {
+            return fetch(event.request);
+          }
+
           return fetch(event.request)
             .then(async (response) => {
               await cache.put(event.request, response.clone());
