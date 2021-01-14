@@ -6,7 +6,6 @@ class Pwa {
     this.CACHE_VERSION = Version;
     this.BASE_CACHE_FILES = [
       "/",
-      "/lib/img/profile_picture.jpg",
       "/offline/",
       "/profile/",
       "/publications/",
