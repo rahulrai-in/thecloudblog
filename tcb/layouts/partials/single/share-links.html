@@ -21,14 +21,14 @@
             LinkedIn
         </a>
     </li>
-    <li class="p-inline-list__item" id="phone-share-li">
+    <li class="p-inline-list__item">
         <i class="p-icon--facebook p-icon--phone-share" id="phone-share">
             Phone share
         </i>
     </li>
 </ul>
 <script type="text/javascript">
-    var psli = document.getElementById("phone-share-li");
+    var ps = document.getElementById("phone-share");
     const shareData = {
         title: '{{ .Title }}',
         text: 'Check out this article on The Cloud Blog: {{ .Title }}',
@@ -36,12 +36,11 @@
     };
     (async () => {
         if (navigator.share) {
-            var ps = document.getElementById("phone-share");
             ps.addEventListener('click', async () => {
                 await navigator.share(shareData)
             });
         } else {
-            psli.style.display = "none";
+            ps.style.display = "none";
         }
     })();
 </script>
