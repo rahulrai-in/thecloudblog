@@ -380,7 +380,14 @@ dark-mode-toggle {
 }
 
 .p-icon--newsletter {
-    background-image: url(/lib/img/newsletter.svg);
+    margin: 0 0 1.2rem 0;
+    @include publishing-icons('/lib/img/newsletter.svg');
+
+    &:before {
+        background-size: 40px;
+        width: 40px;
+        height: 40px;
+    }
 }
 
 // bug fix in template
