@@ -146,7 +146,8 @@ Let's now view the issue in GitHub to view the comments posted by our applicatio
 
 If you try to execute the application again now, you would find that no issues match the criteria because we just updated the issue.
 
-{{< subscribe >}}
+## Conclusion
 
-        // Note: https://medium.com/swlh/introduction-to-graphql-with-github-api-64ee8bb11630
-        // Nuget: https://github.com/graphql-dotnet/graphql-dotnet
+In course of this discussion you must have noticed that there are several query and mutation operations available in the GitHub API. You can use the API to
+
+{{< subscribe >}}
