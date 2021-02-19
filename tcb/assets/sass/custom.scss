@@ -13,20 +13,18 @@ figure {
 }
 
 .lab-icon {
-    border: 1px dashed #3DE9F2;
-    border-radius: 100%;
-    // padding: 50px;
-    margin-right: 3px;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-    // position: relative;
-    // // display: inline;
-    // font-size: 0;
-    cursor: pointer;
-
-    img {
-        // display: inline;
+    &:before {
+        background: url(/lib/img/lab.svg) center center no-repeat;
+        border: 1px dashed #3DE9F2;
+        border-radius: 100%;
+        background-size: 32px;
+        padding: 25px;
+        width: 32px;
+        height: 32px;
+        content: "";
+        margin-right: 5px;
+        vertical-align: middle;
+        display: inline-block;
     }
 
     span {
