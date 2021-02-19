@@ -15,16 +15,18 @@ figure {
 .lab-icon {
     border: 1px dashed #3DE9F2;
     border-radius: 100%;
-    padding: 3px;
+    // padding: 50px;
     margin-right: 3px;
-    position: relative;
-    display: inline-flex;
-    font-size: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    // position: relative;
+    // // display: inline;
+    // font-size: 0;
     cursor: pointer;
-    height: auto;
 
     img {
-        display: block;
+        // display: inline;
     }
 
     span {
