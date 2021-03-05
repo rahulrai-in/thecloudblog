@@ -6,6 +6,11 @@ tags:
 comment_id: 8480bc2b-00e5-41fd-a580-7b972f22c3b6
 ---
 
+> In this series
+>
+> 1. Motivation & Ansible 101
+> 2. [Terraform & Ansible]({{< ref "/post/Simplifying Terraform Deployments with Ansible - Part 2" >}} "Terraform & Ansible")
+
 Enterprise developers are responsible for deploying infrastructure to multiple environments, such as development, staging, and production. One core problem with configurations in [Terraform](https://www.terraform.io/) is that with the number of environments and variables, the number of [“.tfvars” files](https://www.terraform.io/docs/configuration/variables.html) used to manage configurations will increase. Several tools, such as [Puppet](https://puppet.com/), [Chef](https://www.chef.io/), and [Ansible](https://www.ansible.com/), help simplify the management of configurations.
 
 ## Ansible

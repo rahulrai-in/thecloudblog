@@ -66,6 +66,12 @@
       "sizes": "57x57"
     },
     {
+      "src": "/maskable_icon-128x128.png",
+      "type": "image/png",
+      "sizes": "128x128",
+      "purpose": "any maskable"
+    },
+    {
       "src": "/favicon-32x32-manifest.png",
       "type": "image/png",
       "sizes": "32x32"
@@ -74,6 +80,11 @@
       "src": "/favicon-16x16-manifest.png",
       "type": "image/png",
       "sizes": "16x16"
+    },
+    {
+      "src": "/favicon-512x512-manifest.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ],
   "prefer_related_applications": "false"

@@ -1,5 +1,6 @@
 $breakpoint-medium: 772px;
 $breakpoint-large: 1036px;
+$breakpoint-custom-large: 1400px;
 $breakpoint-small-menu: 900px;
 
 figure {
@@ -12,25 +13,21 @@ figure {
 }
 
 .lab-icon {
-    border: 1px dashed #3DE9F2;
-    border-radius: 100%;
-    padding: 3px;
-    margin-right: 3px;
-    position: relative;
-    display: inline-flex;
-    font-size: 0;
-    cursor: pointer;
-
     &:before {
-        display: block;
-        content: '';
-        background-image: url(/lib/img/lab.svg);
-        height: 2rem;
-        width: 2rem;
+        background: url(/lib/img/lab.svg) center center no-repeat;
+        border: 1px dashed #3DE9F2;
+        border-radius: 100%;
+        background-size: 35px;
+        margin-right: 5px;
+        padding: 20px;
+        width: 35px;
+        height: 35px;
+        content: "";
+        vertical-align: middle;
+        display: inline-block;
     }
 
     span {
-        font-size: 1rem;
         font-style: normal;
         font-weight: normal;
         background: rgba(0, 0, 0, .8);
@@ -69,11 +66,12 @@ figure {
 .p-link--logo {
     &:before {
         background: url('/lib/img/logo.svg') center center no-repeat;
-        background-size: 70px;
+        background-size: 80px;
         display: block;
         width: 70px;
         height: 70px;
         content: "";
+        margin-top: 20px;
         margin-right: 5px;
         float: left;
         cursor: pointer;
@@ -187,6 +185,10 @@ dark-mode-toggle {
             &:nth-child(3) {
                 grid-column: span 6;
             }
+
+            &:last-child {
+                grid-column: span 12;
+            }
         }
     }
 }
@@ -295,11 +297,39 @@ dark-mode-toggle {
     max-height: 40px;
 }
 
+.mvp-footer {
+    position: fixed;
+    padding: 0;
+    bottom: 50px;
+    left: 10px;
+    width: auto;
+    max-height: 58px;
+    border-radius: 4px;
+
+    @media (max-width: #{$breakpoint-custom-large}) {
+        display: none;
+    }
+}
+
+.mvp-avatar-footer {
+    position: fixed;
+    padding: 0;
+    bottom: 5px;
+    left: 150px;
+    width: auto;
+    max-height: 40px;
+    border-radius: 4px;
+
+    @media (min-width: #{$breakpoint-custom-large}) {
+        display: none;
+    }
+}
+
 .mobile-footer {
     margin-bottom: 40px;
 
     @media (min-width: #{$breakpoint-large}) {
-        margin-bottom: 0px;
+        margin-bottom: 10px;
     }
 }
 
@@ -345,8 +375,20 @@ dark-mode-toggle {
     background-image: url(/lib/img/reddit.svg);
 }
 
+.p-icon--phone-share {
+    background-image: url(/lib/img/phone-share.svg);
+    margin-left: -5px;
+}
+
 .p-icon--newsletter {
-    background-image: url(/lib/img/newsletter.svg);
+    margin: 0 0 1.2rem 0;
+    @include publishing-icons('/lib/img/newsletter.svg');
+
+    &:before {
+        background-size: 40px;
+        width: 40px;
+        height: 40px;
+    }
 }
 
 // bug fix in template
@@ -385,4 +427,11 @@ blockquote {
             }
         }
     }
+}
+
+// Display image in center if specified in markdown
+.post-content p img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

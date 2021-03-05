@@ -2,11 +2,11 @@
 
 ## My Personal Blog
 
-Source code for my blog hosted on Netlify and built on Hugo. If you want to contribute or discuss anything else, then use any social channel from the website.
+Source code for my blog hosted on Netlify and built on Hugo. If you wish to contact me, then use any social channel from the website.
 
 Don't forget to subscribe to **[The Cloud Blog](https://thecloudblog.net)**.
 
-## Code Health & Metrics
+## Metrics
 
 ### GH Pipeline
 

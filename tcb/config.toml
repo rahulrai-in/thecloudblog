@@ -11,7 +11,7 @@ paginate = 10
 [params]
     mainSections = ["post","lab"]
     # These will be used for OpenGraph, Twitter Card and Schema.org
-    description = "Articles with ♥ on Cloud Native, Kubernetes and Open Source by Rahul Rai (t: @rahulrai_in). FOMO? I can send you email updates 👍. Subscribe."
+    description = "Articles with ♥ on Cloud Native, Kubernetes and Open Source by Microsoft MVP Rahul Rai (t: @rahulrai_in). FOMO? I can send you email updates 👍. Subscribe."
     homePageDescription = "Cloud Computing, Cloud Native & Kubernetes by Rahul"
     keywords = ["azure", "aws", "cloud", ".NET Core", "Kubernetes", "blog", "tips", "ASP.net", "DevOps", "Web"]
 

@@ -6,6 +6,8 @@ tags:
 comment_id: 23424fec-33ac-4528-b8e2-a89829eaa17c
 ---
 
+> **November 13, 2020**: An updated version of this blog is available on the [DZone website](https://dzone.com/articles/enable-continuous-delivery-of-your-resume-with-git-1).
+
 Here is my little secret: My résumé lives in a private GitHub repository. I use [TeX](https://www.tug.org/), which is a popular typesetting language, to compose my résumé. TeX helps you separate document text from formatting. Major publishers whose content and design teams work independently of each other use TeX. The content team produces content, and the design team makes the content presentable. In a typical publishing workflow, the author marks the various parts of content such as headers, and footers with inbuilt, or custom TeX commands. Subsequently, the designer works on the typesetting of the document by adjusting the presentation aspect of the commands.
 
 ## TeX Primer

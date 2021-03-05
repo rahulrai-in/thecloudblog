@@ -16,7 +16,7 @@
                     loading="lazy" />
             </a>
             <a href="/index.xml" target="_blank">
-                <img class="logo" width="30px" height="30px" src="/lib/img/rss.svg" alt="twitter" loading="lazy" />
+                <img class="logo" width="30px" height="30px" src="/lib/img/rss.svg" alt="rss" loading="lazy" />
             </a>
         </div>
         <div class="u-align--left">
@@ -37,6 +37,9 @@
             <br />
             <img src="https://api.netlify.com/api/v1/badges/a996429d-5415-4826-a879-185bfde5f09f/deploy-status"
                 alt="deploy status" width="136px" height="20px" loading="lazy" />
+        </div>
+        <div class="u-align--left">
+            {{ partial "breadcrumbs.html" . }}
         </div>
     </div>
     {{ partial "footer-extension.html" . }}
