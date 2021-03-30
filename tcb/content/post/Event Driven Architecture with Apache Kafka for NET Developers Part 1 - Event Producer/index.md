@@ -1,5 +1,5 @@
 ---
-title: Event Driven Architecture with Apache Kafka for .NET Developers Part 1 - Event Producer
+title: Event-Driven Architecture with Apache Kafka for .NET Developers Part 1 - Event Producer
 date: 2021-03-29
 tags:
   - azure
