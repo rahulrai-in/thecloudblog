@@ -209,7 +209,7 @@ catch (CreateTopicsException e) when (e.Results.Select(r => r.Error.Code)
 }
 ```
 
-You must be wondering why did we create three partitions? We want to explore how the producer can write to different partitions of a topic. An employee belongs to a department, so we will create a partition for each department in the **leave-applications** topic. Employee applications will be queued sequentially within each department. Let's create an enumeration named `Department` now, which we will later use in the producer's logic.
+You must be wondering why we created three partitions? We want to explore how the producer can write to different partitions of a topic. An employee belongs to a department, so we will create a partition for each department in the **leave-applications** topic. Employee applications will be queued sequentially within each department. Let's create an enumeration named `Department` now, which we will later use in the producer's logic.
 
 ```cs
 public enum Departments : byte
