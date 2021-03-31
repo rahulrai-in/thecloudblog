@@ -25,7 +25,7 @@ The complete source code of the application and other artifacts is available in 
 
 The Manager service acts as both a consumer and a producer of events. The service reads the leave applications from the **leave-applications** topic (consumer), synchronously records the manager's decision on the application, and publishes the result as an event named **leave application processed** to the **leave-applications-results** Kafka topic (publisher).
 
-Since we previously discussed the Publisher API and its implementation in the Employee service in detail in the previous article, I will not cover the Manager service producer feature. I encourage you to attempt building the publisher feature of the service using my version of the source code as a guide.
+Since we previously discussed the Publisher API and its implementation in the Employee service in detail in the previous article, I will not cover the Manager service's event producer feature. I encourage you to attempt building the publisher feature of the service using my version of the source code as a guide.
 
 Launch your Visual Studio or VS Code to create a new .NET Core console application named **TimeOff.Manager** in the same solution as the Employee service. For reference, you can locate this project in the [GitHub repository](https://github.com/rahulrai-in/kafka-lms) with the same name.
 
@@ -104,13 +104,35 @@ The `Commit` method commits the offset of the processed message and the `StoreOf
 
 Let's launch this application and verify whether it processes the messages that we published on the topic earlier (previous article).
 
+// SCreenshots here
+
+## Partition Rebalancing in Action
+
+We discussed earlier that any change in the number of partitions or consumers in a consumer group leads to Kafka rebalancing the ownership of partitions to consumers. To inspect this behavior, let's launch three instances of the Manager service console application.
+
+Next, let's start an instance of the Employee service console application and submit three leave applications, one from each department. You will find that the events land in the Kafka assigned consumer application instances. Note that this behavior is managed internally by Kafka, and hence you might see a different allocation behavior than I do.
+
+// Screenshot of the producer and consumer
+
+Let's submit three more leave applcations from the Employee service. Kafka will ensure that the subsequent messages on a partition reach only the corresponding clients.
+
+// Screenshot of the behavior.
+
+Try shutting down some clients and starting new ones to see Kafka rebalances the ownership of partitions to clients. Additionally, you should try creating another consumer group polling events from the same Kafka topic by creating a replica of the Manager service and assigning it a different `GroupId`. You will find that consumer groups are completely independent of each other and the change in topology of one consumer group does not affect another consumer group.
+
+## Result Reader Service
+
+The Ressult reader service is a very simple application that uses the Kafka Consumer API to poll the **leave-applications-results** topic and display the **leave applicatoin processed** events on the console. This application is named **TimeOff.ResultReader** in the companion GitHub repository. The following screenshot presents the result of running this applicaiton to view the status of the leave applications that we have submitted till now:
+
+// SC of result reader
+
 ## Conclusion
 
-In this article we learnt the basics of Kafka as a message mediator. We set up a local Kafka environment and learnt how we can use Schema Registry and the Kafka Producer API to send messages to a Kafka topic. We used Kafdrop to inspect the schema and the messages in Kafka.
+In this article we learnt to use the Kafka Consumer API to build message consumers. We used the Schema Registry to manage schema of the messages consumed. Finally, we inspected the behavior of Kafka rebalancer and built the Result reader service to complete our application.
 
-In the next article we will learn to write the message consumer using the Kafka Consumer API.
+We now have a complete event-driven application that uses Kafka as the messaging backplane. I hope that I was able to enrich your knowledge of Kafka and you had fun building this application with me. In the next article we will learn about the changes that we need to make to our application to use Azure Event Hub as the messaging backplane. Azure Event Hubs support Kafka Producer and Consumer APIs, so this process should be easy.
 
-Please share your comments and feedback in the comments section or on my Twitter handle [@rahulrai-in](https://twitter.com/rahulrai_in).
+Your feedback is a key component of my writing. Please share your comments and questions in the comments section or on my Twitter handle [@rahulrai_in](https://twitter.com/rahulrai_in).
 
 ## Kafka notes
 

@@ -333,6 +333,6 @@ In this article, we learned the basics of Kafka as a message mediator. We set up
 
 In the following article, we will learn to write a message consumer using the Kafka Consumer API.
 
-Please share your comments and feedback in the comments section or on my Twitter handle [@rahulrai-in](https://twitter.com/rahulrai_in).
+Please share your comments and feedback in the comments section or on my Twitter handle [@rahulrai_in](https://twitter.com/rahulrai_in).
 
 {{< subscribe >}}
