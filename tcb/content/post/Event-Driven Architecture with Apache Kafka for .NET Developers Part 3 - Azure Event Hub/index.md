@@ -1,8 +1,10 @@
 ---
 title: Event-Driven Architecture with Apache Kafka for .NET Developers Part 3 - Azure Event Hub
-date: 2021-03-30
+date: 2021-04-04
 tags:
   - azure
+  - integration
+  - programming
 draft: true
 comment_id: https://www.uuidgenerator.net/version4
 ---
@@ -10,10 +12,10 @@ comment_id: https://www.uuidgenerator.net/version4
 > In this series:
 >
 > 1. [Development environment and Event producer](/post/event-driven-architecture-with-apache-kafka-for-net-developers-part-1-event-producer/)
-> 2. Event consumer ()
+> 2. [Event consumer](/post/event-driven-architecture-with-apache-kafka-for-.net-developers-part-2-event-consumer/)
 > 3. Azure integration (this article)
 
-We have reached our destination and 
+Event
 
 ## Conclusion
 
