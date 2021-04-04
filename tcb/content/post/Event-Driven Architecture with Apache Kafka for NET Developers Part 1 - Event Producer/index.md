@@ -57,7 +57,7 @@ Setting up a development environment to work with Kafka is reasonably easy with 
 3. **Kafdrop**: [Kafdrop](https://github.com/obsidiandynamics/kafdrop) is a popular web-based user interface for viewing Kafka topics and browsing consumer groups. It makes your Kafka cluster observable, which helps you diagnose issues and helps you with development.
 4. **Schema Registry**: Schema Registry is a service that lives outside of your cluster and allows the developers to manage the message schemas. Kafka supports messages in Avro, JSON, and Protobuf formats, and the Schema Registry supports the storage and retrieval of versioned schemas in all those formats. You can read more about Schema Registry on the [Confluent docs website](https://docs.confluent.io/platform/current/schema-registry/index.html).
 
-Several vendors publish Zookeeper and Kafka Docker images with slight differences in behavior and configuration. I typically use the distributions from [Bitnami](https://bitnami.com/stack/kafka/containers). However, you can also use the distributions from [Confluence](https://github.com/confluentinc/cp-docker-images), [Spotify](https://hub.docker.com/r/spotify/kafka/), and [Wurstmeister](https://github.com/wurstmeister/kafka-docker). Bitnami and Confluence build and test the images nightly, and they are also compatible with each other, so I recommend using them.
+Several vendors publish Zookeeper and Kafka Docker images with slight differences in behavior and configuration. I typically use the distributions from [Bitnami](https://bitnami.com/stack/kafka/containers). However, you can also use the distributions from [Confluent](https://github.com/confluentinc/cp-docker-images), [Spotify](https://hub.docker.com/r/spotify/kafka/), and [Wurstmeister](https://github.com/wurstmeister/kafka-docker). Bitnami and Confluent build and test the images nightly, and they are also compatible with each other, so I recommend using them.
 
 Create a file named docker-compose.yml and populate the file with the contents of the following listing:
 
@@ -252,7 +252,7 @@ Create an Avro schema file named **LeaveApplicationReceived.avsc** in a class li
 }
 ```
 
-We will convert the Avro schema to a C# class file so that it is understood by our .NET Core Avro serializers and deserializers. We will use the **avrogen** tool [from Confluence](https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/README.md) to automatically generate the C# class file from our Avro specification.
+We will convert the Avro schema to a C# class file so that it is understood by our .NET Core Avro serializers and deserializers. We will use the **avrogen** tool [from Confluent](https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/README.md) to automatically generate the C# class file from our Avro specification.
 
 To install the **avrogen** tool, execute the following command:
 
