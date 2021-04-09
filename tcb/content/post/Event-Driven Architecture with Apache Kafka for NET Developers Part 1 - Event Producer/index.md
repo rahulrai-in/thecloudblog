@@ -12,7 +12,7 @@ comment_id: h2ca99aea-1e19-47fa-80ae-8dc567335b16
 >
 > 1. Development environment and Event producer (this article)
 > 2. [Event consumer](/post/event-driven-architecture-with-apache-kafka-for-.net-developers-part-2-event-consumer/)
-> 3. Azure integration (coming soon)
+> 3. Azure Event Hubs integration (coming soon)
 
 An event-driven architecture utilizes events to trigger and communicate between microservices. An event is a change in the service's state, such as an item being added to the shopping cart. When an event occurs, the service produces an event notification which is a packet of information about the event.
 

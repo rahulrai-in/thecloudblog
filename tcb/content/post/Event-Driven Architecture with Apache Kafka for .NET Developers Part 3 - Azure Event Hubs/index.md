@@ -1,5 +1,5 @@
 ---
-title: Event-Driven Architecture with Apache Kafka for .NET Developers Part 3 - Azure Event Hub
+title: Event-Driven Architecture with Apache Kafka for .NET Developers Part 3 - Azure Event Hubs
 date: 2021-04-04
 tags:
   - azure
@@ -13,9 +13,15 @@ comment_id: https://www.uuidgenerator.net/version4
 >
 > 1. [Development environment and Event producer](/post/event-driven-architecture-with-apache-kafka-for-net-developers-part-1-event-producer/)
 > 2. [Event consumer](/post/event-driven-architecture-with-apache-kafka-for-.net-developers-part-2-event-consumer/)
-> 3. Azure integration (this article)
+> 3. Azure Event Hubs integration (this article)
 
-Event
+The [Azure Event Hub](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-about) is a highly scalable event ingestion service that can be used to build a data streaming platform.
+
+supports the Apache Kafka Producer and Consumer API. You can read in detail about how you can use Azure Event Hub as the messaging backplane for Apache Kafka application on the [Microsoft documentation website](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-for-kafka-ecosystem-overview).
+
+https://github.com/Azure/azure-sdk-for-net/tree/master/sdk/schemaregistry/Microsoft.Azure.Data.SchemaRegistry.ApacheAvro
+
+Deffault Credentials: https://docs.microsoft.com/en-us/dotnet/api/overview/azure/identity-readme
 
 ## Conclusion
 
