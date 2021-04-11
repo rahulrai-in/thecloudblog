@@ -15,7 +15,7 @@ comment_id: 62e2dfd2-ae91-46f1-85de-7d2d108a9034
 > 2. [Event consumer](/post/event-driven-architecture-with-apache-kafka-for-.net-developers-part-2-event-consumer/)
 > 3. Azure Event Hubs integration (this article)
 
-[Azure Event Hubs](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-about) is a horizontally scalable event ingestion service capable of receiving and processing millions of events per second. Azure Event Hubs [support Apache Kafka Producer and Consumer API](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-for-kafka-ecosystem-overview) that you can use as an alternative to running a self-managed Apache Kafka cluster. Now you can integrate the Kafka ecosystem applications such as Kafdrop and many others with Event Hubs. You can visit the [Microsoft documentation website](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-for-kafka-ecosystem-overview) to read about using Azure Event Hub as the messaging backplane for an Apache Kafka application in detail.
+[Azure Event Hubs](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-about) is a horizontally scalable event ingestion service capable of receiving and processing millions of events per second. It [supports Apache Kafka Producer and Consumer API](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-for-kafka-ecosystem-overview) that you can use as an alternative to running a self-managed Apache Kafka cluster. Now you can integrate the Kafka ecosystem applications such as Kafdrop and many others with Event Hubs. Please visit the [Microsoft documentation website](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-for-kafka-ecosystem-overview) to read about using Azure Event Hub as the messaging backplane for an Apache Kafka application in detail.
 
 We will now extend the TimeOff application to use Kafka running in Docker in local and CI/CD environments and use Event Hubs in other environments. By building the new features of the application, you will also understand the process of migrating your application that uses self-hosted or managed Kafka cluster to Event Hubs.
 
@@ -35,13 +35,13 @@ Navigate to the [Azure Management Portal](https://portal.azure.com/) and create 
 
 {{< img src="1.png" alt="Create Event Hubs namespace" >}}
 
-Let's copy the connection string of the namespace from the portal which we will later use in our application.
+Let's copy the connection string of the namespace from the portal, which we will later use in our application.
 
 {{< img src="2.png" alt="Copy Event Hubs namespace connection string" >}}
 
 We used the Kafka Admin API in our application to create new Kafka topics on the fly. Since Event Hubs do not support the Kafka Admin API, we will create the two topics that we require - **leave-applications** (3 partitions) and **leave-applications-results** (1 partition) as Event Hubs instances as follows:
 
-{{< img src="3.png" alt="Create new Event Hub" >}}
+{{< img src="3.png" alt="Create a new Event Hub" >}}
 
 Remember that with Event Hubs, a Kafka topic corresponds to an Event Hubs instance. The rest of the concepts, such as the partitions, consumer groups, and event receivers, remain the same. You can manually add consumer groups or let the Kafka Consumer API create them automatically (no change required in our application).
 
@@ -55,7 +55,7 @@ Let's now create a Schema Registry.
 
 ## Azure Services Setup: Schema Registry
 
-Let's create a new Schema Registry in our Event Hubs namespace. Note that Schema Registry is an independent feature that you can use with other messaging services such as Service Bus and Azure Queues. We will first create a Schema Group that is used to manage a collection of schemas. You might want to create a Schema Group per domain or application.
+Let's create a new Schema Registry in our Event Hubs namespace. Note that Schema Registry is an independent feature that you can also use with other messaging services such as Service Bus and Azure Queues. We will first create a Schema Group that is used to manage a collection of schemas. You might want to create a Schema Group per domain or application.
 
 Click on the **Schema Registry** option in your Event Hubs namespace, under **Entities** and select the option to create a new Schema Group as follows:
 
@@ -69,11 +69,11 @@ Navigate to your Active Directory instance and click on **App registrations** an
 
 {{< img src="7.png" alt="Create new app registration" >}}
 
-Enter the name of the application click on the **Register** button.
+Enter the name of the application and click on the **Register** button.
 
 {{< img src="8.png" alt="Register TimeOff application" >}}
 
-Let's now create a new client secret for our application by clicking on **Certificates and secrets** and next, on the **New secret** option. Fill in the required details for the secret as follows:
+Let's now create a new client secret for our application by clicking on **Certificates and secrets** and next on the **New secret** option. Fill in the required details for the secret as follows:
 
 {{< img src="9.png" alt="Create new secret" >}}
 
@@ -85,7 +85,7 @@ Also, record the Application's Client Id and Tenant Id from the overview page as
 
 {{< img src="11.png" alt="Record client id and tenant id" >}}
 
-Let's now assign the Schema Registry role for the TimeOff application. Assign the Schema Registry Contributor role to the TimeOff application as follows as this role allows adding schema to the group programmatically if it does not exist:
+Let's now assign the Schema Registry role for the TimeOff application. Assign the **Schema Registry Contributor** role to the TimeOff application as follows, which allows adding schema to the group programmatically if it does not exist:
 
 {{< img src="12.png" alt="Assign role to TimeOff application" >}}
 
@@ -117,9 +117,9 @@ Next, we need to initialize the Schema Registry client `SchemaRegistryClient` th
 var schemaRegistryClientAz = new SchemaRegistryClient("<EH namespace>.servicebus.windows.net", new DefaultAzureCredential());
 ```
 
-The [`DefaultAzureCredential`](https://docs.microsoft.com/en-us/dotnet/api/overview/azure/identity-readme#defaultazurecredential) allows you to switch identities based on the environment. The `DefaultAzureCredential` class combines several identity classes that are used to fetch Azure Active Directory identity. At runtime, `DefaultAzureCredential` starts attempting to initialize one of the identity classes beginning with `EnvironmentCredential` and finishing at `InteractiveBrowserCredential`. Whichever identity class is initialized first will be used for authenticating API calls. You can read more about the Azure Schema Registry library for .NET from [the ReadMe file of the SDK](https://github.com/Azure/azure-sdk-for-net/tree/master/sdk/schemaregistry/Microsoft.Azure.Data.SchemaRegistry.ApacheAvro).
+The [`DefaultAzureCredential`](https://docs.microsoft.com/en-us/dotnet/api/overview/azure/identity-readme#defaultazurecredential) allows you to switch identities based on the environment. The `DefaultAzureCredential` class combines several identity classes that are used to fetch Azure Active Directory identity. At runtime, `DefaultAzureCredential` starts attempting to initialize one of the identity classes beginning with `EnvironmentCredential` and finishing with `InteractiveBrowserCredential`. Whichever identity class is initialized first will be used for authenticating the resource API calls. You can read more about the Azure Schema Registry library for .NET from [the ReadMe file of the SDK](https://github.com/Azure/azure-sdk-for-net/tree/master/sdk/schemaregistry/Microsoft.Azure.Data.SchemaRegistry.ApacheAvro).
 
-Let's add the following environment variables used by the `EnvironmentCredential` class to our application in the **launchsettings.json** file. Schema Registry client will use the credentials to authenticate the requests sent to create or read schemas from the registry. Note that we are adding these credentials to the launch settings file only to aid us in the debugging process and simulate the application's behavior in non-local environments.
+Let's add the following environment variables used by the `EnvironmentCredential` class to our application in the **launchsettings.json** file. Schema Registry client will use the credentials to authenticate the requests sent to create or read schemas from the registry. Note that we are adding these credentials to the launch settings file to aid us in the debugging process and simulate the application's behavior in non-local environments.
 
 ```json
 {
@@ -175,7 +175,7 @@ public class KafkaAvroAsyncSerializer<T> : IAsyncSerializer<T>
 }
 ```
 
-Note that the Azure Schema Registry serializer can only serialize objects of either `GenericRecord` or `ISpecificRecord` type. Since our message keys are of `string` type, we handled the special case of serializing data of `string` type.
+Note that the Azure Schema Registry serializer can only serialize objects of either `GenericRecord` or `ISpecificRecord` type. Since our message keys are of `string` type, we handled the special case of serializing the `string` type data.
 
 I will digress a little and draw your attention to the `SetKeyDeserializer` method of the `ConsumerBuilder` class that uses an implementation of type `IDeserializer` to deserialize the messages received from the Kafka topic. Let's write a custom implementation of `IDeserializer` for our application as follows:
 
@@ -207,7 +207,7 @@ public class KafkaAvroDeserializer<T> : IDeserializer<T>
 }
 ```
 
-Following is the complete code listing that creates an appropriate Schema Registry client based on the environment in which the application is executing. Based on the Schema Registry selected, the `IProducer` client is created that can submit messages to a Kafka topic:
+Following is the complete code listing that creates an appropriate Schema Registry client based on the application's environment. Based on the Schema Registry selected, the `IProducer` client is created that can submit messages to a Kafka topic:
 
 ```cs
 CachedSchemaRegistryClient cachedSchemaRegistryClient = null;
@@ -303,6 +303,6 @@ You can view the Avro schema files in the **time-off-schema** group as follows:
 
 ## Conclusion
 
-In this article, we extended our application to use Event Hubs for messaging. Event Hubs support the Kafka Producer and Consumer APIs, and so we did not have to make any changes to the parts of our application that produce and consume events. However, we had to create Event Hub instances through the portal because Event Hubs do not support Kafka Admin APIs. We plugged a custom serializer and deserializer into our application to replace proprietary Confluent Schema Registry APIs.
+In this article, we extended our application to use Event Hubs for messaging. Event Hubs support the Kafka Producer and Consumer APIs, and so we did not have to make any changes to the parts of our application that produce and consume events. However, we had to create Event Hub instances through the portal because Event Hubs do not support the Kafka Admin APIs. We plugged a custom serializer and deserializer into our application to replace proprietary Confluent Schema Registry APIs.
 
-I hope you enjoyed the articles in this series, and you gained the confidence to migrate existing applications or create new applications that use Kafka for messaging. Your feedback is a crucial component of my writing. Please share your comments and questions in the comments section or on my Twitter handle [@rahulrai_in](https://twitter.com/rahulrai_in).
+I hope you enjoyed reading the articles in this series, and you gained the confidence to migrate existing applications or create new applications that use Kafka for messaging. Your feedback is a crucial component of my writing. Please share your comments and questions in the comments section or on my Twitter handle [@rahulrai_in](https://twitter.com/rahulrai_in).
