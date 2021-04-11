@@ -12,7 +12,7 @@ comment_id: de0dcbee-7c67-4019-8bbb-34cde6265b7c
 >
 > 1. [Development environment and Event producer](/post/event-driven-architecture-with-apache-kafka-for-net-developers-part-1-event-producer/)
 > 2. Event consumer (this article)
-> 3. Azure Event Hubs integration (coming soon)
+> 3. [Azure Event Hubs integration](/post/event-driven-architecture-with-apache-kafka-for-net-developers-part-3-azure-event-hubs/)
 
 Let's carry our discussion forward and implement a consumer of the events published by the **Employee service** to the **leave-applications** Kafka topic. We will extend the application that we developed earlier to add two new services to demonstrate how Kafka consumers work: **Manager service** and **Result reader service**.
 

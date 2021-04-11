@@ -5,7 +5,6 @@ tags:
   - azure
   - integration
   - programming
-draft: true
 comment_id: 62e2dfd2-ae91-46f1-85de-7d2d108a9034
 ---
 
