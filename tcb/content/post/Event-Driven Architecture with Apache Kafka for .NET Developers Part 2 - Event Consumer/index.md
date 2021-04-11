@@ -152,7 +152,7 @@ The Result reader service is a simple application that uses the Kafka Consumer A
 
 In this article, we learned to use the Kafka Consumer API to build message consumers. We used the Schema Registry to manage the schema of the messages consumed. Finally, we inspected how Kafka rebalanced partitions and built the Result reader service to complete our application.
 
-We now have a complete event-driven application that uses Kafka as the messaging backplane. Did you have fun building this application with me? In the next article, we will learn about the changes we need to make to our application to use Azure Event Hub as the messaging backplane. Azure Event Hubs support Kafka Producer and Consumer APIs, so this process should be easy.
+We now have a complete event-driven application that uses Kafka as the messaging backplane. Did you have fun building this application with me? In the next article, we will learn about the changes we need to make to our application to use Azure Event Hubs as the messaging backplane. Azure Event Hubs support Kafka Producer and Consumer APIs, so this process should be easy.
 
 Your feedback is a crucial component of my writing. Please share your feedback and questions in the comments section or on my Twitter handle [@rahulrai_in](https://twitter.com/rahulrai_in).
 
