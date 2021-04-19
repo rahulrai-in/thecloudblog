@@ -1,5 +1,5 @@
 ---
-title: "Review: Lean Product Management by Educative"
+title: "Synopsis: Lean Product Management by Educative"
 date: 2021-04-14
 tags:
   - review

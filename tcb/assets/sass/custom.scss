@@ -442,10 +442,10 @@ blockquote {
     margin-top: 2.5em !important;
 }
 
-code:before {
+code[data-lang]:before {
     @extend .unselectable;
     position: absolute;
-    top: -18px;
+    top: -17px;
     left: 0em;
     width: 110px;
     content: attr(data-lang);
