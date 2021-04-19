@@ -31,7 +31,7 @@ You can download the source code of the implementation from my GitHub repository
 
 The test execution creates a buffer that can store five elements, which is the first argument of the constructor of the `SynchronusBatchBuffer` class. The second argument specifies the action to execute when the buffer gets filled to its capacity. This action must expect a list of data as input, as the contents of the buffer will be transferred to this function as an argument.
 
-```cs
+```c#
 using (var batchBuffer = new SynchronousBatchBuffer<int>(
     5,
     elementBatch =>

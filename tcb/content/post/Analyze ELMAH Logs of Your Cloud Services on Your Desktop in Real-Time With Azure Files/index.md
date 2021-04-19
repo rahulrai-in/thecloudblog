@@ -43,7 +43,7 @@ In the list of file shares blade, create a new file share by setting a name and 
 
 Copy this command and replace the drive letter and the storage account access key with actual values. When you execute this command from an SMB 3.0 supported windows desktop machine (Windows 8+), it will create a mounted storage drive with the specified drive letter. For this sample, this is what the command is for me.
 
-```cs
+```c#
 net use Z: \\smb3share.file.core.windows.net\myfileshare /u:smb3share [storage account access key]
 ```
 
@@ -72,7 +72,7 @@ Once completed, throw an error from any controller in the application so that yo
 
 Now we need to mount the previously provisioned Azure File storage on the VM. The Azure Storage team has blogged about a way you can do so for the Cloud Services [here](https://blogs.msdn.microsoft.com/windowsazurestorage/2014/05/26/persisting-connections-to-microsoft-azure-files/). The code essentially pinvokes `WNetAddConnection2` to establish a mapping between a local drive letter and an Azure File share. To do so, replace the code in the **WebRole.cs** file with the following code and replace the placeholder texts from the `MountShare` function call.
 
-```cs
+```c#
 public class WebRole : RoleEntryPoint
 {
     public override bool OnStart()

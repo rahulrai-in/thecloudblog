@@ -157,7 +157,7 @@ Next, we copied a shell script named `entrypoint` to the container and granted e
 
 Create a script named **entrypoint** in the root directory of the repository. We will now start adding code to this file. I like using the bash shell, so I specify shebang bash as the first statement in the script. Next, add the instruction `set -e` to the script which will make sure that if any command in the script throws an error, the rest of the file will not keep executing.
 
-```bash
+```shell
 #!/bin/bash
 
 set -e
@@ -165,7 +165,7 @@ set -e
 
 Next, we will create an output directory using the value of the **OUT_DIR** environment variable that we specified in the workflow previously. Setting the `--parent` flag of the `mkdir` command ensures that the command will not raise an error if the directory already exists.
 
-```bash
+```shell
 echo "Creating output directory $OUT_DIR..."
 mkdir --parent $OUT_DIR
 ```
@@ -175,7 +175,7 @@ Next, our script will walk through all the **.tex** files in the root directory 
 1. Replace the placeholder text **verSubstitution** with the first seven characters of the SHA of the code commit using the `sed` command. The `GITHUB_SHA` is available to all Actions by default.
 2. Convert the document to pdf using **xelatex**. The xelatex processor is the XeTeX typesetting engine for LaTeX. We installed XeTeX as part of TeX Live package in our Dockerfile.
 
-```bash
+```shell
 for fileName in *.tex; do
     [ -f "$fileName" ] || break
 
@@ -189,7 +189,7 @@ done
 
 Finally, the script will copy all the PDF files to the specified directory from where the next Action will pick them up.
 
-```bash
+```shell
 cp *.pdf $OUT_DIR 2>/dev/null || :
 ```
 
@@ -197,7 +197,7 @@ The `cp` instruction can fail if it does not detect PDF files. Therefore, we mad
 
 The following is the entire code of this script.
 
-```bash
+```shell
 #!/bin/bash
 
 set -e

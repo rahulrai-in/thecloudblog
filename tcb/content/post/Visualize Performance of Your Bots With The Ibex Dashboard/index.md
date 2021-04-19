@@ -74,19 +74,19 @@ Next, add one of the following lines of code to start automatic telemetry collec
 
 1. If you want to use Cognitive Service and have configured your bot for it.
 
-   ```cs
+   ```c#
        public readonly BotFrameworkApplicationInsightsInstrumentation DefaultInstrumentation = DependencyResolver.Current.DefaultInstrumentationWithCognitiveServices;
    ```
 
 2. If you don't want to use Cognitive Services with your bot.
 
-   ```cs
+   ```c#
    	public readonly BotFrameworkApplicationInsightsInstrumentation DefaultInstrumentation = DependencyResolver.Current.DefaultBasicInstrumentation;
    ```
 
 In my case, I just added the code to Global.asax file at the very start. Being a static member, the member would be initialized at the start of the application.
 
-```cs
+```c#
     public class WebApiApplication : HttpApplication
     {
         public static readonly IBotFrameworkInstrumentation DefaultInstrumentation = DependencyResolver.Current.DefaultInstrumentationWithCognitiveServices;
@@ -96,7 +96,7 @@ In my case, I just added the code to Global.asax file at the very start. Being a
 
 - Finally, make your `LuisDialog` class inherit the `InstrumentedLuisDialog` class and supply the LUIS model id and LUIS subscription key as the constructor arguments.
 
-```cs
+```c#
     public class LuisDialogBase : InstrumentedLuisDialog<object>
     {
         public LuisDialogBase() : base("Model Id", "Subscription Key")

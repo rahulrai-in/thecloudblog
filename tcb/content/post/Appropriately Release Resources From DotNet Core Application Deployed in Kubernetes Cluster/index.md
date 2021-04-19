@@ -26,7 +26,7 @@ If your service takes a long time to respond to requests from external services,
 
 Following is the code listing for a simple application that attaches a callback to the SIGTERM signal and sets the value of a variable that will be read by the API controller to respond to readiness probe.
 
-```cs
+```c#
 public static void Main(string[] args)
 {
     // Listen for the SIGTERM interrupt. You can also use the AppDomain.CurrentDomain.ProcessExit event.
@@ -43,7 +43,7 @@ private static void Cleanup(AssemblyLoadContext obj)
 
 Next, let's define an API controller that responds to the readiness probe.
 
-```cs
+```c#
 [Route("api/[controller]")]
 public class HealthController : Controller
 {

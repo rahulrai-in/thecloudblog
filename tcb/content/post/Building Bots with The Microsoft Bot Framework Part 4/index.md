@@ -105,7 +105,7 @@ Let's configure our **Blog Bot** to work with the intents that we configured in 
 
 In the solution, navigate to the **Dialogs** folder and add a new class named `LUISTestDialog` to it. We'll make this class inherit from the `LuisDialog<BlogComment>` class. To connect this Dialog to the LUIS model, add the `LuisModel` attribute to this class. Your class should look something like the following.
 
-```cs
+```c#
 [Serializable]
 [LuisModel("MODEL ID", "SUBSCRIPTION KEY")]
 public class LUISTestDialog : LuisDialog<BlogComment>
@@ -116,7 +116,7 @@ public class LUISTestDialog : LuisDialog<BlogComment>
 
 Next, we'll first start with adding the none intent, i.e., when no intent is detected for the user input. Create a method named `NoIntentFound` and post a message to the user to notify them that LUIS failed to identify an intent.
 
-```cs
+```c#
 [LuisIntent("")]
 public async Task NoIntentFound(IDialogContext context, LuisResult result)
 {
@@ -127,7 +127,7 @@ public async Task NoIntentFound(IDialogContext context, LuisResult result)
 
 Next, let's handle the case when LUIS maps the user input to the **Hello Intent** that we previously configured. Create a new method named `HelloIntent` and decorate it with the `LuisIntent` attribute. When the intent is matched, we will invoke the `HelloDialog` dialog that we previously built. Once the call completes, we will let a callback method conclude the conversation.
 
-```cs
+```c#
 [LuisIntent("Hello Intent")]
 public async Task HelloIntent(IDialogContext context, LuisResult result)
 {
@@ -143,7 +143,7 @@ public async Task HelloIntent(IDialogContext context, LuisResult result)
 
 Let's finally handle the **Blog Aspects** intent, which has entities mapped to utterances. Create a method named `CanCommentOn` and transfer control to the `BlogComment` model form if we do have an entity that we can cater to.
 
-```cs
+```c#
 [LuisIntent("Blog Aspects")]
 public async Task CanCommentOn(IDialogContext context, LuisResult result)
 {
@@ -173,7 +173,7 @@ public async Task CanCommentOn(IDialogContext context, LuisResult result)
 
 Now, that we are done handling all the intents that we have in LUIS, let's set this dialog to trigger when a request comes to the bot. Open the `MessagesController` class and trigger the `LUISTestDialog` when a message is received.
 
-```cs
+```c#
 if (activity.Type == ActivityTypes.Message)
 {
     // We will invoke the dialog here.

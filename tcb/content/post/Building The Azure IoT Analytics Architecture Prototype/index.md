@@ -276,7 +276,7 @@ For the sake of brevity, we will send a POST request to a [RequestBin](http://re
 
 Next, add the following lines of code to your function.
 
-```cs
+```c#
 #r "Newtonsoft.Json"
 using System;
 using System.Threading.Tasks;

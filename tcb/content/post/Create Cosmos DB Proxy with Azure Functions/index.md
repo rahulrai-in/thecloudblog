@@ -22,13 +22,13 @@ I will use the Azure Integrated CLI terminal for provisioning all the resources.
 
 Execute the following command to create a Resource Group. Substitute the name and location of the resource group with ones that you like.
 
-```bash
+```shell
 az group create --name 'funcationcosmosintegration-rg' --location 'australiaeast'
 ```
 
 Execute the following command in the shell to create an instance of Cosmos DB. I am modeling this database to contain employee records for Acme Enterprises and hence the name of the database. You should substitute the various resource names with relevant values that suit you.
 
-```bash
+```shell
 az cosmosdb create --name 'acmeindustriesemployeedb' --kind GlobalDocumentDB --resource-group 'funcationcosmosintegration-rg' --max-interval 10 --max-staleness-prefix 200
 ```
 
@@ -36,13 +36,13 @@ az cosmosdb create --name 'acmeindustriesemployeedb' --kind GlobalDocumentDB --r
 
 Create a storage account where the function will store its state and other data.
 
-```bash
+```shell
 az storage account create --name 'functiondata01' --location 'australiaeast' --resource-group 'funcationcosmosintegration-rg' --sku Standard_LRS
 ```
 
 It's now time to create a function. Execute the following command in the terminal to create a function app.
 
-```bash
+```shell
 az functionapp create --resource-group 'funcationcosmosintegration-rg' --consumption-plan-location 'australiaeast' --name 'acmeindustriesemployeeservice' --storage-account 'functiondata01'
 ```
 
@@ -62,7 +62,7 @@ Follow the input sequence shown in the image below to complete the integration.
 
 After configuration, the parameter `outputDocument` would be available to us inside the function to push data to Cosmos DB. The rest of the parameters define the database and the collection in which the data would be stored. Now, let's modify the code in _run.csx_ to send data to Cosmos DB. The following code will insert a valid JSON object present in request body to Cosmos DB. I must add here that if you are planning to build an API\Repository using functions, then you must cast the data in a known object type and then use the object for further operations. For example, in this scenario, I would build functions such as `AddEmployee` function that casts the data in the request to an `Employee` object and then persists the object.
 
-```cs
+```c#
 #r "Newtonsoft.Json"
 
 using System.Net;
@@ -102,7 +102,7 @@ You can see that I have specified a placeholder for the `id` parameter in the ro
 
 Now, you can change the code in the _run.csx_ file to the following.
 
-```cs
+```c#
 using System.Net;
 public static HttpResponseMessage Run(HttpRequestMessage req, IEnumerable<dynamic> documents, TraceWriter log)
 {

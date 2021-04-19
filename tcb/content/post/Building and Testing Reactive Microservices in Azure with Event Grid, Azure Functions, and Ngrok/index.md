@@ -42,25 +42,25 @@ You can use PowerShell, Azure CLI, Azure Cloud Shell or the Azure Management Por
 
 Let's first login to the subscription where we want to set up all the resources. Executing the following command will generate a code for you with which you can log in to https://microsoft.com/devicelogin and make the sign in context available to the CLI session.
 
-```bash
+```shell
 az login
 ```
 
 If you want to change the subscription where you will provision all the resources, then use the following command.
 
-```bash
+```shell
 az account set --subscription "Subscription Name"
 ```
 
 Let's start with creating a **Resource Group** in which we will place all the resources. I have named my resource group _ecommerce-rg_ and set the location to _westus2_. You can choose a more appropriate name and a location that is geographically closer to you and also has the services available. You can check the availability of services in each location [here](https://azure.microsoft.com/en-us/global-infrastructure/services/).
 
-```bash
+```shell
 az group create --name ecommerce-rg --location westus2
 ```
 
 Now, let's create an **Event Grid Topic**. When you create a topic, a publically accessible endpoint to which you can post events is also generated. Due to the nature of its visibility, the name of the topic needs to be unique to the region.
 
-```bash
+```shell
 az eventgrid topic create --name orderevents --location westus2 --resource-group ecommerce-rg
 ```
 
@@ -82,7 +82,7 @@ The above command creates an Event Grid Topic named _orderevents_ in the _westus
 
 Note down the endpoint to which you can send events from your service. You would also need to use a security key to authenticate the requests that you send to the endpoint. You can list the security keys assigned to your topic by executing the following command. Remember to substitute the topic name and the resource group name with the ones that you created.
 
-```bash
+```shell
 az eventgrid topic key list --name orderevents --resource-group ecommerce-rg
 ```
 
@@ -147,7 +147,7 @@ In Visual Studio, select the **Azure Function** template and in the following di
 
 Create a class named _EventGridEvent_ that has the same schema as the message schema used by the topic so that we can deserialize the messages that we receive from our subscription.
 
-```cs
+```c#
 internal class EventGridEvent<T>
 {
     public T Data { get; set; }
@@ -161,7 +161,7 @@ internal class EventGridEvent<T>
 
 Navigate to your function and modify the content of the file to reflect what is represented in the following code fragment.
 
-```cs
+```c#
 public static class InventoryFunction
 {
     [FunctionName("inventoryfunction")]
@@ -207,7 +207,7 @@ Let's review the code now. The code in the function first deserializes the incom
 
 Now, launch command console and write the following command to start Ngrok and create a tunnel for port 7071.
 
-```bash
+```shell
 ngrok http -host-header=localhost 7071
 ```
 
@@ -217,7 +217,7 @@ After executing the command, you will get an output similar to the following.
 
 Note that every time you restart Ngrok, the endpoint would change. Therefore, once Ngrok starts, do not close the console window. Note down the HTTPS endpoint that Ngrok supplies as we will use this information in writing the next command. Execute the following command to create an event subscription after replacing the subscription name, resource group name, topic name, and endpoint name with the ones that you created.
 
-```bash
+```shell
 az eventgrid event-subscription create --name inventoryservicesubscription --resource-group ecommerce-rg --topic-name orderevents --subject-ends-with stationary --subject-case-sensitive false --included-event-type placeorder --endpoint https://b9835b46.ngrok.io/api/inventoryfunction
 ```
 

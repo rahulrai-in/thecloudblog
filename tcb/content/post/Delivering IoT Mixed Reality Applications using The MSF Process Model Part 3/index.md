@@ -101,7 +101,7 @@ The following diagram illustrates the scripts **SensorInteractionManager** and *
 
 Create a folder named Scripts in the **Assets** folder. Add a C# script named **WebBridge** to the folder. Use the following code to populate the **WebBridge** class which will be used for making the request.
 
-```cs
+```c#
 public class WebBridge
 {
     public HumidityRecord GetHumidityRecord(string sensorId)
@@ -131,7 +131,7 @@ Handling gestures using **Mixed Reality Toolkit** helpers is quite easy. You nee
 
 Create another script named **SensorInteractionManager** in the **Scripts** folder. Add the following code in the class to make an object respond to Air Tap events.
 
-```cs
+```c#
 public class SensorInteractionManager : MonoBehaviour, IInputClickHandler
 {
     public void OnInputClicked(InputClickedEventData eventData)

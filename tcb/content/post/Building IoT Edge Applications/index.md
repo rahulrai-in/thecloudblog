@@ -50,19 +50,19 @@ Next, provision the following resources in your Azure subscription. I will use t
 
 - **Resource Group**: This resource group will contain all your Azure resources. Replace the name and location of the resource group with your desired values.
 
-```bash
+```shell
 az group create --name santamaria-rg --location australiaeast
 ```
 
 - **Azure Container Registry**: All the modules are essentially docker images, and therefore their images are stored in a container registry. Execute the following command to create Azure Container Registry (ACR) after replacing the parameter values with the ones that you desire.
 
-```bash
+```shell
 az acr create --resource-group santamaria-rg --name santamaria --sku Basic --admin-enabled true --location australiaeast
 ```
 
 - **Azure IoT Hub**: Azure IoT Edge is a feature of IoT Hub. We can provision Azure IoT Hub by using the following command.
 
-```bash
+```shell
 az iot hub create --resource-group santamaria-rg --location australiaeast --name santamaria-ih
 ```
 
@@ -78,7 +78,7 @@ First, you would need to deploy the temperature sensor module to the edge device
 
 > If you ever change the connection settings of the IoT Hub or your edge device, or if want to make sure that the tooling is working with the correct set of credentials, you would need to execute the following commands in the order given below.
 
-```bash
+```shell
 # Connect your edge device to IoT Hub
 iotedgectl setup --connection-string "{device connection string}" --nopass
 # Login to ACR so that your device can pull images.
@@ -91,13 +91,13 @@ By the end of the last step, you should have the simulated temperature sensor de
 
 We will use the steps mentioned in [this guide](https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module) to create our module. Launch VS Code and in the integrated terminal, type the following command to install the **AzureIoTEdgeModule** template.
 
-```bash
+```shell
 dotnet new -i Microsoft.Azure.IoT.Edge.Module
 ```
 
 Next, create a module named **RangeFilterModule** using the following command.
 
-```bash
+```shell
 dotnet new aziotedgemodule -n RangeFilterModule -r <your container registry address>/rangefiltermodule
 ```
 
@@ -114,7 +114,7 @@ The `Init` method sets MQTT as the transport protocol and then creates and opens
 You would be able to see this screen after you add this module to the edge device in the portal.
 Navigate to the `FilterMessage` method. This is where the business logic of the application is. Replace this method with the following code.
 
-```cs
+```c#
 static async Task<MessageResponse> FilterMessages(Message message, object userContext)
 {
     var counterValue = Interlocked.Increment(ref counter);
@@ -163,7 +163,7 @@ static async Task<MessageResponse> FilterMessages(Message message, object userCo
 
 This method simply compares the reported temperature value with the threshold value, and if the value is higher than the threshold, then a new message is created and passed to the output channel. To deploy this module to your device, log in to the ACR using the following command.
 
-```bash
+```shell
 docker login -u <ACR username> -p <ACR password> <ACR login server>
 ```
 
@@ -171,19 +171,19 @@ Next, right-click the _module.json_ file and select the platform you want to use
 
 Next, we will build the Azure function that will get messages from the output of this module and flag the messages according to temperature threshold limits that we will configure. The guidance for building and deploying an Azure Function module to edge device is documented [here](https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-deploy-function). You simply have to install the Azure Function Edge Module template using the following command.
 
-```bash
+```shell
 dotnet new -i Microsoft.Azure.IoT.Edge.Function
 ```
 
 And create a project using the following command.
 
-```bash
+```shell
 dotnet new aziotedgefunction -n FlagFunction -r <your container registry address>/flagfunction
 ```
 
 You can view the boilerplate code inside this function in the _run.csx_ file. Replace the code inside the `Run` function with the code below.
 
-```cs
+```c#
 public static async Task Run(Message messageReceived, IAsyncCollector<Message> output, TraceWriter log)
 {
     const int highTemperatureThreshold = 31;
@@ -259,7 +259,7 @@ In the configuration, you can see that output of one module is linked to the inp
 
 Follow the wizard and complete the setup. After you are done, in some time the edge runtime will detect the changes and deploy the modules on the device. If you don't want to wait, you can force the runtime to restart by typing the following command.
 
-```bash
+```shell
 iotedgectl restart
 ```
 

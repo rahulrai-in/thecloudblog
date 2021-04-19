@@ -70,7 +70,7 @@ I usually don't run tests on my machine using Docker Compose. I provision a cont
 
 In your terminal change to the directory that contains the Docker Compose file and run the following command.
 
-```bash
+```shell
 docker-compose up --abort-on-container-exit
 ```
 

@@ -69,7 +69,7 @@ Let's start implementing the communication stack now. First, install the [AMQP.N
 
 The _Naming Service_ is a cluster service that runs on every cluster. This service acts like a DNS for your Microservices. Since, in a cluster, your services may be scattered across the nodes, this service will help the clients discover your service. The value returned from the `OpenAsync` method will get registered with the _Naming Service_ and this is the value that the clients will see when they ask for the address of your service from the _Naming Service_.
 
-```cs
+```c#
 public Task<string> OpenAsync(CancellationToken cancellationToken)
 {
     var serviceEndpoint = this.context.CodePackageActivationContext.GetEndpoint("AMQPEndpoint");
@@ -87,14 +87,14 @@ public Task<string> OpenAsync(CancellationToken cancellationToken)
 
 I have simply picked the server code from the AMQP sample and plugged it here. But apart from that, I have retrieved the service endpoint from the _Service Manifest_ (ServiceManifest.xml) and applied it on the `ContainerHost`. I have returned this address back to the Naming Service so that the clients can discover it. You will note that I have appended the partition id and replica id to the listener endpoint. We will see why I did so in a moment. The rest of the method implementations just close and abort the host.
 
-```cs
+```c#
 public void Abort()
 {
     this.host.Close();
 }
 ```
 
-```cs
+```c#
 public Task CloseAsync(CancellationToken cancellationToken)
 {
     this.host.Close();
@@ -104,7 +104,7 @@ public Task CloseAsync(CancellationToken cancellationToken)
 
 The next step is to connect this listener to our Microservice. Navigate to the `DeviceMetricCollectorService` class and add an override of the `CreateServiceReplicaListeners` method (`CreateServiceInstanceListener` for `StatelessService`).
 
-```cs
+```c#
 protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
 {
     return new[] { new ServiceReplicaListener(context => new AMQPListener(context, this.StateManager), "AMQPEndpoint") };
@@ -142,7 +142,7 @@ This concludes the implementation of the server. Next, we need to build a client
 
 Let's quickly bring up a client that can talk to our service. Add a console application to your solution, name it **TestDevice** and set its target platform to **x64**. Let's start by implementing `ICommunicationClient` which will handle the communication for us. Create a class named `MyCommunicationClient` which implements this interface.
 
-```cs
+```c#
 public class MyCommunicationClient : ICommunicationClient
 {
 	...
@@ -151,7 +151,7 @@ public class MyCommunicationClient : ICommunicationClient
 
 This class will be instantiated by `CommunicationClientFactoryBase`. For clients that don't maintain a persistent connection, such as an HTTP client, the factory only needs to create and return the client. Other protocols that maintain a persistent connection, such as some binary protocols, should also be validated by the factory to determine whether the connection needs to be re-created. We will accept the endpoint on which the client-server communication will take place as a constructor argument.
 
-```cs
+```c#
 public MyCommunicationClient(string resolvedEndpoint)
 {
     this.address = resolvedEndpoint;
@@ -161,7 +161,7 @@ public MyCommunicationClient(string resolvedEndpoint)
 
 The `Setup` method is responsible for establishing a connection with the server. This code is lifted from the AMQP sample and applied here. Nothing fancy here.
 
-```cs
+```c#
 void Setup()
 {
     this.connection = new Connection(new Address(this.address));
@@ -180,7 +180,7 @@ void Setup()
 
 The `RunOnce` method, which is another method lifted from the AMQP sample, simply sends a request to the server and accepts a response and prints it on the console.
 
-```cs
+```c#
 void RunOnce()
 {
     var request = new Message("hello " + this.offset)
@@ -205,7 +205,7 @@ void RunOnce()
 
 To add a bit of error handling in the client, let's add an exception handler which is an implementation of `IExceptionHandler` that is responsible for determining the action to take when an exception occurs:
 
-```cs
+```c#
 class MyExceptionHandler : IExceptionHandler
 {
     public bool TryHandleException(ExceptionInformation exceptionInformation, OperationRetrySettings retrySettings, out ExceptionHandlingResult result)
@@ -219,7 +219,7 @@ class MyExceptionHandler : IExceptionHandler
 
 Finally, let's implement `MyCommunicationClientFactory` which is derived from `CommunicationClientFactoryBase` that instantiates `MyCommunicationClient` and integrates the `IExceptionHandler` implementation in the pipeline.
 
-```cs
+```c#
 public class MyCommunicationClientFactory : CommunicationClientFactoryBase<MyCommunicationClient>
 {
     public MyCommunicationClientFactory(
@@ -260,7 +260,7 @@ public class MyCommunicationClientFactory : CommunicationClientFactoryBase<MyCom
 
 We have already implemented all that is required in the client. To tie everything together, in the `Main` method, start the client and let it trigger the flow.
 
-```cs
+```c#
 static void Main(string[] args)
 {
     myCommunicationClientFactory = new MyCommunicationClientFactory();

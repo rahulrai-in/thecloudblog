@@ -96,7 +96,7 @@ Expand the **TimeOff.Employee** project and add the setting **IsLocalEnvironment
 
 Based on the value of the setting, create a new object of `ProducerConfig` that is initialized from the Event Hubs details as follows:
 
-```cs
+```c#
 var config = new ProducerConfig()
 {
     BootstrapServers = "<EH namespace>.servicebus.windows.net=9093",
@@ -112,7 +112,7 @@ config.SaslMechanism = SaslMechanism.Plain;
 
 Next, we need to initialize the Schema Registry client `SchemaRegistryClient` that we will use to interact with Azure Schema Registry as follows:
 
-```cs
+```c#
 var schemaRegistryClientAz = new SchemaRegistryClient("<EH namespace>.servicebus.windows.net", new DefaultAzureCredential());
 ```
 
@@ -137,7 +137,7 @@ Let's add the following environment variables used by the `EnvironmentCredential
 
 If you observe the `SetKeySerializer` method in the `ProducerBuilder` class of the Kafka Producer API, you will notice that it requires an object of type `IAsyncSerializer`. The serializer implementation takes an object and returns a byte array. Let's create an implementation of `IAsyncSerializer` that serializes an object with the schema and returns a byte array as follows:
 
-```cs
+```c#
 public class KafkaAvroAsyncSerializer<T> : IAsyncSerializer<T>
 {
     private readonly SchemaRegistryAvroObjectSerializer _serializer;
@@ -178,7 +178,7 @@ Note that the Azure Schema Registry serializer can only serialize objects of eit
 
 I will digress a little and draw your attention to the `SetKeyDeserializer` method of the `ConsumerBuilder` class that uses an implementation of type `IDeserializer` to deserialize the messages received from the Kafka topic. Let's write a custom implementation of `IDeserializer` for our application as follows:
 
-```cs
+```c#
 public class KafkaAvroDeserializer<T> : IDeserializer<T>
 {
     private readonly SchemaRegistryAvroObjectSerializer _serializer;
@@ -208,7 +208,7 @@ public class KafkaAvroDeserializer<T> : IDeserializer<T>
 
 Following is the complete code listing that creates an appropriate Schema Registry client based on the application's environment. Based on the Schema Registry selected, the `IProducer` client is created that can submit messages to a Kafka topic:
 
-```cs
+```c#
 CachedSchemaRegistryClient cachedSchemaRegistryClient = null;
 KafkaAvroAsyncSerializer<string> kafkaAvroAsyncKeySerializer = null;
 KafkaAvroAsyncSerializer<LeaveApplicationReceived> kafkaAvroAsyncValueSerializer = null;
@@ -244,7 +244,7 @@ We do not need to make any other changes to the rest of the project because the 
 
 The Manager service is responsible for consuming and producing events. In addition to the changes that I described previously, we need to make a small change to integrate Schema Registry deserializer in the `IConsumer` consumer client as follows:
 
-```cs
+```c#
 CachedSchemaRegistryClient cachedSchemaRegistryClient = null;
 KafkaAvroDeserializer<string> kafkaAvroKeyDeserializer = null;
 KafkaAvroDeserializer<LeaveApplicationReceived> kafkaAvroValueDeserializer = null;

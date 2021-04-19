@@ -39,7 +39,7 @@ The following GitHub repository hosts the source code of the sample application:
 
 The most popular client library for consuming GraphQL services in .NET Core applications is [GraphQL.Client](https://github.com/graphql-dotnet/graphql-client). Install the library as a NuGet package in your project. Let's now prepare a GraphQL client that we will use to perform queries and mutations on the GitHub GraphQL API as follows:
 
-```cs
+```c#
 var token = Console.ReadLine();
 var httpClient = new HttpClient();
 httpClient.DefaultRequestHeaders.Authorization =
@@ -54,7 +54,7 @@ We prepared an HTTP client to set the authorization header in the GraphQL API re
 
 Upon execution, the following code will fetch all open issues created in a repository. Since the [Repository API](https://docs.github.com/en/graphql/reference/queries#repository) does not currently support fetching issues that have not been updated since a given date, we will filter the issues that have not been updated in the last 12 hours after fetching them. Since we are only dealing with a subset of issues in a repository, paging is not a significant concern for this sample. However, for queries that might return many results, the API supports cursors (page identifier) and `first` and `last` arguments to fetch subsets of the result.
 
-```cs
+```c#
 async Task<List<Node>> GetOpenIssuesInRepoPastThreshold(string repository)
 {
     var issueStalenessFilter = DateTime.UtcNow - TimeSpan.FromHours(12);
@@ -95,7 +95,7 @@ The GitHub GraphQL API supports several [mutation operations](https://docs.gith
 
 In the GitHub API, elements such as issues, pull requests, and users are nodes. Nodes are connected to other nodes through edges. In our example, the issue is a node, and it is connected to a comment node through an edge called `commentEdge`. Both the nodes and edges contain information that you can fetch.
 
-```cs
+```c#
 async Task<Node> CommentOnIssue(string openIssueId)
 {
     var request = new GraphQLRequest

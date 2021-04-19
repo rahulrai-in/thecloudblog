@@ -41,7 +41,7 @@ Create a folder named `Clients` in the project. This folder will contain Client 
 
 Create a new class in the folder named `IoTHubClient`. This client receives data as it arrives from the IoT Hub and starts an instance of the orchestrator. On every initiation, the Orchestrator function returns a new ID. This ID can be used to monitor the progress of the workflow and to terminate it if required. We will save the workflow ID in the logs. Update the code in the class with the code from the following listing.
 
-```cs
+```c#
 [FunctionName(nameof(IoTHubClient))]
 public static async Task RunClient(
     [IoTHubTrigger("messages/events", Connection = "IoTHubTriggerConnection")]
@@ -60,7 +60,7 @@ IoT Hub exposes the messages/events built-in endpoint for the back-end services 
 
 Next, let's build the Orchestrator and the Durable Entity that will act as the twin of the Edge device. Create a new folder named `Orchestrators` and add a file named `SafetySequenceOrchestrator` to it. Add an orchestrator function to the class by applying the code from the following code listing to the class.
 
-```cs
+```c#
 [FunctionName(nameof(SafetySequenceOrchestrator))]
 public static async Task Run([OrchestrationTrigger] IDurableOrchestrationContext context, ILogger logger)
 {
@@ -133,7 +133,7 @@ Finally, head back to the **Basic Information** section and follow the prompts t
 
 We will now create an activity trigger function that will send alert messages to the Slack application that we just created. Create a folder named `Triggers` and add a class named `SendApprovalRequest` to it. Copy the code from the following snippet and paste it in the class.
 
-```cs
+```c#
 public static class SendApprovalRequest
 {
     [FunctionName(nameof(SendApprovalRequest))]
@@ -168,7 +168,7 @@ When invoked, the `SendApprovalRequest` activity sends a POST request to the web
 
 In the **Clients** folder, add a new class named `ManualRequestApproval`. Just like the `IoTHubClient` function, `ManualRequestApproval` is an orchestration client function. Revisit the code that you wrote for the `SafetySequenceOrchestrator` orchestrator function where you can see that the orchestrator waits for two minutes for an external event named `ManualApproval` to occur. If it does not receive the event within the stipulated duration, it uses the instruction that it receives from the `AutoRequestApproval` activity to send a command to the IoT Edge device. Apply the code from the following code listing to the `ManualRequestApproval` class.
 
-```cs
+```c#
 public static class ManualRequestApproval
 {
     [FunctionName(nameof(ManualRequestApproval))]
@@ -196,7 +196,7 @@ The code in the previous listing is easy to understand. It raises the `ManualApp
 
 In the **Triggers** folder, create a class named `DeviceMonitor`. Apply the code from the following code listing to the class.
 
-```cs
+```c#
 [FunctionName(nameof(DeviceMonitor))]
 public static async Task Run([EntityTrigger] IDurableEntityContext context, ILogger logger)
 {
@@ -229,7 +229,7 @@ The `DeviceMonitor` durable entity is a function that is an independent unit of 
 
 The following function saves the telemetry record from the device to the state. The actor stores the latest five records to the state as it needs no more data to perform any operation.
 
-```cs
+```c#
 private static void AddRecord(IDurableEntityContext context)
 {
     var recordedValues = context.GetState<Queue<KeyValuePair<DateTime, double>>>() ??
@@ -246,7 +246,7 @@ private static void AddRecord(IDurableEntityContext context)
 
 The following function reads the data in state and reporting whether the average of reported boiler temperature has breached the critical temperature threshold.
 
-```cs
+```c#
 private static bool IsMelting(IDurableEntityContext context)
 {
     var recordedValues = context.GetState<Queue<KeyValuePair<DateTime, double>>>() ??
@@ -258,7 +258,7 @@ private static bool IsMelting(IDurableEntityContext context)
 
 Finally, the following function invokes the Cloud to Device Direct Method and passes the instruction (true or false) to the command as the argument. If the Edge device receives **true** as the argument value in the Direct Method handler, it instructs the boiler to shut down; otherwise, it does nothing.
 
-```cs
+```c#
 private static async Task SendInstructionAsync(IDurableEntityContext context)
 {
     if (context.GetInput<bool>())

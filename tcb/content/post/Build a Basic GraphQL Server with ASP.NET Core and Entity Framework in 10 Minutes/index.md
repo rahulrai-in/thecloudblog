@@ -30,13 +30,13 @@ For reference, the source code of the application is available in my GitHub repo
 
 Create an ASP.NET Core Web Application (.NET Core) project named **MovieReviews** using Visual Studio or the following command:
 
-```sh
+```shell
 dotnet new webapi -n MovieReviews
 ```
 
 Let’s add the required NuGet packages to add support for GraphQL, Entity Framework Core, and Autofac in our project. For simplicity, I will use an in-memory database for persisting the movie data. You can use any database supported by Entity Framework for this purpose.
 
-```sh
+```shell
 dotnet add package GraphQL
 dotnet add package GraphQL.SystemTextJson
 dotnet add package GraphQL.Server.Transports.AspNetCore
@@ -50,7 +50,7 @@ dotnet add package Microsoft.EntityFrameworkCore.InMemory
 
 We will now update the `CreateHostBuilder` in the class `Program` to use Autofac as the service provider responsible for [dependency injection (DI)](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection).
 
-```csharp
+```c#
 public static IHostBuilder CreateHostBuilder(string[] args)
 {
     return Host.CreateDefaultBuilder(args)
@@ -63,7 +63,7 @@ public static IHostBuilder CreateHostBuilder(string[] args)
 
 We will now define the Movie and Review models/entities for our project. Create a folder named **Models** and create a class file named `Review` in it as follows:
 
-```csharp
+```c#
 public class Review
 {
     public int Id { get; set; }
@@ -75,7 +75,7 @@ public class Review
 
 Similarly, create a class file named `Movie` as follows:
 
-```csharp
+```c#
 public class Movie
 {
     public IList<Review> Reviews { get; set; }
@@ -97,7 +97,7 @@ We will now set up the connection with the database. As I previously said, we wi
 
 Create a folder named **Database** in the project, and create a class file named `MovieContext` in the folder. Define the code in `MovieContext` as follows:
 
-```csharp
+```c#
 public class MovieContext : DbContext
 {
     public MovieContext(DbContextOptions<MovieContext> options) : base(options)
@@ -203,7 +203,7 @@ public class MovieContext : DbContext
 
 Note that we added a few movies and ratings as seed data in the database. We will now register our `DbContext` with the application. Navigate to the `Startup` class and add the following code to the `ConfigureServices` method:
 
-```csharp
+```c#
 public void ConfigureServices(IServiceCollection services)
 {
     services
@@ -216,7 +216,7 @@ The previous code fragment instructs Entity Framework to create an in-memory dat
 
 Let’s implement the repository pattern that uses the database context to fetch a movie and add a movie review. Create an interface named `IMovieRepository` in the **Database** folder as follows.
 
-```csharp
+```c#
 public interface IMovieRepository
 {
     Task<Movie> GetMovieByIdAsync(Guid id);
@@ -226,7 +226,7 @@ public interface IMovieRepository
 
 Let's implement this interface in a class named `MovieRepository` as follows:
 
-```csharp
+```c#
 public class MovieRepository : IMovieRepository
 {
     private readonly MovieContext _context;
@@ -258,7 +258,7 @@ We will set up dependency injection using Autofac at the end, which will make th
 
 We have already added the relevant GraphQL NuGet packages to our application. One of the packages that we installed is `GraphQL.Server.Ui.Altair` which provides a [GraphQL UI client](https://altair.sirmuel.design/) that helps you debug GraphQL queries and mutations. We will add the Altair UI to our application by adding the `app.UseGraphQLAltair()` middleware in the `Configure` method of the `Startup` class as follows:
 
-```csharp
+```c#
 // Enables Altair UI at path /
 app.UseGraphQLAltair(new GraphQLAltairOptions {Path = "/"});
 ```
@@ -267,7 +267,7 @@ The middleware will make the Altair UI available at the default (/) endpoint.
 
 Let's configure the required GraphQL services in our application. Add the following code to the `ConfigureServices` method in the `Startup` class:
 
-```csharp
+```c#
 services
     .AddGraphQL(
         (options, provider) =>
@@ -304,7 +304,7 @@ We defined the `Movie` and `Review` classes against which we want to execute a q
 
 Create a folder named **GraphQL** and create another folder named **Types** in it. Add the `MovieObject` class files to the folder.
 
-```csharp
+```c#
 public sealed class MovieObject : ObjectGraphType<Movie>
 {
     public MovieObject()
@@ -325,7 +325,7 @@ public sealed class MovieObject : ObjectGraphType<Movie>
 
 Next, add the `ReviewObject` class file to the folder as follows:
 
-```csharp
+```c#
 public sealed class ReviewObject : ObjectGraphType<Review>
 {
     public ReviewObject()
@@ -341,7 +341,7 @@ public sealed class ReviewObject : ObjectGraphType<Review>
 
 Next, we will create the GraphQL schema. A schema defines the server’s API, informing the clients about the operations (query, mutation, and subscription) that the server can perform. To define our schema, create a class file named `MovieReviewSchema` in the **GraphQL** folder and populate it with the following code:
 
-```csharp
+```c#
 public class MovieReviewSchema : Schema
 {
     public MovieReviewSchema(QueryObject query, MutationObject mutation, IServiceProvider sp) : base(sp)
@@ -354,7 +354,7 @@ public class MovieReviewSchema : Schema
 
 We will define the mutation operation later. Let's begin with defining the query which is encapsulated in the `QueryObject` class. Create a class file named `QueryObject` in the **GraphQL** folder as follows:
 
-```csharp
+```c#
 public class QueryObject : ObjectGraphType<object>
 {
     public QueryObject(IMovieRepository repository)
@@ -382,7 +382,7 @@ We defined a query named `movie` that takes a GUID identifier as input, and the 
 
 To define a mutation operation that adds a movie review, add another graph type named `ReviewInputObject` in the **Types** folder with the following code:
 
-```csharp
+```c#
 public sealed class ReviewInputObject : InputObjectGraphType<Review>
 {
     public ReviewInputObject()
@@ -398,7 +398,7 @@ public sealed class ReviewInputObject : InputObjectGraphType<Review>
 
 Next, let's define the mutation operation, which is encapsulated in the `MutationObject` graph type. Create a class file named `MutationObject` in the **GraphQL** folder as follows:
 
-```csharp
+```c#
 public class MutationObject : ObjectGraphType<object>
 {
     public MutationObject(IMovieRepository repository)
@@ -432,7 +432,7 @@ public class MutationObject : ObjectGraphType<object>
 
 Finally, we will register the schema- `MovieReviewSchema` using the GraphQL middleware. Please navigate to the `Configure` method in the `Startup` class and add the following code snippet to it:
 
-```csharp
+```c#
 app.UseGraphQL<MovieReviewSchema>();
 ```
 
@@ -442,7 +442,7 @@ You might have noticed that we haven't yet defined any API controller or HTTP ha
 
 Finally, let's tie everything together by configuring dependency injection in the `Startup` class. Create a method named `ConfigureContainer`, a special method used to register dependencies directly with Autofac. You don't need to build the dependency container as it is built automatically by the `AutofacServiceProviderFactory` instance specified in the `Program` class.
 
-```csharp
+```c#
 public virtual void ConfigureContainer(ContainerBuilder builder)
 {
     builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>().SingleInstance();

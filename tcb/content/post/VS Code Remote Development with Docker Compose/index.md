@@ -116,7 +116,7 @@ VS Code remote extension mounts the application source code directory as volume 
 
 With the Pong service running in debug mode, you can send a _GET_ request to the _localhost:8080/pong_ endpoint from your system and receive a response from the Pong service as follows.
 
-```bash
+```shell
 $ curl http://localhost:8080/pong
 
 Pong!
@@ -234,7 +234,7 @@ Remember that the setting `shutdownAction` in the file _dockerfile.yml_ of both 
 
 You can remove the containers created by the extension in the same manner as you would for any other Docker Compose service. For this sample, execute the following command after changing to the location of the Docker Compose files.
 
-```bash
+```shell
 $ docker-compose -f docker-compose-ping.yml -f docker-compose-pong.yml -f docker-compose.yml down
 
 Stopping devcontainers_ping_1 ... done

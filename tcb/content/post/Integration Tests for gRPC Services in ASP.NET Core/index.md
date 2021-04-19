@@ -27,7 +27,7 @@ This sample will cover implementing and testing the following two types of RPC (
 
 Let's begin with the schema of the request - `CountRequest`. Since the protobuf serialization depends on the sequence of properties/fields, we must set the property `Order` denoting the sequence number of the property in the contract.
 
-```cs
+```c#
 [DataContract]
 public class CountRequest
 {
@@ -41,7 +41,7 @@ public class CountRequest
 
 Next, let's check out the schema of the response from the server - `CountResult`.
 
-```cs
+```c#
 [DataContract]
 public class CountResult
 {
@@ -55,7 +55,7 @@ The following specification presents how you can define the contract between the
 1. **SlowCountAsync**: It is a server streaming RPC operation that returns a sequence of `CountResult` objects after successive delays.
 2. **FastCount**: It is a unary RPC operation that returns the entire sequence of `CountResult` objects to the client in the response.
 
-```cs
+```c#
 [ServiceContract(Name = "GrpcSample.LazyCounter")]
 public interface ILazyCounterService
 {
@@ -71,7 +71,7 @@ public interface ILazyCounterService
 
 After defining the contract, the next action for us is to implement it. Navigate to the class `LazyCounterService` that implements the service contract that we specified previously.
 
-```cs
+```c#
 public class LazyCounterService : ILazyCounterService
 {
     public async IAsyncEnumerable<CountResult> SlowCountAsync(CountRequest request, CallContext context = default)
@@ -107,7 +107,7 @@ The service implementation is easy to comprehend, and so I won't dwell on the im
 
 I would begin by pointing you to the official Microsoft documentation on writing [integration tests in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests). The first step of writing integration tests is to define a Fixture. The fixture contains the common code that is shared between tests. Hence the fixture is an appropriate location to define the [TestServer](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.testhost.testserver) for the integration tests. The following code listing presents the fixture that will aid us in writing tests.
 
-```cs
+```c#
 public sealed class TestServerFixture : IDisposable
 {
     private readonly WebApplicationFactory<Startup> _factory;
@@ -146,7 +146,7 @@ The one thing in the previous code listing that might have stood out to you is t
 
 Finally, navigate to the class `LazyCounterServiceShould` to find the integration tests for the two methods that we implemented in the service.
 
-```cs
+```c#
 public class LazyCounterServiceShould
 {
     public LazyCounterServiceShould(TestServerFixture testServerFixture)

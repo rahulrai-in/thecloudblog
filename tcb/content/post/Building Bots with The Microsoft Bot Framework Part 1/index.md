@@ -61,7 +61,7 @@ You will notice that the bot application template looks very similar to a WebAPI
 
 All of the bot interaction code is contained in the **MessagesController.cs** file. The `Post` method in the API handles all the messages that the bot receives. Let's modify the code in the method to reflect the following.
 
-```cs
+```c#
 public async Task<HttpResponseMessage> Post([FromBody]Activity activity)
 {
     if (activity.Type == ActivityTypes.Message)

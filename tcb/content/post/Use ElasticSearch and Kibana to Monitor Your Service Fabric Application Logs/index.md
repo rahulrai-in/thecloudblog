@@ -81,7 +81,7 @@ The template that we used to provision the ElasticSearch cluster, also provision
    {{< img src="3.png" alt="Kibana VM IP Address" >}}
 3. Use PuTTY to SSH into your Kibana VM and edit the _/opt/kibana/config/kibana.yml_ file to make the following changes and while leaving out the rest of the configurations intact:
 
-   ```bash
+   ```shell
    elasticsearch.url: "http://[elasticsearch cluster ip address]:9200"
    elasticsearch.username: es_admin
    elasticsearch.password: "[es_admin password]"
@@ -91,7 +91,7 @@ The template that we used to provision the ElasticSearch cluster, also provision
 
 4. Reboot the Kibana VM with the following command to allow Kibana to pick up the new configuration values:
 
-   ```bash
+   ```shell
    sudo reboot
    ```
 
@@ -111,19 +111,19 @@ I post all my samples in GitHub, you can follow my activity on GitHub to see wha
 4. Add the _Microsoft.Diagnostics.Tracing.EventSource_ nuget to the solution.
 5. In the `ServiceEventSource` class, replace the using statement
 
-   ```cs
+   ```c#
    using System.Diagnostics.Tracing;
    ```
 
    with
 
-   ```cs
+   ```c#
    using Microsoft.Diagnostics.Tracing;
    ```
 
 6. In the **Program.cs** file, add the following code to the `Main` method to enable the `ElasticSearchListener`.
 
-   ```cs
+   ```c#
    const string EventListenerId = "ElasticSearchEventListener";
    FabricConfigurationProvider configurationProvider = new FabricConfigurationProvider(EventListenerId);
    ElasticSearchListener listener = null;

@@ -15,7 +15,7 @@ As developers, we often need to type the same commands repeatedly, which reduces
 
 The process to create aliases is slightly different for Linux\MacOS\Windows WSL users from Windows users. For the Linux family of OS, use the alias command similar to the following to create aliases.
 
-```bash
+```shell
 alias d="docker"
 ```
 

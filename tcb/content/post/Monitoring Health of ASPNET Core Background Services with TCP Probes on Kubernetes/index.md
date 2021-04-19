@@ -27,7 +27,7 @@ We will configure health checks on this service and deploy it to our local Kuber
 
 The following code listing presents the hosted service/background service that logs the time left in the workday every minute. It also logs a message every minute for weekends and before and after work hours.
 
-```cs
+```c#
 public class Worker : BackgroundService
 {
     private readonly ILogger<Worker> _logger;
@@ -74,7 +74,7 @@ public class Worker : BackgroundService
 
 To execute this service, you need to register it with the host using the `AddHostedService` method.
 
-```cs
+```c#
 public static IHostBuilder CreateHostBuilder(string[] args)
 {
     return Host.CreateDefaultBuilder(args)
@@ -92,7 +92,7 @@ Let's now add health checks to our service and deploy it to Kubernetes.
 
 You can add custom health checks to your application by implementing the `IHealthCheck` interface, which requires defining the `CheckHealthAsync` method. The following health check implementation always reports the application state as healthy. You can add custom logic to this method to return an appropriate response, denoting the actual health of the service.
 
-```cs
+```c#
 public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context,
     CancellationToken cancellationToken = new CancellationToken())
 {
@@ -102,7 +102,7 @@ public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context,
 
 To register the custom health check, you need to add the service type and the name of the check to the health check services using the `AddCheck` method as follows.
 
-```cs
+```c#
 return Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
     {
@@ -113,7 +113,7 @@ return Host.CreateDefaultBuilder(args)
 
 We now need to attach a TCP listener to the health check port to report the service's health when Kubernetes executes a liveness or readiness probe on the pod hosting the service. Following is the implementation of the `TcpHealthProbeService` which is a hosted service that does that.
 
-```cs
+```c#
 public sealed class TcpHealthProbeService : BackgroundService
 {
     private readonly HealthCheckService _healthCheckService;
@@ -189,7 +189,7 @@ Inside the `UpdateHeartbeatAsync` method, which is invoked every second, we call
 
 Use the following command to build a container image named `nine-to-five:1.0.0` using the Dockerfile present in the `OfficeCountdownClock` project.
 
-```sh
+```shell
 docker build . -t nine-to-five:1.0.0
 ```
 
@@ -234,7 +234,7 @@ spec:
 
 To apply the manifest, execute the following command.
 
-```sh
+```shell
 kubectl apply -f deploy.yaml
 ```
 
@@ -244,7 +244,7 @@ Following is a screenshot of the background service in action. I use the [K9S CL
 
 In the previous output, you can also see the log events generated on the execution of TCP health probes. Execute the following shell commands to monitor the Kubernetes events generated in the `demo-ns` namespace continuously.
 
-```sh
+```shell
 watch -n .5 kubectl get events -n demo-ns
 ```
 
@@ -258,7 +258,7 @@ Let's now update the custom health check to change the health state of the servi
 
 Navigate to the `CustomHealthCheck` class and update the code as follows to simulate an unhealthy state of service.
 
-```cs
+```c#
 public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context,
     CancellationToken cancellationToken = new CancellationToken())
 {
@@ -274,7 +274,7 @@ docker build . -t nine-to-five:2.0.0
 
 Use the following command to redeploy the existing pod with the new container image that you just created.
 
-```sh
+```shell
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Pod

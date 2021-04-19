@@ -57,13 +57,13 @@ The prerequisite of this demo is a Kubernetes cluster with Istio deployed to it.
 
 I built a simple Nodejs REST API that returns a list of fruits available in a country based on the country code passed to it as an argument. To test the service on the dev box, execute the following command to create a container and bind it to port 3000 on the localhost.
 
-```bash
+```shell
 $ docker run -p 3000:3000 --name fruits-api istiosuccinctly/fruits-api:1.0.0
 ```
 
 Use another terminal instance to send a request to the API to fetch fruits and their prices for the country Australia whose country code is _au_. Other country codes supported are _ind_ and _usa_.
 
-```bash
+```shell
 $ curl http://localhost:3000/api/fruits/au
 
 {"nectarine":2.5,"mandarin":2.3,"lemon":1.1,"kiwi":2.6}
@@ -157,7 +157,7 @@ spec:
 
 Let's combine all the previous specifications in a single file and apply them to the cluster using the following command.
 
-```bash
+```shell
 $ kubectl apply -f https://raw.githubusercontent.com/rahulrai-in/coredns-svc-id/master/fruits-api-svc.yaml
 
 namespace/micro-shake-factory created
@@ -168,7 +168,7 @@ virtualservice.networking.istio.io/fruits-api-vservice created
 
 We will now install a temporary pod in our cluster and lookup the address of the _fruits-api-service_ by executing the following command.
 
-```bash
+```shell
 $ kubectl run dnsutils -it --rm --generator=run-pod/v1 --image=tutum/dnsutils bash
 
 If you don't see a command prompt, try pressing enter.
@@ -177,7 +177,7 @@ root@dnsutils:/#
 
 The previous command will open a shell through which we will use _dig_ (Domain Information Groper) to find out the resolved IP address of the FQDN _fruits-api-service.micro-shake-factory.svc.cluster.local_.
 
-```bash
+```shell
 root@dnsutils:/# dig fruits-api-service.micro-shake-factory.svc.cluster.local
 
 ; <<>> DiG 9.9.5-3ubuntu0.2-Ubuntu <<>> fruits-api-service.micro-shake-factory.svc.cluster.local
@@ -207,7 +207,7 @@ In the output, notice the IP address received in the _ANSWER SECTION,_ which is 
 
 CoreDNS is configured using a special file called Corefile which is a declaration of [plugins](https://coredns.io/manual/plugins/) that execute in sequence to resolve an FQDN. We will configure the corefile used by _kube-dns_ to route all resolve requests for hostname _internal_ to _istiocoredns_. First, execute the following command to find the IP address of the _istiocoredns_ service.
 
-```bash
+```shell
 $ kubectl get svc/istiocoredns -n istio-system -o jsonpath='{.spec.clusterIP}'
 
 '10.98.61.255'
@@ -215,7 +215,7 @@ $ kubectl get svc/istiocoredns -n istio-system -o jsonpath='{.spec.clusterIP}'
 
 We will now edit the corefile of _kube-dns_ in the _kube-system_ namespace. This file is stored as a configmap named _coredns_ in the namespace _kube-system_. Execute the following command to launch an editor to edit the configmap.
 
-```bash
+```shell
 $ kubectl edit configmap/coredns -n kube-system
 ```
 
@@ -250,7 +250,7 @@ spec:
 
 Apply the previous configuration to the cluster by executing the following command.
 
-```bash
+```shell
 $ kubectl apply -f [https://raw.githubusercontent.com/rahulrai-in/coredns-svc-id/master/fruits-api-se.yml](https://raw.githubusercontent.com/rahulrai-in/coredns-svc-id/master/fruits-api-se.yml)
 
 serviceentry.networking.istio.io/exotic-fruits-service-entry created
@@ -258,7 +258,7 @@ serviceentry.networking.istio.io/exotic-fruits-service-entry created
 
 Finally, we need to ensure that _istiocoredns_ realizes that the hostname _internal_ can be resolved by the plugin _istio-coredns-plugin_ so that it does not fail the resolution request by returning a NXDOMAIN response. The plugin will use the service entry record that we created previously to resolve the IP address of the service. Just like _kube-dns_, _istiocoredns_ stores the corefile as a configmap. Execute the following command to edit the file.
 
-```bash
+```shell
 $ kubectl edit configmap/coredns -n istio-system
 ```
 
@@ -302,7 +302,7 @@ Corefile: |
 
 Changes to DNS service takes a few minutes to propagate in the cluster. After a few minutes, execute another _dig_ command to resolve the FQDN _my-fruits.internal_.
 
-```bash
+```shell
 root@dnsutils:/# dig my-fruits.internal
 
 ; <<>> DiG 9.9.5-3ubuntu0.2-Ubuntu <<>> my-fruits.internal

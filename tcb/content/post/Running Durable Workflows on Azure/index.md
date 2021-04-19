@@ -101,7 +101,7 @@ I would not be able to demonstrate writing the whole code here. Therefore, I pro
 
 - Once a message is received from the queue, the workflow xaml is read from the text file (ideally from database). The following code creates a new instance of `WorkflowApplication`. Note that we have also passed `ChannelData` object as argument to workflow.
 
-```cs
+```c#
 var workflowApplication =
     new WorkflowApplication(
 Routines.CreateWorkflowActivityFromXaml(workflowXaml, this.GetType().Assembly),
@@ -110,7 +110,7 @@ new Dictionary<string, object> { { "ChannelData", channelData } });
 
 - Next, we apply the various settings to our workflow host which mainly include setting up the instance store and attaching event handlers to the various events. The most important event handler here is the `PersistableIdle` event. This event gets invoked when an activity bookmarks its state. At this point we need to unload the workflow and add a message to the queue that the workflow host is listening on with the updated ChannelData object so that when the bookmark resumes we can pass the updated information back to the workflow.
 
-```cs
+```c#
 //// Setup workflow execution environment.
 //// 1\. Make the workflow synchronous
 workflowApplication.SynchronizationContext = new SynchronousSynchronizationContext();
@@ -148,7 +148,7 @@ workflowApplication.PersistableIdle = persistableIdleEventArgument =>
 
 - The `AddBookmarkMessage` method is responsible for adding bookmark message to the queue. Note that `WorkflowIdentifier` (necessary to identify the workflow instance) remains the same and an additional flag `IsBookmark` is used to differentiate between a new workflow and a bookmarked workflow.
 
-```cs
+```c#
 private void AddBookmarkMessage(Guid workflowId)
 {
     var hostQueueMessage = new HostQueueMessage
@@ -166,7 +166,7 @@ private void AddBookmarkMessage(Guid workflowId)
 
 - If the workflow is bookmarked, we follow a similar methodology of composing a workflow as we followed for composing a new one, but use `ResumeBookmark` function to resume the execution of the workflow.
 
-```cs
+```c#
 //// Prepare a new workflow instance as we need to resume bookmark.
 var bookmarkedWorkflowApplication =
     new WorkflowApplication(

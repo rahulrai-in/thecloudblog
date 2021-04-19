@@ -120,7 +120,7 @@ spec:
 
 As evident from the specification, the virtual service _httpbin-vservice_ is responsible for directing the traffic that it receives from the gateway transparently to the service _httpbin-service_. Let&#39;s apply the specification to our cluster by executing the following command from our terminal.
 
-```bash
+```shell
 $ kubectl apply -f httpbin-service-no-rbac.yml
 
 namespace/safe-services-ns created
@@ -132,7 +132,7 @@ gateway.networking.istio.io/httpbin-gw created
 
 Currently, no access control policies are in effect and therefore, you can access the API without any restrictions. Execute the following command from your terminal to send a request to the _headers_ endpoint of the API.
 
-```bash
+```shell
 $ curl localhost/headers
 
 "headers": {
@@ -150,7 +150,7 @@ $ curl localhost/headers
 
 Note that Docker Desktop exposes the gateway, _istio-ingressgateway,_ at the address _localhost:80_ (or 127.0.0.1). The IP address of the ingress gateway may vary based on your choice of Kubernetes hosts such as minikube, AKS, and EKS. To find the external IP address of ingress gateway on your host, execute the following command.
 
-```bash
+```shell
 $ kubectl get svc istio-ingressgateway -n istio-system
 
 NAME                   TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)
@@ -189,7 +189,7 @@ To generate a JWK that we can use to publish JWKS, you can use one of the severa
 
 In the source code of this application, you will find a folder named [_generate-jwk_](https://github.com/rahulrai-in/custom-token-istio-auth/tree/master/generate-jwk), which contains a shell script named _run.sh_ that can carry out the first three steps of the workflow that we just discussed. The following code listing presents the commands present in the script along with inline comments that describe the purpose of each command.
 
-```bash
+```shell
 npm i && # installs the pem-jwk node package
 openssl genrsa 2048 >private.pem && # generates an RSA private key with length of 2048 bits and stores the key in a file named private.pem
 openssl rsa -in private.pem -outform PEM -pubout -out public.pem && # generates public key from the private key and stores it in a file named public.pem
@@ -199,7 +199,7 @@ echo 'done!'
 
 Let's now execute the shell script using the following command. I use Ubuntu on Widows Subsystem for Linux (WSL) on my machine to execute shell scripts on Windows, however, you can use other tools such as Git Bash for Windows to execute shell scripts as well.
 
-```bash
+```shell
 sh run.sh
 ```
 
@@ -232,7 +232,7 @@ spec:
 
 The previous policy instructs the proxy to verify the issuer (_iss_), and audience (_aud_) field of the received JWT before forwarding the request to our service _httpbin-service_. I have also specified the location of the JWKS document that we created previously as the value of the _jwksUri_ field. Apply the previous configuration to the cluster with the following command.
 
-```bash
+```shell
 $ kubectl apply -f authn-policy.yml
 
 policy.authentication.istio.io/httpbin-authn-policy created
@@ -240,7 +240,7 @@ policy.authentication.istio.io/httpbin-authn-policy created
 
 If you try to send a request to the service now without a valid token, you will receive an unauthorized response.
 
-```bash
+```shell
 $ curl localhost/ip -v
 
 *   Trying ::1...
@@ -292,7 +292,7 @@ Authorization: Bearer {TOKEN}
 
 We will now send another HTTP request to our API that includes an authorization header read from the file that we just created. From your terminal, change to the directory where you created the header file and execute the following command.
 
-```bash
+```shell
 $ curl localhost/headers -v -H @authN-headers.txt
 
 *   Trying ::1...
@@ -391,7 +391,7 @@ The previous specification will instruct Istio to read the claim named _role_ fr
 
 Let's apply these settings to the cluster using the following command.
 
-```bash
+```shell
 $ kubectl apply -f authz-policy.yml
 
 rbacconfig.rbac.istio.io/default created
@@ -401,7 +401,7 @@ servicerolebinding.rbac.istio.io/header-reader-binding created
 
 Let's now try to execute the previous HTTP request again without altering the existing JWT token.
 
-```bash
+```shell
 $ curl localhost/headers -v -H @authN-headers.txt
 
 *   Trying ::1...
@@ -439,7 +439,7 @@ The following is a screenshot of the token generation process with the change hi
 
 Just like we did earlier, we will save the token in a text file named _authZ-headers.txt_ and execute the following command to invoke the _headers_ endpoint with the new header.
 
-```bash
+```shell
 $ curl localhost/headers -v -H @authZ-headers.txt
 
 *   Trying ::1...

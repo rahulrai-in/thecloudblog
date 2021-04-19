@@ -37,7 +37,7 @@ Once you have the solution ready, then to make it work, you would need to naviga
 
 The code to produce [block blobs](https://msdn.microsoft.com/en-us/library/azure/ee691964.aspx) of random log files is self explanatory. Next, the following code in **AppendBlobAzureProducer** will start appending block blob content to an [Append Blob](https://msdn.microsoft.com/en-us/library/azure/ee691964.aspx) named “append-blob.log”. If you want, you may extend the sample and choose the log files that you want to combine.
 
-```cs
+```c#
 var appendBlob = container.GetAppendBlobReference("append-blob.log");
 appendBlob.CreateOrReplace();
 
@@ -53,7 +53,7 @@ for (var i = 0; i < 10; i++)
 
 I am making the code sleep for some time so that you can observe the consumer consuming the content of newly generated “append-blob.log” file in parallel to the above operation. As **AppendBlobAzureProducer** keeps appending the log file, **AppendBlobAzureConsumer** keeps using the following code loop to read content from the updated “append-blob.log” file and save the offset position in a variable to mark the position to which it has already processed the log file.
 
-```cs
+```c#
 long streamStart = 0;
 while (true)
 {

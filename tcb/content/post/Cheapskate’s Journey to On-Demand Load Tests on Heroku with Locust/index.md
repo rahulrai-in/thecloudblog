@@ -136,7 +136,7 @@ In another VS Code instance, open the folder _loadtest_ and launch it in a dev c
 
 To verify the test scripts, execute the following command in the integrated terminal (_Ctrl + ~_).
 
-```bash
+```shell
 $ locust -f locustfile_scene_1.py
 ```
 
@@ -153,7 +153,7 @@ For executing the locust tests, we need to define a small workflow for each set 
 
 The _run.sh_ script in the load test project implements this workflow as follows:
 
-```bash
+```shell
 #!/bin/bash
 
 locust -f $1 --headless -u 200 -r 10 --host=$TARGET_HOST --csv="$2_$(date +%F_%T)" --run-time 1h -t 2s --stop-timeout 60
@@ -174,13 +174,13 @@ Inside the root directory of each project, API and Loadtest, you will find a fil
 
 In the API Procfile, the following command will instruct Heroku to create a web dyno and invoke the command _locust-loadtest_ to launch the application.
 
-```bash
+```shell
 web: locust-loadtest
 ```
 
 In the Loadtest project, the Procfile for the Locust tests instructs Heroku to create two worker dynos and invoke Run.sh script with appropriate parameters as follows:
 
-```bash
+```shell
 worker_scene_1: bash ./run.sh locustfile_scene_1.py scene_1
 worker_scene_2: bash ./run.sh locustfile_scene_2.py scene_2
 ```
@@ -237,7 +237,7 @@ Let us consider the Target API application first. Use [heroku-buildpack-monorepo
 
 Execute the following commands in the exact sequence to preserve their order of execution, and remember to change the name of the application in the command to what you specified in the Heroku User Interface earlier.
 
-```bash
+```shell
 $ heroku buildpacks:add -a locust-heroku-target https://github.com/lstoll/heroku-buildpack-monorepo
 
 $ heroku buildpacks:add -a locust-heroku-target https://github.com/heroku/heroku-buildpack-go
@@ -247,7 +247,7 @@ $ heroku buildpacks:add -a locust-heroku-target https://github.com/heroku/heroku
 
 For the _locust-heroku-testengine_ project, we need two buildpacks. The first buildpack is the one we used previously, [heroku-buildpack-monorepo](https://github.com/lstoll/heroku-buildpack-monorepo). We will modify the parameter though, so it will extract the Locust test project (_locust-heroku-testengine_) from the monorepo. The second buildpack, [heroku-buildpack-python](https://github.com/heroku/heroku-buildpack-python), enables executing Python scripts on Heroku.
 
-```bash
+```shell
 $ heroku buildpacks:add -a locust-heroku-testengine https://github.com/lstoll/heroku-buildpack-monorepo
 
 $ heroku buildpacks:add -a locust-heroku-testengine https://github.com/heroku/heroku-buildpack-python
@@ -269,7 +269,7 @@ Our applications require setting a few environment variables.
 
 Execute the following commands to add the environment variables to your applications.
 
-```bash
+```shell
 $ heroku config:set -a locust-heroku-target APP_BASE=api
 
 $ heroku config:set -a locust-heroku-target GOVERSION=go1.13
@@ -313,7 +313,7 @@ If you navigate to the _locust-heroku-testengine_ app, you will find that Heroku
 
 To execute the tests hosted in the dynos, we kick them off using the Heroku CLI with the following commands. These start the one-off dynos, which then terminate right after they finish execution.
 
-```bash
+```shell
 $ heroku run worker_scene_1 --app locust-heroku-testengine
 
 $ heroku run worker_scene_2 --app locust-heroku-testengine

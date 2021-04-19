@@ -48,7 +48,7 @@ Let's now build and deploy the Picletter app to Heroku.
 
 There are three ways to interact with Heroku: the User Interface, Platform API, and the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli). Due to its simplicity, the CLI is my preferred tool to create and manage Heroku apps. Let's begin the process of creating the Picletter Heroku application by executing the following command. Remember to choose another name for your application if the one below is not available.
 
-```sh
+```shell
 $ heroku create scheduled-task-demo
 
 --> POST /apps
@@ -63,7 +63,7 @@ For [inner loop development](https://mitchdenny.com/the-inner-loop/), I configur
 
 Note that on the execution of the previous command, Heroku generated a remote Git repository for us. On every push of your application code to this repository, Heroku will attempt to build and deploy your application. Create a folder on your system to store the application code, launch the terminal, and change directory (`cd`) to the folder. Next, execute the following commands to set up a local Git repository, and set the Heroku-hosted Git repository as the upstream remote repository.
 
-```sh
+```shell
 $ git init
 $ heroku git:remote -a scheduled-task-demo
 ```
@@ -72,7 +72,7 @@ After the integration is set up, we will be able to commit and push code to the 
 
 Let's begin with creating a Go module. Execute the following command to create a new module named **picletter**.
 
-```sh
+```shell
 $ go mod init tcblabs.net/picletter
 ```
 
@@ -87,7 +87,7 @@ go 1.15
 
 Execute the following command to install the necessary packages for our application. We will install the SendGrid Go packages to prepare and send emails and a library named **imgbase64** to download an image from Unsplash and convert it to Base64 format.
 
-```sh
+```shell
 $ go get github.com/polds/imgbase64
 $ go get github.com/sendgrid/sendgrid-go
 $ go get github.com/sendgrid/sendgrid-go/helpers/mail
@@ -135,13 +135,13 @@ You must have noticed that we used a couple of environment variables to configur
 
 Let's execute the following command to set the values of the config vars/environment variables for our application.
 
-```sh
+```shell
 $ heroku config:set BOT_EMAIL=<Bot Email Address> RECEIVER_EMAIL=<Receiver Email Address> SG_KEY=<SendGrid API Key> -a scheduled-task-demo
 ```
 
 Heroku doesn't yet know how it can start our application. We'll add a [Procfile](https://devcenter.heroku.com/articles/procfile) that specifies the command Heroku will use to launch our application.
 
-```sh
+```shell
 worker: picletter
 ```
 
@@ -154,7 +154,7 @@ README.md
 
 We are now ready to deploy the Picletter app to Heroku. Let's now push the code to the Heroku Git repository, which will kick off the application build and deployment on Heroku.
 
-```sh
+```shell
 $ git add .
 $ git commit -am "picletter app"
 $ git push heroku master
@@ -170,7 +170,7 @@ You can see that no dynos are running the Picletter application currently. The P
 
 Let's now use the Heroku CLI to execute the Picletter application once. Execute the following command after substituting the name of the Heroku application in the command argument with the one you previously created.
 
-```sh
+```shell
 $ heroku run worker -a scheduled-task-demo
 
 Running worker on ⬢ scheduled-task-demo... up, run.6966 (Standard-1X)
@@ -253,7 +253,7 @@ Let's deploy the Logic App with the [Azure Resource Manager (ARM)](https://docs.
 
 All resources in Azure must exist under a [resource group](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/overview). So, let's create a resource group named **picletter-rg** and use the ARM template to create a Logic App within the resource group with the [Azure CLI commands](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-cli) below. Note that we must pass the name of the Logic App and Heroku Platform API authorization token as parameters to the template. To generate a token that you can use to authorize your Platform API calls, refer to the [authentication section of the Platform API quickstart guide](https://devcenter.heroku.com/articles/platform-api-quickstart#authentication).
 
-```sh
+```shell
 $ az group create -l australiaeast -n picletter-rg
 $ az deployment group create --resource-group picletter-rg --template-file picletter-app.definition.json --parameters heroku_token=<Heroku Auth Token> workflows_picletter_app_name=picletter-logic-app
 ```

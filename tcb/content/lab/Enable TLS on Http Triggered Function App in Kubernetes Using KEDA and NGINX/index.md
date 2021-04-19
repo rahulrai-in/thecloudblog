@@ -52,7 +52,7 @@ kubectl --namespace nginx get services -o wide -w nginx-ingress-ingress-nginx-co
 
 The last command in the previous code listing will give you the external IP address of the ingress controller you created. Please note it because you would be able to access your app on that IP address. You can configure NGINX to read TLS certificates from a Kubernetes secret. Let's now create a TLS certificate and store it as a secret in our cluster.
 
-```bash
+```shell
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -out aks-ingress-tls.crt -keyout aks-ingress-tls.key -subj "/CN=echo-aks-fx.azure.com/O=aks-ingress-tls"
 
 kubectl create secret tls nginx --namespace ingress-basic --key aks-ingress-tls.key --cert aks-ingress-tls.crt
@@ -60,7 +60,7 @@ kubectl create secret tls nginx --namespace ingress-basic --key aks-ingress-tls.
 
 Finally, let's configure NGINX to use the TLS certificate that we just created for securing the transport and direct the traffic to our Azure Function after terminating SSL at the ingress controller. Execute the following command to create an NGINX ingress controller that fulfills the two responsibilities.
 
-```bash
+```shell
 cat << EOF | kubectl apply -f -
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress

@@ -44,7 +44,7 @@ To use the Function, you first need to register a username and subsequently requ
 
 To use this badge, you first need to register a username. To do that, use an HTTP client of your choice, such as cURL or POSTMAN, to make a POST request to the following endpoint.
 
-```sh
+```shell
 curl -X POST -d "" 'https://badge.tcblabs.net/api/hc/[Your Username]'
 ```
 
@@ -56,7 +56,7 @@ Following is the sequence of the interactions between the systems in the usernam
 
 Let's take a look at the code that is responsible for registering the user. The following code in the Function handles the incoming POST request for registering a user.
 
-```cs
+```c#
 [FunctionName(FxName)]
 public async Task<IActionResult> Run(
     [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "hc/{user}/{pageId?}")]
@@ -80,7 +80,7 @@ public async Task<IActionResult> Run(
 
 The following is the definition of the `RegisterUser` method.
 
-```cs
+```c#
 private static async Task<bool> RegisterUser(string user, CloudTable userTable)
 {
     try
@@ -120,7 +120,7 @@ Following is the sequence of the interactions between the systems in the fetch b
 
 Let's take a look at how the Function services the request. Here is the trimmed down version of the Function code that handles the request.
 
-```cs
+```c#
 [FunctionName(FxName)]
 public async Task<IActionResult> Run(
     [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "hc/{user}/{pageId?}")]
@@ -170,7 +170,7 @@ Azure Storage Tables don't support the [atomic increment/fetch-and-add operation
 
 For concurrent requests across hosts, I disabled optimistic concurrency check for entity updates. Without concurrency check, Azure Table Storage will replace the existing record irrespective of its version. The `ETag` property of Azure Table Storage is used for managing optimistic concurrency. Azure Tips and Tricks website has a [nice writeup on the purpose of the ETag property](https://microsoft.github.io/AzureTipsAndTricks/blog/tip88.html). The following is the definition of the `UpdateEntity` method.
 
-```cs
+```c#
 private static async Task UpdateEntity(ITableEntity record, CloudTable cloudTable)
 {
     record.ETag = "*";
@@ -181,7 +181,7 @@ private static async Task UpdateEntity(ITableEntity record, CloudTable cloudTabl
 
 Finally, after updating the hit count, the Function returns an SVG image to the client. One key obstacle in serving the image to the client is caching. If you add images to GitHub, it will use Camo to [anonymize the images](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/about-anonymized-image-urls) and cache them. To force the client (including GitHub) to fetch the badge on every request, we will add caching headers to the response asking the client not to cache the response. The `NoCacheContentResponse` method adds the relevant headers to the response as follows.
 
-```cs
+```c#
 private static IActionResult NoCacheContentResponse(HttpRequest request, string preparedImage)
 {
     request.HttpContext.Response.Headers.Add("cache-control", "no-cache, no-store, must-revalidate, max-age=0");
@@ -196,7 +196,7 @@ private static IActionResult NoCacheContentResponse(HttpRequest request, string 
 
 The SVG template image stored in the application has several placeholder strings substituted with relevant values to prepare the final image sent in the response. The method `PrepareImage` is responsible for preparing the final image from the template as follows.
 
-```cs
+```c#
 private static async Task<string> PrepareImage(HitRecord record, Options options)
 {
     _imageString ??= await GetImageFromResource(ImageFile);

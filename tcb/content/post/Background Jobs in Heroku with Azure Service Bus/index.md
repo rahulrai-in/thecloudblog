@@ -40,13 +40,13 @@ The application itself is straightforward. It receives messages from the configu
 
 Start your favorite Go code editor such as VSCode, create a folder for your project, and create a module named **sbworker** using the following command:
 
-```sh
+```shell
 go mod init tcblabs.net/sbworker
 ```
 
 To work with Azure Service Bus, let's install the [Azure Service Bus Go package](https://github.com/Azure/azure-service-bus-go) and the [Godotenv package](https://github.com/joho/godotenv) to load environment variables from a .env file. The Godotenv package makes it easier to work with applications on development machines and CI servers where several applications might run with each requiring their own set of environment variables. You can read more about this package in the README of [its GitHub repository](https://github.com/joho/godotenv).
 
-```sh
+```shell
 go get github.com/Azure/azure-service-bus-go
 go get github.com/joho/godotenv
 ```
@@ -142,7 +142,7 @@ Add a file named **.env** to the folder. We will add the Service Bus connectio
 
 Let's spin up an Azure namespace and a queue. I prefer to use the [Azure CLI](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-quickstart-cli), but you can also use any supported means, such as the [Azure portal](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-quickstart-portal). The following commands will create a resource group named **azsb-heroku-worker-rg**, an Azure Service Bus namespace named **worker-ns**, and a queue named **messages** in the namespace.
 
-```sh
+```shell
 az group create -l westus -n azsb-heroku-worker-rg
 az servicebus namespace create --resource-group azsb-heroku-worker-rg --name worker-ns --location westus --sku Standard
 az servicebus queue create --resource-group azsb-heroku-worker-rg --namespace-name worker-ns --name messages

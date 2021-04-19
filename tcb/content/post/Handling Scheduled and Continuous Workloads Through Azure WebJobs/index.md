@@ -55,7 +55,7 @@ Although, you can simply make an application executable or a script run as a Web
 
 The code for handling typical tasks that work with Azure Storage is simple. In a Console Application, you write methods for the background tasks that you want to execute, and you decorate them with attributes from the WebJobs SDK. Your `Main` method creates a `JobHost` object that coordinates the calls to methods you write. The [WebJobs SDK](https://azure.microsoft.com/en-in/documentation/articles/websites-dotnet-webjobs-sdk/) framework knows when to call your methods based on the WebJobs SDK attributes you use in them. The `JobHost` object is a container for a set of background functions. The `JobHost` object monitors the functions, watches for events that trigger them, and executes the functions when trigger events occur. You call a `JobHost` method to indicate whether you want the container process to run on the current thread or a background thread. In the example, the `RunAndBlock` method runs the process continuously on the current thread. You can supply the connection strings to to use in the configuration file of the associated WebApp and bind the strings to job host configuration in the code (while debugging, you need to provide the connection strings in the configuration file of the console application). Following is a sample of how to do that:
 
-```cs
+```c#
 private static void Main()
 {
     var configuration = new JobHostConfiguration
@@ -72,7 +72,7 @@ You can use the inbuilt triggers and binders to invoke functions in your WebJob.
 
 The [WebJobs SDK](https://azure.microsoft.com/en-in/documentation/articles/websites-dotnet-webjobs-sdk/) provides many ways to work with Azure Storage. For example, if the parameter you decorate with the `QueueTrigger` attribute is a byte array or a custom type, it is automatically deserialized from JSON. And you can use a `BlobTrigger` attribute to trigger a process whenever a new blob is created in an Azure Storage account. (Note that while `QueueTrigger` finds new queue messages within a few seconds, `BlobTrigger` can take up to 20 minutes to detect a new blob. `BlobTrigger` scans for blobs whenever the `JobHost` starts and then periodically checks the Azure Storage logs to detect new blobs.). Following is how I use a trigger to capture New Post messages and get references to the and blog table and subscriber table. You can use Console Output functions to write messages to log and the WebJob dashboard.
 
-```cs
+```c#
 public static void ProcessNewPostQueueMessage(
            [QueueTrigger(NewPostQueue)] string message,
            [Table(BlogTable)] CloudTable blogTable,

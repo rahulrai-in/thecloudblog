@@ -20,7 +20,7 @@ Following are two tools that I use to shave a few seconds off my workday: [Auto 
 
 I think that placing the caps lock key right next to heavily used keys is an example of bad design. I don't remember the last time I used this key (maybe I should start FLAMING PEOPLE MORE). It gets pressed accidentally on a regular basis and requires you to undo text or normalize the casing wasting precious time. I discovered a script that tackles this menace beautifully. Use the script below to make CAPS LOCK key stay off unless you double tap it.
 
-```bash
+```shell
 CapsLock::
     if A_PriorHotkey = CapsLock
     {
@@ -41,7 +41,7 @@ CapsLock::
 
 I am not a fan of laptop keyboards, they are small and the trackpad eats into the space meant for my wrists and thumb. Reclaim the lost keyboard space with this script which keeps the trackpad disabled while you type.
 
-```bash
+```shell
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
@@ -136,7 +136,7 @@ CallNextHookEx(nCode, wParam, lParam, hHook = 0)
 
 I developed this mini hack myself. To sound courteous, I start each conversation on Skype with a "Hi, [First Name]". However, since I work with multicultural teams (good thing), sometimes the first names can be a bit too long or complex for me to write without looking up the name twice in the contacts box (bad thing) and people would immediately notice if I wreck their first names. I let AHK handle the formalities for me. This script reads text from the title bar of chat window, formats it and writes the output to chat text box.
 
-```bash
+```shell
 #Persistent
 SetTimer, SayHi, 500
 return

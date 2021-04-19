@@ -25,7 +25,7 @@ Although I am going to walk you through the steps of setting up your playbook, h
 
 To keep the example short and simple, let's assume that we want to create an Azure Container Registry within an Azure Resource Group in two environments, viz. **staging** and **production**. Execute the following script to set up the relevant directories for the project. Refer to the [Ansible Roles]({{< ref "/post/Simplifying Terraform Deployments with Ansible - Part 1#roles" >}} "Ansible Roles") section of the previous post to understand the layout of the **roles** folder created by the command. The folder named **tf** will contain the Terraform configuration files, and the folder named **host_vars** will contain the host-specific variables. There are multiple ways of setting the values of the variables used in an Ansible playbook. You can set them through the command line using the flag `-e` with the highest precedence or set them through files in the **host_vars** or **group_vars** folder. Each file in the **host_vars** folder is named after the host that it represents. You can read more about [adding variables to an Ansible inventory](https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#adding-variables-to-inventory) on the Ansible documentation website.
 
-```sh
+```shell
 $ mkdir -p infra/{tf,roles/plan/{tasks,templates},host_vars}
 $ tree
 
@@ -247,7 +247,7 @@ Let's execute the playbook on both the environments to test our implementation.
 
 I have created a script that you can use to execute the playbook. Create a file named **start.sh** in the **infra** directory and populate it with the following code.
 
-```sh {linenos=inline}
+```shell {linenos=inline}
 tfstate='mytfstatestore'
 tfstaterg='tfstate-rg'
 location='australiaeast'
@@ -305,13 +305,13 @@ Based on the positional parameter value passed to the script, you can perform th
 
 Launch the terminal and change to the **infra** directory. Let's begin by initializing the working directory containing the Terraform configuration files.
 
-```sh
+```shell
 sh start.sh <subscription_id> init staging
 ```
 
 The command leads to the execution of the following playbook command.
 
-```sh
+```shell
 ansible-playbook deploy.yaml -e env=staging -e operation=init
 ```
 
@@ -319,13 +319,13 @@ ansible-playbook deploy.yaml -e env=staging -e operation=init
 
 Let's now try to create a Terraform execution plan by executing the following plan.
 
-```sh
+```shell
 sh start.sh <subscription_id> create-plan staging
 ```
 
 The ansible command executed is the following.
 
-```sh
+```shell
 ansible-playbook deploy.yaml -e env=staging -e operation=create-plan
 ```
 
@@ -333,13 +333,13 @@ ansible-playbook deploy.yaml -e env=staging -e operation=create-plan
 
 Let's now instruct Terraform to create the resources by executing the following command.
 
-```sh
+```shell
 sh start.sh <subscription_id> create staging
 ```
 
 The Ansible playbook command executed this time is the following.
 
-```sh
+```shell
 ansible-playbook deploy.yaml -e env=staging -e operation=create
 ```
 
@@ -351,7 +351,7 @@ Let's check our Azure subscription to verify the status of the operation.
 
 Let’s try to delete the resources in the production environment that should not affect the resources we just created.
 
-```sh
+```shell
 sh start.sh <subscription_id> destroy production
 ```
 
@@ -361,7 +361,7 @@ You will find out that none of the resources are destroyed.
 
 Finally, let's delete the resources we created by removing the infrastructure defined in the **staging** workspace.
 
-```sh
+```shell
 sh start.sh <subscription_id> destroy staging
 ```
 

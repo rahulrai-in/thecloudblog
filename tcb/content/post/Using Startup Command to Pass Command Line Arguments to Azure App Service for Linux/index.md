@@ -60,13 +60,13 @@ CMD ["Color=Blue"]
 
 I want to draw your attention to the last two instructions of the Dockerfile. With the combination of the `ENTRYPOINT` and `CMD` instructions, Docker will try to launch the application with the following command.
 
-```bash
+```shell
 dotnet ColoredWeb.dll Color=Blue
 ```
 
 In the previous command, note that we assigned the value _Blue_ to the key _Color_, which is a command-line argument passed to the ColoredWeb executable. The `ConfigureAppConfiguration` extension method in the class `Program` adds the command line to the application configurations. You can pass more than one argument to the applications as well.
 
-```cs
+```c#
 public static IHostBuilder CreateHostBuilder(string[] args)
 {
     return Host.CreateDefaultBuilder(args)
@@ -81,7 +81,7 @@ If you try to debug the application in [local Docker container](https://docs.mic
 
 The application picks the default color because Visual Studio executes a command similar to the following to launch the container in debug mode.
 
-```bash
+```shell
 docker run -dt -v "C:\Users\rahul\vsdbg\vs2017u5:/remote_debugger:rw" `
 -v "D:\Projects\PaintMe\ColoredWeb:/app" `
 -v "D:\Projects\PaintMe:/src"`

@@ -35,7 +35,7 @@ You can download the source code of the implementation from my GitHub repository
 
 Download the sample and open it in your Visual Studio. To test this function, I have created a complex object with nested lists and objects through this code:
 
-```cs
+```c#
 var complexList = CreateAnonymousList(new { Name = "SomeElementName", Value = "SomeElementValue" });
 complexList.Add(new { Name = "AnotherElementName", Value = "AnotherElementValue" });
 var testObject =
@@ -58,7 +58,7 @@ var testObject =
 
 Next, the retrieval of values of various objects happens in a straightforward manner as shown in the code below.
 
-```cs
+```c#
 Console.WriteLine(
     "Getting value of SimpleProperty: "
     + DynamicPropertyValueReader.GetPropertyValue(testObject, "SimpleProperty"));

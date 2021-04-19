@@ -61,7 +61,7 @@ There are seven attributes supported by the Bot Fx. They are:
    Just like `EnumSelectOne` template, there are several other templates that you can override. [Here is a list](http://bit.ly/2rX0YiR) of all the templates that you can use.
 7. **Terms**: This attribute lets you define alternate text for input. For example, for a volume field, you may want to enable the user to enter l, liter, ltr. etc. each of which should select the Litre option. You can apply a `Terms` attribute to allow the user to do that, e.g.,
 
-```cs
+```c#
 public enum Volume
 {
 	[Terms("l", "liter", "ltr.")]
@@ -88,7 +88,7 @@ In this exercise let’s extend our Blog Bot to accept user comments on aspects 
 
 Create a folder named **Models** in the solution. Add a class file named `BlogComment` to the folder. Let's add two properties to prompt the user to select an aspect of the blog they want to comment on and the actual comment that the user wants to post.
 
-```cs
+```c#
 public enum BlogAspectOptions
 {
     Profile,
@@ -116,7 +116,7 @@ Now let's go back to the **Dialog** folder and create a new class named `BlogBot
 
 We will use the fluent `Switch` function of `IDialog` to trigger the appropriate conversation.
 
-```cs
+```c#
 // This is a dialog chain. This gets triggered with user message as argument.
 public static readonly IDialog<string> dialog = Chain.PostToChain().Select(msg => msg.Text)
     // We will start with the Hello Dialog to greet user. Let's check whether user said "Hi"
@@ -131,7 +131,7 @@ public static readonly IDialog<string> dialog = Chain.PostToChain().Select(msg =
 
 Remember that we need to tell the bot about how to continue a conversation. The chained methods `ContinueHelloConversation` and `ContinueBotConversation` guide the bot through appropriate conversation continuations. Finally, the `Unwrap()` and `PostToUser()` functions direct the response to a new IDialog object and post the response to the user respectively. Let's go through both the continuation functions in detail. The `ContinueHelloConversation` function just terminates the conversation after posting a message to the user.
 
-```cs
+```c#
 private static async Task<IDialog<string>> ContinueHelloConversation(IBotContext context, IAwaitable<object> item)
 {
     var message = await item;
@@ -142,7 +142,7 @@ private static async Task<IDialog<string>> ContinueHelloConversation(IBotContext
 
 One of the common questions that get asked on most of the forums is how you can fork an ongoing communication based on user input.The `ContinueBotConversation` demonstrates how it can be achieved simply by extending the existing call chain to include a new Dialog.
 
-```cs
+```c#
 private static async Task<IDialog<string>> ContinueBlogConversation(IBotContext context, IAwaitable<BlogComment> item)
 {
     // This will contain a BlogComment object with entities populated.

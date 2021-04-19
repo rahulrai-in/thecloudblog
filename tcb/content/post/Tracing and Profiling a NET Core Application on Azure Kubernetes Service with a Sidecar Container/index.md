@@ -72,7 +72,7 @@ Open the newly created project in VS Code. To simulate a CPU intensive operation
 
 Apply the following code in the **Worker.cs** file of the project. You can try to debug this program a few times to understand how it works.
 
-```cs
+```c#
 public class Worker : BackgroundService
 {
     private readonly ILogger<Worker> _logger;

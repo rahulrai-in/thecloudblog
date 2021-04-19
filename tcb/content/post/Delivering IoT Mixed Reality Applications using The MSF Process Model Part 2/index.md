@@ -104,7 +104,7 @@ Now that we have provisioned the infrastructure and created the plumbing between
 
 In Visual Studio, create a new console application and add the following code in the **Program** file.
 
-```cs
+```c#
 internal class Program
 {
    private const string EhConnectionString = "Endpoint=sb://EVENTHUBNAMESPACE.servicebus.windows.net/;SharedAccessKeyName=Key";
@@ -169,7 +169,7 @@ internal class Program
 
 The code has a dependency on EventHub package, therefore, add the NuGet Package **Microsoft.Azure.EventHubs** to the project. Add two constant strings to define the Event Hub connection string and Event Hub name.
 
-```cs
+```c#
 private const string EhConnectionString = "Endpoint=sb://EVENTHUBNAMESPACE.servicebus.windows.net/;SharedAccessKeyName=Key";
 
 private const string EhEntityPath = "EVENT HUB NAME";
@@ -184,7 +184,7 @@ The WebAPI component queries the data stored in Cosmos DB and exposes a REST API
 1. Create a WebAPI project by selecting either the **Azure API App** or **Web API** project template.
 2. Create a controller named **FieldSensorController**. Add the following code to the controller to fetch data from Cosmos DB and return it as a response to the request.
 
-   ```cs
+   ```c#
    public class FieldSensorController : ApiController
    {
       private const string EndpointUri = "https://COSMOSDBNAME.documents.azure.com:443/";

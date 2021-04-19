@@ -54,7 +54,7 @@ A bot should be able to store state in a persistent store to carry out a meaning
 
 The Bot State Service service takes care of maintaining the state, which simplifies the task of maitaining appplication state. You can use the state service in the following manner in your bot application (see code comments for description).
 
-```cs
+```c#
 // The client is responsible for getting\setting state of the bot.
 StateClient stateClient = activity.GetStateClient();
 // Retrieve User Data based on ChannelId and UserId (unique combination)
@@ -69,7 +69,7 @@ await stateClient.BotState.SetUserDataAsync(activity.ChannelId, activity.From.Id
 
 The code that we can use to save complex data types in the state is slightly different from that above. Following is a code snippet that saves and retrieves an object of a complex data type from the state. See code comments in the code snippet for description.
 
-```cs
+```c#
 // **Set State Data
 // The client is responsible for getting\setting state of the bot.
 StateClient stateClient = activity.GetStateClient();
@@ -96,7 +96,7 @@ Let's begin with creating a Dialog that greets the user and saves his\her name i
 
 To invoke this Dialog, go back to the `MessagesController` and empty the contents that appear within the `if (activity.Type == ActivityTypes.Message)` code block. Invoke the `HelloDialog` Dialog from within the code block with the following statement.
 
-```cs
+```c#
 if (activity.Type == ActivityTypes.Message)
 {
     // We will invoke the Dialog here.
@@ -108,7 +108,7 @@ When this statement gets processed, an instance of `HelloDialog` will be created
 
 Let's get inside the `HelloDialog` class and make it respond to the user with a message.
 
-```cs
+```c#
 public async Task StartAsync(IDialogContext context)
 {
     await context.PostAsync("Hi, I am Blog Bot");
@@ -117,7 +117,7 @@ public async Task StartAsync(IDialogContext context)
 
 If you execute the application at this moment, the bot would respond with the message but would throw an exception on subsequent requests. That is because we haven't directed the bot on how to continue the conversation. Let's add a method that will help the bot continue the conversation.
 
-```cs
+```c#
 public async Task StartAsync(IDialogContext context)
 {
     await context.PostAsync("Hi, I am Blog Bot");
@@ -132,7 +132,7 @@ private async Task ProcessConversation(IDialogContext context, IAwaitable<IMessa
 
 Note that in the `ProcessConversation` method we have the `context` variable that contains all the bot data and the `argument` variable that contains user input. Let's use these two inputs to store the name of the user in the state cache and greet the user after we get to know the user's name.
 
-```cs
+```c#
 public async Task StartAsync(IDialogContext context)
 {
     await context.PostAsync("Hi, I am Blog Bot");

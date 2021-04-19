@@ -31,32 +31,32 @@ The source code includes two folders:
 
 Download the sample application and open the folder containing your applications using VSCode. I have added tasks in **launch.json**, and **tasks.json** files for VSCode (in the **.vscode** folder) which will help you build and debug the relevant application. In your command terminal (**Ctrl + `**) navigate to the **api** folder and execute the following command to start the GraphQL server.
 
-```bash
+```shell
 dotnet build
 dotnet run
 ```
 
 Ensure that the API is accessible at the address: [http://localhost:5000/graphql](http://localhost:5000/graphql). Now, launch another terminal and navigate to the **web** directory. Execute the following command to install the required node packages.
 
-```bash
+```shell
 npm install
 ```
 
 To build the client project, you can either execute the following command in the terminal or use the shortcut **Ctrl + Shift + B** and select the **build-watch web** task from the drop-down.
 
-```bash
+```shell
 npm run build:watch
 ```
 
 To execute the included Jasmine tests, execute the following command in the terminal.
 
-```bash
+```shell
 npm run test
 ```
 
 After all the tests succeed, your project is now ready for a test drive. The application supports commands in the following format.
 
-```bash
+```shell
 node index.js query\mutation [-m] [-a [argument dictionary]]
 ```
 
@@ -64,13 +64,13 @@ The command has three parts, the query or mutation operation string, a flag para
 
 To save you effort and also to provide you with some examples, I have added two simple npm scripts to the application that will help you test the client. Execute the following command to execute a mutation operation on the API.
 
-```bash
+```shell
 npm run run:testQuery
 ```
 
 This command will execute the following query on the GraphQL API and print the response in the form of a string to the console.
 
-```gql
+```graphql
 query AuthorQuery($id: ID) {
   author(id: $id) {
     name
@@ -84,19 +84,19 @@ query AuthorQuery($id: ID) {
 
 The command also sends the following argument dictionary to the query to substitute the `$id` parameter.
 
-```gql
+```graphql
 { "id": 1 }
 ```
 
 The output of this command will list all the quotes from the author with Id value 1. Executing the following command will add a quote to the author with Id value 2.
 
-```bash
+```shell
 npm run run:testMutation
 ```
 
 This operation will execute the following mutation operation on the GraphQL API.
 
-```gql
+```graphql
 mutation QuoteMutation($authorId: Int!, $text: String!, $category: String!) {
     createQuote(quote: {authorId: $authorId, text: $text, category: $category}) {
         name
@@ -107,7 +107,7 @@ mutation QuoteMutation($authorId: Int!, $text: String!, $category: String!) {
 
 The operation also passes the following argument dictionary to the mutation operation.
 
-```gql
+```graphql
 {"authorId":2,\"text":"FamousQuote1","category":"fun"}
 ```
 
@@ -129,7 +129,7 @@ Let’s now dig deeper into the code I wrote for building this application.
 
 The application begins execution from the **index.ts\js** file which contains the following code.
 
-```ts
+```typescript
 import * as OperationParser from "./operationParser";
 import { gqlOperations } from "./options";
 
@@ -149,7 +149,7 @@ The function returns an instance of the `Options` class in response, which expos
 
 Navigate to the **optionsParser.ts** file now. The `fromArgv` function uses a helper function `minimistAs` to split the input into operation string, the operation flag, and argument parameter value.
 
-```ts
+```typescript
 import * as minimist from "minimist";
 
 import { Options, Arguments } from "./options";
@@ -174,7 +174,7 @@ The `minimistAs` function uses a simple command line parser package [minimist](h
 
 Let's now move on to explore the `Options` class in the **options.ts** file.
 
-```ts
+```typescript
 import { Mutation } from "./mutation";
 import { Query } from "./query";
 
@@ -212,7 +212,7 @@ Most of the code in this file is straightforward and requires no explanation. Th
 
 Let's now review the `Query` function present in the **query.ts** file.
 
-```ts
+```typescript
 import { IOperation } from "./IOperation";
 import { default as ApolloClient, ApolloQueryResult } from "apollo-boost";
 import { default as gql } from "graphql-tag";
@@ -239,7 +239,7 @@ Both the `Query` and the `Mutation` variables implement the `IOperation` interfa
 
 Understanding the code of the `Mutation` in the **mutation.ts** file will be easy for you as it closely resembles the implementation you went through in the **query.ts** file.
 
-```ts
+```typescript
 import { IOperation } from "./IOperation";
 import { default as ApolloClient, FetchResult } from "apollo-boost";
 import { default as gql } from "graphql-tag";

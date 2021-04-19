@@ -26,7 +26,7 @@ You can implement this pattern in multiple scenarios such as:
 
 Using [TPL Data Flow](<https://msdn.microsoft.com/en-us/library/hh228603(v=vs.110).aspx>), this scenario can be realized in the easiest manner. We will use a [Buffer Block](https://msdn.microsoft.com/en-us/library/hh228603(v=vs.110).aspx#Predefined Dataflow Block Types) which contains the data that needs to be sent from the producer to the consumer. We would need to assign this buffer to both the producer and the consumer functions to keep them synchronized.
 
-```cs
+```c#
 private static void TestProducerConsumerFunction()
 {
     var sharedPayload = new BufferBlock<IList<int>>();
@@ -37,7 +37,7 @@ private static void TestProducerConsumerFunction()
 
 Next, the producer will run recursively and post data to this buffer.
 
-```cs
+```c#
 private static async void WorkTaskComposer(ITargetBlock<IList<int>> targetBlock)
 {
     await Task.Factory.StartNew(
@@ -65,7 +65,7 @@ private static async void WorkTaskComposer(ITargetBlock<IList<int>> targetBlock)
 
 The consumer consumes the data asynchronusly. As soon as data becomes available in the buffer, the consumer function starts working on it.
 
-```cs
+```c#
 private static async void AsynchronousConsumer(ISourceBlock<IList<int>> sourceBlock)
 {
     while (await sourceBlock.OutputAvailableAsync())

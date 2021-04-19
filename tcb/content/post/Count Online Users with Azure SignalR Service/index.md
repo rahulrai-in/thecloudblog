@@ -37,7 +37,7 @@ The code for this application is present in my GitHub repository.
 
 We will start by writing the hub class. Hub is the main point of connection between the server and the client. Clients can invoke functions on the hub, and the hub can invoke functions on the clients. The `Hub` base class which should be inherited by all custom hubs defines some necessary infrastructure to ease development effort. Our hub will increment and decrement a counter value when a client connects and disconnects from the hub respectively.
 
-```cs
+```c#
 public class UserCount : Hub
 {
     private static int Count;
@@ -62,13 +62,13 @@ public class UserCount : Hub
 
 Install the Microsoft.Azure.SignalR nuget package in your application. Now, navigate to the `Startup` class and add the SignalR service in the `ConfigureServices` method using the following code.
 
-```cs
+```c#
 services.AddSignalR().AddAzureSignalR();
 ```
 
 Next, we need to connect the hub to a path. To do that, add the following code snippet to the `Configure` method in the `Startup` class.
 
-```cs
+```c#
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<UserCount>("/chat");
@@ -77,7 +77,7 @@ app.UseEndpoints(endpoints =>
 
 The code snippets that we added in the `Startup` class will direct all calls from the client to the Azure SignalR Service. The SignalR service will then direct the calls to the hub. Finally, you need to add the SignalR service endpoint as application secret by executing the following command in the same directory as your application's project file.
 
-```bash
+```shell
 dotnet user-secrets set Azure:SignalR:ConnectionString "Endpoint=<Your endpoint>;AccessKey=<Your access key>;"
 ```
 

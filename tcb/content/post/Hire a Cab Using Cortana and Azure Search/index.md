@@ -154,14 +154,14 @@ This is the final point of integration and fairly simple to achieve if you have 
 
 1.  Next, we need to install this file. We will use the `OnLaunched` event of the application and use the following code for the operation.
 
-```cs
+```c#
 var vcdfile = await Package.Current.InstalledLocation.GetFileAsync(@"VoiceCommandDefinition.xml");
 await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vcdfile);
 ```
 
 1.  Lastly, we are going to create a Background Service named `CabSearchBackgroundService` and listen for the voice commands.
 
-```cs
+```c#
 this.voiceCommandServiceConnection =
     VoiceCommandServiceConnection.FromAppServiceTriggerDetails(triggerDetails);
 this.voiceCommandServiceConnection.VoiceCommandCompleted += (sender, args) => this.deferral?.Complete();
@@ -183,7 +183,7 @@ switch (voicecommand.CommandName)
 
 The rest of the code is responsible for querying the index, retrieving the results and sending the results to Cortana. Azure search supports [geospatial queries](https://msdn.microsoft.com/en-us/library/azure/dn798921.aspx) by which you can search for documents, that have a searchable Geo coordinate field, present inside a given polygon coordinates or within a certain distance from a given geographical coordinate. On querying for a location, Bing maps get you the bounding box coordinates of the location. We will use the bounding box coordinates to find cabs present within a region. The following function in class `CabSearch` in **CabSearchBackgroundService** project is responsible for executing this flow.
 
-```cs
+```c#
 private async Task SearchCabsInArea(string area)
 {
     var locationData = new LocationData(BingApiKey).GetBoundingBoxCoordinates($"{area},India").Result;
@@ -213,7 +213,7 @@ private async Task SearchCabsInArea(string area)
 
 We will use the user's device coordinates to search for cabs near the user. The following function in class `CabSearch` in **CabSearchBackgroundService** project is responsible for executing this flow.
 
-```cs
+```c#
 private async Task SearchCabsNearby()
 {
     var geolocator = new Geolocator();

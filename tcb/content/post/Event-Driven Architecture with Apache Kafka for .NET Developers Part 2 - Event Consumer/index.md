@@ -41,7 +41,7 @@ Open the **Program** class file in your editor and begin populating the `Main` m
 
 Like the producer client, the consumer client requires certain initialization parameters, such as the list of Bootstrap servers, the brokers to which the client will initially connect. Use the following code to create the configurations that will be used to initialize the client.
 
-```cs
+```c#
 var schemaRegistryConfig = new SchemaRegistryConfig { Url = "http://127.0.0.1:8081" };
 var consumerConfig = new ConsumerConfig
 {
@@ -67,7 +67,7 @@ FInally, the `MaxPollIntervalMs` specifies the duration in milliseconds after wh
 
 Let's continue writing the message consumer logic as follows:
 
-```cs
+```c#
 record KafkaMessage(string Key, int Partition, LeaveApplicationReceived Message);
 var leaveApplicationReceivedMessages = new Queue<KafkaMessage>();
 

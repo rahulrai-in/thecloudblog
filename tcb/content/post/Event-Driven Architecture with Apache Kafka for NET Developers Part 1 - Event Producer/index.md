@@ -172,7 +172,7 @@ Open the **Program** class file in your editor and begin populating the `Main` m
 
 Each client requires certain initialization parameters, such as the Bootstrap servers, which is the list of brokers that the client will connect to initially. After the initial connection, the client discovers the rest of the brokers automatically. The schema registry requires the address of the Schema Registry server. Use the following code to create the configurations that will be used to initialize the clients.
 
-```cs
+```c#
 var adminConfig = new AdminClientConfig { BootstrapServers = "127.0.0.1:9092" };
 var schemaRegistryConfig = new SchemaRegistryConfig { Url = "http://127.0.0.1:8081" };
 var producerConfig = new ProducerConfig
@@ -188,7 +188,7 @@ Please visit the Confluent docs website to read more about the supported [Admin 
 
 Let's first create the topic that will receive our messages. Add the following code to your program to create a new topic named **leave-applications** with three partitions.
 
-```cs
+```c#
 using var adminClient = new AdminClientBuilder(adminConfig).Build();
 try
 {
@@ -211,7 +211,7 @@ catch (CreateTopicsException e) when (e.Results.Select(r => r.Error.Code)
 
 You must be wondering why we created three partitions? We want to explore how the producer can write to different partitions of a topic. An employee belongs to a department, so we will create a partition for each department in the **leave-applications** topic. Employee applications will be queued sequentially within each department. Let's create an enumeration named `Department` now, which we will later use in the producer's logic.
 
-```cs
+```c#
 public enum Departments : byte
 {
     HR = 0,
@@ -272,7 +272,7 @@ Copy the generated file **LeaveApplicationReceived.cs** from the output folder a
 
 Let's go back to the `Program` class and continue editing the `Main` method to write the message producer logic as follows:
 
-```cs
+```c#
 using var schemaRegistry = new CachedSchemaRegistryClient(schemaRegistryConfig);
 using var producer = new ProducerBuilder<string, LeaveApplicationReceived>(producerConfig)
     .SetKeySerializer(new AvroSerializer<string>(schemaRegistry))

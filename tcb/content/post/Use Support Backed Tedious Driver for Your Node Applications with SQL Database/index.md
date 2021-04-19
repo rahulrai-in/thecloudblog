@@ -166,7 +166,7 @@ The index file acts as a Repository abstraction of the underlying database. The 
 
 Before we add any code in **database.js**, we need to install the [Tedious npm package](https://www.npmjs.com/package/tedious). Use the following command to add the package to the project.
 
-```bash
+```shell
 npm install tedious --save
 ```
 

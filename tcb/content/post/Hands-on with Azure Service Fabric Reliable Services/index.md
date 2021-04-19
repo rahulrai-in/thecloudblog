@@ -56,7 +56,7 @@ Once the two Reliable Service projects are in place, we need to add one more pro
 >
 > It is a good practice to expose service operations through interfaces. This way, if you want to enable communication through contract based protocols such as WCF and RPC, then you only need to modify the interface. For example, we can have this interface extend the IService interface for the runtime to provide remoting infrastructure to the service contract.
 
-```cs
+```c#
 namespace TweetAnalytics.Contracts
 {
     using System.Threading.Tasks;
@@ -71,7 +71,7 @@ namespace TweetAnalytics.Contracts
 
 Set the target platform of the class library to **x64** as it is the only platform supported by Service Fabric currently. Add `TweetAnalytics.Contracts` as a dependency into `TweetAnalytics.Web` and `TweetAnalytics.TweetService` projects. Implement the interface `ITweet` in `TweetService` class. The following implementation of `SetTweetSubject` in `TweetService` class will clear contents of `scoreDictionary`, which is a `ReliableDictionary` (won't lose data in case of failures) that contains tweet message and sentiment score as a string and decimal pair, and add the search term as a message to the `topicQueue` which is a `ReliableQueue`.
 
-```cs
+```c#
 public async Task SetTweetSubject(string subject)
 {
 	if (this.cancellationToken.IsCancellationRequested)
@@ -101,7 +101,7 @@ public async Task SetTweetSubject(string subject)
 
 The implementation of `GetAverageSentimentScore` fetches the average sentiment score from the `scoreDictionary`. Note that, read operations happen on a [snapshot of the collection](https://azure.microsoft.com/en-in/documentation/articles/service-fabric-reliable-services-reliable-collections/#isolation-levels),therefore, it will ignore any updates that happen while you are iterating through the collection.
 
-```cs
+```c#
 public async Task<TweetScore> GetAverageSentimentScore()
 {
     if (this.cancellationToken.IsCancellationRequested)
@@ -130,7 +130,7 @@ The `TweetService` class overrides the `RunAsync` method of the `StatefulService
 
 Following is the implementation for the `CreateTweetMessages` method.
 
-```cs
+```c#
 private void CreateTweetMessages()
 {
     while (!this.cancellationToken.IsCancellationRequested)
@@ -159,7 +159,7 @@ private void CreateTweetMessages()
 
 Following is the code listing for the `ConsumeTweetMessages` method.
 
-```cs
+```c#
 private void ConsumeTweetMessages()
 {
     var tweetQueue = this.StateManager.GetOrAddAsync<IReliableQueue<string>>("tweetQueue").Result;
@@ -186,7 +186,7 @@ private void ConsumeTweetMessages()
 
 The `RunAsync` method spawns the above two methods.
 
-```cs
+```c#
 protected override async Task RunAsync(CancellationToken token)
 {
     this.cancellationToken = token;
@@ -198,7 +198,7 @@ protected override async Task RunAsync(CancellationToken token)
 
 To enable the HTTP communication channel between the front-end and the service, we need to override the `CreateServiceReplicaListeners` method to return and HTTP listener to the Service Fabric runtime. The code that creates the HTTP listener can be found in the code associated with the article.
 
-```cs
+```c#
 protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
 {
     return new[] { new ServiceReplicaListener(this.CreateInternalListener) };
@@ -215,13 +215,13 @@ A great blog post discussing the available partitioning schemes is available [he
 
 To talk to the service, the web application would need to resolve the endpoint of the service by passing in the partition id and service name to the `ServicePartitionResolver` which simply queries the Service Fabric _Naming Service_ to retrieve the IP address of the `TweetService` instance. The web application will then send an HTTP request to the resolved address of the primary replica of the service. Following is how we can use the Fabric Runtime Context to build the name of the `TweetService`service.
 
-```cs
+```c#
 private Uri tweetServiceInstance = new Uri(FabricRuntime.GetActivationContext().ApplicationName + "/TweetService");
 ```
 
 The controller methods simply query the _Naming Service_ and sending requests to the primary replica of the service. Let's take a look at the `SetSubject` action which sends the search term argument to `TweetService`.
 
-```cs
+```c#
 public IActionResult SetSubject(string subject)
 {
 	var tokenSource = new CancellationTokenSource();

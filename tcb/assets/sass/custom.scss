@@ -435,3 +435,23 @@ blockquote {
     margin-left: auto;
     margin-right: auto;
 }
+
+// Displays name of the code language
+.highlight {
+    position: relative;
+    margin-top: 2.5em !important;
+}
+
+code:before {
+    @extend .unselectable;
+    position: absolute;
+    top: -18px;
+    left: 0em;
+    width: 110px;
+    content: attr(data-lang);
+    text-transform: lowercase;
+    background-color: #272822;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    text-align: center;
+}

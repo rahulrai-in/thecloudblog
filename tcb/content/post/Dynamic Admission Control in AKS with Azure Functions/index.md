@@ -161,7 +161,7 @@ func processRequest(target string, res http.ResponseWriter, req *http.Request) {
 
 We need to expose just one endpoint capable of receiving a POST request from the admission controller. The `GetAdmissionValidationServer` function defines the handler for this endpoint. The request handler forwards the request to the Azure Function. Note that our function accepts anonymous traffic from the internet as follows.
 
-```cs {linenos=table,hl_lines=[3]}
+```c# {linenos=table,hl_lines=[3]}
 [FunctionName("AdmissionControlFx")]
 public static async Task<IActionResult> Run(
     [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)]
@@ -186,7 +186,7 @@ Navigate to file `generate-certificates.sh` in the folder named specifications. 
 
 > Credit to my friend [Tarun Pabbi](https://www.tarunpabbi.com/), who helped me write this script.
 
-```sh {linenos=table,hl_lines=[8]}
+```shell {linenos=table,hl_lines=[8]}
 # Create CA certificate and key
 openssl req -nodes -new -x509 -keyout ca.key -out ca.crt -subj "/CN=Admission Controller Demo CA"
 
@@ -206,7 +206,7 @@ cat b64ca.crt | tr -d '\n' > b64ca-formatted.crt
 
 The set of commands in the previous code listing will generate the certificates used by our reverse proxy. We will now publish the generated certificates as secrets in our AKS cluster with the following command.
 
-```sh
+```shell
 # Store the certificates in a secret
 kubectl create secret generic dac-rp-cert --from-file=cert.pem --from-file=key.pem
 ```

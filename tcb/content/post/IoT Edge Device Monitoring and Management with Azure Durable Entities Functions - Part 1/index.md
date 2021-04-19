@@ -64,14 +64,14 @@ The repository comprises three applications organized using the following folder
 
 We will only need an instance of IoT Hub to build and debug an IoT Edge solution. To create an IoT Hub instance, execute the following Azure CLI commands in your local or cloud terminal.
 
-```bash
+```shell
 az group create --name {your resource group name} --location westus
 az iot hub create --name {your iot hub name} --resource-group {your resource group name} --sku S1
 ```
 
 After ensuring that your IoT Hub instance is up and running, execute the following command to create a new device identity for your IoT Edge device.
 
-```bash
+```shell
 az iot hub device-identity create --device-id myboilercontroller --hub-name {iot hub name} --edge-enabled
 ```
 
@@ -183,7 +183,7 @@ In the previous code listing, we defined the container image that the runtime sh
 
 Let's now navigate to the **Program.cs** file in the **modules/controller** folder. Leave the default code that sets the behavior of cancellation token as it is. We will now change the code defined in the `Init` function to define a Direct Command handler and an asynchronous process that generates data as per the command sent by the client. Replace the code in the `Init` function with the code in the following code listing.
 
-```cs
+```c#
 static async Task Init()
 {
     var amqpTransportSettings = new AmqpTransportSettings(TransportType.Amqp_Tcp_Only);
@@ -215,7 +215,7 @@ The `PublishMessage` function is an infinitely running routine that generates te
 
 Let's write the `CommandHandler` function that will set the temperature thresholds and send the operation completion signal back to the client.
 
-```cs
+```c#
 private static async Task<MethodResponse> CommandHandler(MethodRequest methodRequest, object userContext)
 {
     var moduleClient = userContext as ModuleClient;
@@ -253,7 +253,7 @@ private static async Task<MethodResponse> CommandHandler(MethodRequest methodReq
 
 The `PublishMessages` function contains the logic to generate telemetry. I recommend that you go through the code in the repository to understand it. An inner function named `SendMessage` composes the message and sends it to the output target.
 
-```cs
+```c#
 async Task SendMessage()
 {
     var temperatureValue = new { CurrentTemperature = counter };
@@ -280,7 +280,7 @@ Let’s now build a simple console application that will help us send Direct Com
 
 The **Generator** application will invoke the direct method on the edge device. As we saw earlier, our device understands four commands, each of which sets an upper and lower threshold between which the device generates telemetry. Create a simple dotnet core console application and add the following code to the class `Program`.
 
-```cs
+```c#
 static async Task Main()
 {
     var config = new ConfigurationBuilder().AddJsonFile("appsettings.json", true, true).Build();

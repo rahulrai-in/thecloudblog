@@ -51,7 +51,7 @@ In Visual Studio create a new API App from ASP.net Web Project Template (require
 
 Add a new class `OneDriveConnectorRequest` in the Models folder and write the following code in it. As you might have already guessed, this is the same format in which OneDrive connector provides its output.
 
-```cs
+```c#
 public class OneDriveConnectorRequest
 {
     public string FileName { get; set; }
@@ -64,7 +64,7 @@ public class OneDriveConnectorRequest
 
 Next, replace the template code in Values controller with the following code. This code will place the OneDrive connector output in a local variable and expose that data formatted as HTML for Office365 connector, which we will add soon.
 
-```cs
+```c#
 public class ValuesController : ApiController
 {
     private static OneDriveConnectorRequest[] files;

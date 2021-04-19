@@ -20,7 +20,7 @@ SELECT name, id FROM employees WHERE id = 1
 
 ...can be translated to the following in GraphQL.
 
-```gql
+```graphql
 {
   employees(id: 1) {
     id
@@ -77,19 +77,19 @@ In your IDE, create an empty .Net core WebAPI project. In this project, we will 
 
 To add support for GraphQL in your application, execute the following command to install the `GraphQL` package.
 
-```bash
+```shell
 dotnet add package GraphQL
 ```
 
 Execute the following command to install the `graphiql` package in your application.
 
-```bash
+```shell
 dotnet add package graphiql
 ```
 
 Add the following statement to the `Configure` method in the `Startup` class. This will add the GraphiQL middleware to the application and make the GraphiQL UI available on the `/graphql` endpoint.
 
-```cs
+```c#
 app.UseGraphiQl("/graphql");
 ```
 
@@ -99,7 +99,7 @@ After configuring these packages, we are now ready to prepare the database the c
 
 Using Entity Framework Core is the simplest way to create queryable entities for GraphQL. Let's start with building models for our application. Create a folder named **Models** and add a class named `Author` to it.
 
-```cs
+```c#
 public class Author
 {
   public int Id { get; set; }
@@ -110,7 +110,7 @@ public class Author
 
 Now, add another class named `Quotes` to the folder.
 
-```cs
+```c#
 public class Quote
 {
   public string Id { get; set; }
@@ -123,7 +123,7 @@ public class Quote
 
 After adding the models, we will create a `DbContext` class to provision a bridge between your entities and the database. Add a class named `ApplicationDbContext` to your project and add the following code to the class.
 
-```cs
+```c#
 public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
@@ -135,7 +135,7 @@ public class ApplicationDbContext : DbContext
 
 Let's now hook the `DbContext` to the application. For this sample, I am going to use the in-memory database. However, you can configure any database supported by EF Core here. Add the following code to the `ConfigureServices` method of the `Startup` class.
 
-```cs
+```c#
 services.AddDbContext<ApplicationDbContext>(context =>
 {
     context.UseInMemoryDatabase("QuoTSDb");
@@ -144,7 +144,7 @@ services.AddDbContext<ApplicationDbContext>(context =>
 
 Let's add some seed data to the database so that some data is available for the client to work with when the application starts. Add the following code to the `Main` method of the `Program` class to add some records to the database.
 
-```cs
+```c#
 public static void Main(string[] args)
 {
     IWebHost host = CreateWebHostBuilder(args).Build();
@@ -188,7 +188,7 @@ At this point we are ready with two queryable entities and a fully functional da
 
 A GraphQL service requires defining types and fields on those types. Further, you provision functions for each field on each type. In GraphQL, the schema is set on the server, and the client uses the schema to query or mutate (create, update, and delete) the data over a single endpoint. The schema of data is defined in a particular format using a specification known as **Schema Definition Language**. The following is an example of how the author schema in our sample will be defined.
 
-```gql
+```graphql
 {
   author: Author
   authors: GraphQL List (Author)
@@ -197,7 +197,7 @@ A GraphQL service requires defining types and fields on those types. Further, yo
 
 In the schema listed previously, `Author` itself is a **Type** with three fields: `Id`, `Name`, and `Quotes`. It will be represented as the following.
 
-```gql
+```graphql
 {
   Author = {
     id: GraphQL Int
@@ -209,7 +209,7 @@ In the schema listed previously, `Author` itself is a **Type** with three fields
 
 Further, `Quote` itself is another type. A GraphQL client only understands schema and types, and therefore, we would need to convert the `Author` and `Quote` classes to types. In the project, create a folder named **GraphQL** and add a class named `AuthorType` to it. All types should inherit from `ObjectGraphType<T>` class. Add the following code to the class to map the properties of the Author class to GraphQL types such as string, integer, etc.
 
-```cs
+```c#
 public class AuthorType : ObjectGraphType<Author>
 {
     public AuthorType()
@@ -225,7 +225,7 @@ public class AuthorType : ObjectGraphType<Author>
 
 Similarly, add another class named `QuoteType` to the folder and update the code of this class with the code in the following listing.
 
-```cs
+```c#
 public class QuoteType : ObjectGraphType<Quote>
 {
     public QuoteType()
@@ -240,7 +240,7 @@ public class QuoteType : ObjectGraphType<Quote>
 
 After defining the schema, we can now define queries that the client can execute using the schema. The server presents the schema of queries and mutations to the client which it can send to the server. We will define a query to get an author object when the client sends the id of the author as a query argument. In GraphQL the query will look like the following. Note that we are requesting only the quotes from the author to be sent in the response.
 
-```gql
+```graphql
 {
   author(id: 1) {
     quotes {
@@ -252,7 +252,7 @@ After defining the schema, we can now define queries that the client can execute
 
 The response for this query will look like the following.
 
-```gql
+```graphql
 {
   "data": {
     "author": {
@@ -276,7 +276,7 @@ Add another class file named `AuthorQuery` in the GraphQL folder. We will define
 
 Before we write any code in this class, I would like to talk about the concept of _Resolvers_. The responsibility of a resolver function is to retrieve data from the data resource such as an API or a database and compose the type object that is returned as the response. Add the following code to the class to provision the queries and their resolvers.
 
-```cs
+```c#
 public class AuthorQuery : ObjectGraphType
 {
     public AuthorQuery(ApplicationDbContext db)
@@ -309,7 +309,7 @@ public class AuthorQuery : ObjectGraphType
 
 While we are into the process of writing queries, let's add a mutation operation to add a quote to an author profile. Mutations are GraphQL objects similar to queries, but by using mutations, you can update, delete and create records. The following is an example of a mutation operation named `createQuote` that accepts parameters for creating a new quote. Mutation operations also allow you to query the updated object as part of the same operation. In the following example, you can see that we can request various fields of the resultant `Author` object to be returned in response to a mutation operation.
 
-```gql
+```graphql
 mutation {
   createQuote(
     quote: {
@@ -329,7 +329,7 @@ mutation {
 
 We will now define a class named `QuoteInput` that encapsulates the parameters that we need for creating a new quote. Add a new class file named `QuoteInput` in the **GraphQL** folder and add three properties in the class as shown in the following code snippet.
 
-```cs
+```c#
 public class QuoteInput
 {
     public int AuthorId { get; set; }
@@ -340,7 +340,7 @@ public class QuoteInput
 
 GraphQL does not understand bare .Net classes so just as before, we will convert `QuoteInput` to a GraphQL type. An input should extend class `InputObjectGraphType` that manages the representation of the type in the format understood by GraphQL. Add a new class named `QuoteInputType` to the folder and paste the following code in the file.
 
-```cs
+```c#
 public class QuoteInputType : InputObjectGraphType<QuoteInput>
 {
   public QuoteInputType()
@@ -355,7 +355,7 @@ public class QuoteInputType : InputObjectGraphType<QuoteInput>
 
 Finally, we will define a mutation operation that adds a record to the database from the input that it receives from the mutation function parameter.
 
-```cs
+```c#
 public class QuoteMutation : ObjectGraphType
 {
     public QuoteMutation(ApplicationDbContext db)
@@ -384,7 +384,7 @@ In the `QuoteMutation` class we defined a mutation operation named `createQuote`
 
 Whether for query or for mutation, the client will always send a **POST** request to the GraphQL endpoint (/graphql) which will contain the name of the query, name of the operation, and the parameters. We will create a class that will serve as a model for all queries and mutations. Create a class named `GraphQLQuery` and update the code in the class to the following code listing.
 
-```cs
+```c#
 public class GraphQLQuery
 {
     public string OperationName { get; set; }
@@ -395,7 +395,7 @@ public class GraphQLQuery
 
 Finally, we will create a POST endpoint to which the client can send requests. Create a new controller named `GraphQLController` in your API and paste the following code in the class.
 
-```cs
+```c#
 [Route("graphql")]
 [ApiController]
 public class GraphQLController : ControllerBase
@@ -443,7 +443,7 @@ Launch the application now and navigate to the URL: [https://localhost:5001/grap
 
 Let's execute a query in GraphiQL interface to list the authors and their quotes. Write the following query in the interface and execute it.
 
-```gql
+```graphql
 {
   authors {
     id
@@ -462,7 +462,7 @@ The following is a screenshot of the output of the query.
 
 Let's now execute a mutation to add a quote to the author record and also list all the quotes of the author in the same operation.
 
-```gql
+```graphql
 mutation {
   createQuote(
     quote: {

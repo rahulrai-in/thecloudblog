@@ -50,7 +50,7 @@ Grains can store state information beyond their lifetime. This feature is helpfu
 
 Grain classes that inherit from `Grain<T>` (where `T` is an application-specific state data type derived from `IGrainState`) will have their state loaded automatically from a specified storage. Grains will be marked with a `[StorageProvider]` attribute that specifies a named instance of a storage provider to use for reading/writing the state data for this Grain.
 
-```cs
+```c#
 [StorageProvider(ProviderName="store1")]
 public class MyGrain<IMyGrainState> ...
 {
