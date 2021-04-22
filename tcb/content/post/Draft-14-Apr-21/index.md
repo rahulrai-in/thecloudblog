@@ -40,7 +40,18 @@ Jaeger is composed of [multiple components](https://www.jaegertracing.io/docs/1.
 4. Query: The query service retrieves traces from storage and renders the UI to display them.
 
 
-You can run Jaeger on your local environment (and CI/CD environments) using the all-in-one 
+You can run Jaeger on your local environment (and CI/CD environments) using the Jaeger [all-in-one container image](https://hub.docker.com/r/jaegertracing/all-in-one) that runs all the components of Jaeger in one container. In production environment, you should run each component independently. The [deployment guide on the Jaeger website](https://www.jaegertracing.io/docs/1.22/deployment/) covers guidance and recommendations on the deployment. Jaeger recommends  
+
+
+## Jaeger All-in-One
+
+Execure the following commadn to spin up a Jaeger container backed by an in-memory storage component called **Badger**.
+
+```shell
+$ docker run -d -p6831:6831/udp -p16686:16686 jaegertracing/all-in-one:latest
+```
+
+ 
 
 
 ```shell
