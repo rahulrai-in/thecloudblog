@@ -288,6 +288,24 @@ dark-mode-toggle {
     right: 50px;
 }
 
+.ready-offline-footer {
+    position: fixed;
+    bottom: 0px;
+    right: 10px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.dot {
+    height: 7px;
+    width: 7px;
+    background-color: green;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .buymecoffee-footer {
     position: fixed;
     padding: 0;
