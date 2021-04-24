@@ -1,5 +1,5 @@
 ---
-title: Distributed Tracing in ASP.NET Core with Jaeger and Tye
+title: Distributed Tracing in ASP.NET Core with Jaeger and Tye Part 1 - Distributed Tracing
 date: 2021-04-20
 tags:
   - azure
@@ -14,7 +14,6 @@ https://github.com/dotnet/tye/blob/main/docs/recipes/distributed_tracing.md
 https://www.olivercoding.com/2018-12-14-jaeger-csharp/
 
 https://www.c-sharpcorner.com/article/exploring-distributed-tracing-using-asp-net-core-and-jaeger/
-
 
 Modern microservices applications consist of many services deployed on various hosts such as Kubernetes, AWS ECS, and Azure App Services or serverless compute services such as AWS Lambda and Azure Functions. One of the key challenges of microservices is the reduced visibility of requests that span multiple services. In distributed systems that perform various operations such as database queries, publish and consume messages, and trigger jobs, how would you quickly find issues and monitor the behavior of services? The answer to the perplexing problem is Distributed Tracing.
 
@@ -32,27 +31,30 @@ Distributed Tracing is the capability of a tracing solution that you can use to 
 4. Distributed context propagation
 5. Root cause analysis
 
-Jaeger is composed of [multiple components](https://www.jaegertracing.io/docs/1.22/architecture/): 
+Jaeger is composed of [multiple components](https://www.jaegertracing.io/docs/1.22/architecture/):
 
 1. Client libraries: These are language specific implementations of the Open Tracing API.
-2. Agent: The agent is a network daemon that collects spans from the application, batches them and send them to the collector. 
+2. Agent: The agent is a network daemon that collects spans from the application, batches them and send them to the collector.
 3. Collector: The collector receives traces from the agent and runs them through a processing pipeline which validates the the traces, indexes them, performs any transformations and finally stores them.
 4. Query: The query service retrieves traces from storage and renders the UI to display them.
 
-
-You can run Jaeger on your local environment (and CI/CD environments) using the Jaeger [all-in-one container image](https://hub.docker.com/r/jaegertracing/all-in-one) that runs all the components of Jaeger in one container. In production environment, you should run each component independently. The [deployment guide on the Jaeger website](https://www.jaegertracing.io/docs/1.22/deployment/) covers guidance and recommendations on the deployment. Jaeger recommends  
-
+You can run Jaeger on your local environment (and CI/CD environments) using the Jaeger [all-in-one container image](https://hub.docker.com/r/jaegertracing/all-in-one) that runs all the components of Jaeger in one container. In production environment, you should run each component independently. The [deployment guide on the Jaeger website](https://www.jaegertracing.io/docs/1.22/deployment/) covers guidance and recommendations on the deployment. Jaeger recommends
 
 ## Jaeger All-in-One
 
-Execure the following commadn to spin up a Jaeger container backed by an in-memory storage component called **Badger**.
+Execute the following command to spin up a Jaeger container backed by an in-memory storage component called **Badger**.
 
 ```shell
-$ docker run -d -p6831:6831/udp -p16686:16686 jaegertracing/all-in-one:latest
+docker run -d -p6831:6831/udp -p16686:16686 jaegertracing/all-in-one:latest
 ```
 
- 
+Once the container is running, you can inspect the Jaeger dashboard by navigating to [http://localhost:16686/](http://localhost:16686/).
 
+## Demo Application: DCalculator
+
+To mimic a microservices application, we will create two ASP.NET Core Web APIs such that a request traverses the APIs, thus producing distributed traces.
+
+DClaculator is a distributed calculator application that is composed of a several microservices each of which perform a unique mathematical operation. For the demo we will create a microservice that takes the input and routes the request to an appropriate microservice.
 
 ```shell
 dotnet tool install -g Microsoft.Tye --version "0.6.0-alpha.21070.5"
