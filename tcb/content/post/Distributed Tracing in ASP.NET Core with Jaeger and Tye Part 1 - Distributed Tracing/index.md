@@ -1,6 +1,6 @@
 ---
 title: Distributed Tracing in ASP.NET Core with Jaeger and Tye Part 1 - Distributed Tracing
-date: 2021-04-21
+date: 2021-04-26
 tags:
   - azure
   - programming
