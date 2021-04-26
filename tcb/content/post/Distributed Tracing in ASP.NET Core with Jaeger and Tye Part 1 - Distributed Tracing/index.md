@@ -5,7 +5,6 @@ tags:
   - azure
   - programming
   - web
-draft: true
 comment_id: 972043e9-cdec-4896-8186-213f8329d13e
 ---
 
