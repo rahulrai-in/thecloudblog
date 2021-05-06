@@ -131,17 +131,7 @@ dark-mode-toggle {
 }
 
 .banner-social {
-    display: grid;
-    grid-template-columns: 50px 150px;
-    grid-gap: 0;
     margin-top: 20px;
-    vertical-align: middle;
-
-    img {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-    }
 
     a:hover {
         text-decoration: none;
@@ -414,6 +404,12 @@ dark-mode-toggle {
 .p-icon--phone-share {
     background-image: url(/lib/img/phone-share.svg);
     margin-left: -5px;
+}
+
+.p-icon--my-photo {
+    background-image: url(/lib/img/profile_picture.jpg);
+    border-radius: 50%;
+    vertical-align: middle;
 }
 
 .p-icon--newsletter {
