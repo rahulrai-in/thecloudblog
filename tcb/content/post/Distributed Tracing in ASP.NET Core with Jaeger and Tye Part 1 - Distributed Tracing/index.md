@@ -8,10 +8,10 @@ tags:
 comment_id: 972043e9-cdec-4896-8186-213f8329d13e
 ---
 
-> In this series
+> In this series:
 >
 > 1. Distributed Tracing with Jaeger (this article)
-> 2. Simplifying the setup with Tye (coming soon)
+> 2. [Simplifying the setup with Tye](/post/distributed-tracing-in-asp.net-core-with-jaeger-and-tye-part-2-project-tye/)
 
 Modern microservices applications consist of many services deployed on various hosts such as Kubernetes, AWS ECS, and Azure App Services or serverless compute services such as AWS Lambda and Azure Functions. One of the key challenges of microservices is the reduced visibility of requests that span multiple services. In distributed systems that perform various operations such as database queries, publish and consume messages, and trigger jobs, how would you quickly find issues and monitor the behavior of services? The answer to the perplexing problem is Distributed Tracing.
 
