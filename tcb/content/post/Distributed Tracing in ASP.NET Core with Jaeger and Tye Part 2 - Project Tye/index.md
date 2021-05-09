@@ -41,7 +41,7 @@ You can download the source code of the demo application from my GitHub reposito
 
 ## Installation and Dashboard
 
-Since Tye is still in preview, you need to specify the version of Tye that you wish to install. To install the latest version of Tye, execute the command specified in the [Nuget page for Tye](https://www.nuget.org/packages/Microsoft.Tye), which at the time of writing is the following:
+Since Tye is still in preview, you need to specify the version of Tye that you wish to install. To install the latest version of Tye, execute the command specified in the [NuGet page for Tye](https://www.nuget.org/packages/Microsoft.Tye), which at the time of writing is the following:
 
 ```shell
 dotnet tool install -g Microsoft.Tye --version "0.6.0-alpha.21070.5"
@@ -94,7 +94,7 @@ Remember that Jaeger requires ports 14268 and 16686 for exposing the HTTP collec
 
 Tye bindings support the connection string property, which communicates the connection information to the other services. The Jaeger HTTP collector requires an instance of `HttpSender` that takes the collector endpoint address as an argument. Rather than hardcoding the endpoint's address in code, we will surface the address as a connection string. You must have noticed that we can compose the connection string using binding properties such as `host` and `port`. Apart from properties, you can interpolate environment variables in the connection string as well.
 
-You must specify a name for the binding to uniquely identify it if there are more than one bindings of the same service. In addition to bindings, there are several options that you can configure to customize services in Tye. I recommend that you read that [YAML schema specification](https://github.com/dotnet/tye/blob/main/docs/reference/schema.md) to understand the supported configuration settings and their expected values.
+You must specify a name for the binding to uniquely identify it if there are more than one bindings of the same service. In addition to bindings, there are several options that you can configure to customize services in Tye. I recommend that you explore the [YAML schema specification](https://github.com/dotnet/tye/blob/main/docs/reference/schema.md) to understand the supported configuration settings and their expected values.
 
 Start [Docker Desktop](https://www.docker.com/products/docker-desktop) and relaunch the Tye dashboard. You will find Jaeger service in the list of services managed by Tye.
 
