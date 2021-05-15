@@ -440,6 +440,12 @@ a {
     }
 }
 
+blockquote {
+    code {
+        background-color: #e5e5e5;
+    }
+}
+
 // In small screen search box hits other controls
 .p-search-box {
     @media (max-width: #{$breakpoint-small-menu}) {
