@@ -6,7 +6,7 @@ tags:
 comment_id: 086c2c6e-be01-4e38-a494-26e3f06afb99
 ---
 
-As an engineer, to succeed in product development, you have to change your perspective and move from valuing technology or the product to focusing on the business model. As entrepreneurs or product managers, you have to understand that you are not developing a product but a business model. A product manager must continually ask themselves the question: What is the minimum experiment I should do next to minimize uncertainty (or learn) the most?
+As an engineer, to succeed in product development, you have to change your perspective and move from valuing technology or the product to focusing on the business model. As an entrepreneur or a product manager, you have to understand that you are not developing a product but a business model. A product manager must continually ask themselves the question: What is the minimum experiment I should do next to minimize uncertainty (or learn) the most?
 
 Using the question as a guide will help you get the evidence that the people need the product and there is sufficient market for it. You don't require a large budget, scalable architecture, and a large team before validating the product-market fit.
 
