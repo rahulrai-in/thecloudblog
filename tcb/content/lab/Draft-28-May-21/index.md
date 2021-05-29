@@ -15,15 +15,21 @@ Sign-in to the [Power Automate platform](https://flow.microsoft.com/en-us/) and 
 
 {{< img src="1.png" alt="Select Twitter trigger" >}}
 
+In the
+
 In the **search text** input, enter the following value:
 
 ```plaintext
 from:@<Your Twitter Handle>
 ```
 
+{{< img src="2.png" alt="Enter search text" >}}
+
 I want to share any Tweet with the text "Tip" or which I mark with "+cp" (for cross-post) to LinkedIn. Add a **Control operation** to the flow and add the OR conditions to it as present in the following image:
 
-{{< img src="2.png" alt="Power Automate Flow" >}}
+{{< img src="3.png" alt="Power Automate Flow" >}}
+{{< img src="4.png" alt="Power Automate Flow" >}}
+{{< img src="5.png" alt="Power Automate Flow" >}}
 
 {{< sourceCode src="https://github.com/rahulrai-in/" >}}
 
