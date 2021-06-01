@@ -76,6 +76,14 @@ figure {
         float: left;
         cursor: pointer;
     }
+
+    // display bug introduced in vanilla 2.30
+    display: flex !important;
+}
+
+.row .col-12 {
+    // display bug introduced in vanilla 2.30
+    display: block;
 }
 
 .p-icon--subscribe {
