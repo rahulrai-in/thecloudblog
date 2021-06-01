@@ -44,6 +44,10 @@ The following screenshot presents the complete flow. Click on the **Save** butto
 
 {{< img src="5.png" alt="Power Automate Flow" >}}
 
+Finally, after all the hard work, it's time to see the result. Here is how a crossposted tweet will appear on your LinkedIn timeline. Apart from the steps that I mentioned, I added a custom thumbnail image by setting the value of the `Image URL` property in the LinkedIn connector. The thumbnail image supersedes the default Twitter preview image displayed on LinkedIn.
+
+{{< img src="6.png" alt="Post on LinkedIn" >}}
+
 ## Conclusion
 
 You worked through a complete example of crossposting tweets to LinkedIn to drive more engagement and followers. Power Automate is not limited to connecting only with Microsoft products. You will find a diverse range of 3rd party connectors such as Asana, Mailchimp, DocuSign, Google Drive, and Eventbrite available in the Power Automate connector library.
