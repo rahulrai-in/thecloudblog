@@ -4,7 +4,6 @@ date: 2021-06-01
 tags:
   - azure
   - automation
-draft: true
 comment_id: f55bc135-79df-4d15-ad82-dffa4e10800a
 ---
 
