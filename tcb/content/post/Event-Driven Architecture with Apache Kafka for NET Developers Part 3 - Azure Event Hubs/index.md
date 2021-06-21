@@ -99,7 +99,7 @@ Based on the value of the setting, create a new object of `ProducerConfig` that 
 ```c#
 var config = new ProducerConfig()
 {
-    BootstrapServers = "<EH namespace>.servicebus.windows.net=9093",
+    BootstrapServers = "<EH namespace>.servicebus.windows.net:9093",
     EnableDeliveryReports = true,
     SaslUsername = "$ConnectionString",
     SaslPassword = "<EH namespace connection string>"
