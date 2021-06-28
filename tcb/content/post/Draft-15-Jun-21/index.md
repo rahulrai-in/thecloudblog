@@ -1,5 +1,5 @@
 ---
-title: Building Resilient Kafka Producers in .NET with Polly
+title: Building Reliable Kafka Producers in .NET
 date: 2021-06-15
 tags:
   - azure
@@ -34,7 +34,9 @@ The following issues may arise during the execution:
 - **Scenario 1**: Consumer crashes before committing the offset. When the consumer restarts, it will receive the same message from the topic.
 - **Scenario 2**: Consumer sent the request to commit the offsets and failed before it received a response. Upon restart the consumer will be in indeterminate state because it doesn't know whether it successfully committed the offsets. To resolve its state, it fetches the messages from the old offset.
 
-For exactly once processing, the Kafka producer [must be idempotent](https://hevodata.com/blog/kafka-exactly-once-semantics/) and consumer should only read committed messages (by setting isolation level to `read_committed`) of a transaction and not messages from a transaction that have not yet been committed. However, there are caveats to exactly once processing in both producer and consumer applications. Idempotence in the producer application can't guarantee that the producer can not queue duplicate messages. Also, if the processing of a message involves external services, such as database, and services, we must ensure that they can gurantee exactly once processing as well. The exactly once processing requires coopoeration between producers and consumers which might be hard in a large distributed application.
+For exactly once processing, the Kafka producer [must be idempotent](https://hevodata.com/blog/kafka-exactly-once-semantics/) and consumer should only read committed messages (by setting isolation level to `read_committed`) of a transaction and not messages from a transaction that have not yet been committed. However, there are caveats to exactly once processing in both producer and consumer applications. Idempotence in the producer application can't guarantee that the producer can not queue duplicate messages. Also, if the processing of a message involves external services, such as database, and services, we must ensure that they can gurantee exactly once processing as well. The exactly once processing requires coopoeration between producers and consumers which might be hard in a large distributed application. 
+
+To process messages reliably with as few duplicate message processing as possible, you should commit the offsets of consumed mesages yourself.  I discussed how you can build a consumer 
 
 Let's now discuss the steps to implement a reliable Kafka producer application.
 
