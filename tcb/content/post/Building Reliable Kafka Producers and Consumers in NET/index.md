@@ -7,7 +7,7 @@ tags:
 comment_id: 1aabc487-a902-4995-bebf-c3f16c6ca41f
 ---
 
-Sending messages reliably and quickly between services is a core requirement for most distributed systems. Apache Kafka is a popular, durable message broker that enables applications to process, persist and re-process streamed data with low latency, high throughput, and fault tolerance. If you are a beginner in Kafka, please consider reading the articles in my [Apache Kafka series](/post/event-driven-architecture-with-apache-kafka-for-net-developers-part-1-event-producer/).
+Sending messages reliably and quickly between services is a core requirement for most distributed systems. Apache Kafka is a popular, durable message broker that enables applications to process, persist and re-process streamed data with low latency, high throughput, and fault tolerance. If you are a beginner in Kafka, please consider reading the articles in my [Apache Kafka series](/post/event-driven-architecture-with-apache-kafka-for-net-developers-part-1-event-producer/) to get up to speed in no time.
 
 One of my Twitter friends, among others, reached out to me to understand how to implement retries in Kafka. I am always searching for topics to explore and guide my audience, and [Twitter](https://twitter.com/intent/user?screen_name=rahulrai_in) is a great medium to interact with me (cue to join me on Twitter 🐤).
 
@@ -90,7 +90,7 @@ public Producer(string bootstrapServer)
         BootstrapServers = bootstrapServer,
         EnableDeliveryReports = true,
         ClientId = Dns.GetHostName(),
-        // Emit debug logs for messages writer process, remove this setting in production
+        // Emit debug logs for message writer process, remove this setting in production
         Debug = "msg",
 
         // retry settings:
