@@ -7,16 +7,6 @@ draft: true
 comment_id: https://www.uuidgenerator.net/version4
 ---
 
-- Write a blog post on that establishes a need to resize a disk and why is it painful
-  > Situations where resize is required.
-  > Express need that we should be able to automate it.
-- Envts. to focus: Kubernetes and VM mixed envt.
-- Account for how you can do it in Kubernetes, but also how you can do it on VMs.
-- Small focus on: How do you delete log files and increase size of disk.
-- Common use cases where data deletion disk expansion is required.
-- Show that it is painful operational work and the post should say that it is unnecessary and it is something that can be automated.
-- He is going to add a tutorial on how it can be done with shoreline at the end of the post
-
 Applications or databases running out of disk space are a common issue that the Operations team addresses regularly. This problem has existed since we used to host applications on bare metal servers and still present in virtualized and container environments. However, since we have reached a stage where the compute and storage systems are decoupled from each other, granting additional storage to applications rarely requires updating the application or modifying the underlying application host infrastructure.
 
 Before we discuss the practical solutions to addressing the disk saturation problem, let’s examine the types of storage classes and the workloads that require them:
