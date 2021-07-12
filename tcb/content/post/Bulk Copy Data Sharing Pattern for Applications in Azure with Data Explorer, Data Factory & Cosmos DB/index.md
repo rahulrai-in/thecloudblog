@@ -1,6 +1,6 @@
 ---
 title: Bulk Copy Data Sharing Pattern for Applications in Azure with Data Explorer, Data Factory & Cosmos DB
-date: 2021-07-08
+date: 2021-07-12
 tags:
   - azure
   - analytics
