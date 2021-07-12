@@ -3,11 +3,11 @@ title: Bulk Copy Data Sharing Pattern for Applications in Azure with Data Explor
 date: 2021-07-08
 tags:
   - azure
-draft: true
+  - analytics
 comment_id: df5c2542-bcde-478e-8730-ddc123ac7f34
 ---
 
-> 🎁 **Giveaway**: I am giving away e-book copies of [Data Engineering on Azure](https://www.manning.com/books/data-engineering-on-azure). To enter the giveaway, follow the instructions in the following tweet.
+{{< tweet 1414461321584648192 >}}
 
 In the initial stages of a data platform development, data size is small, and you can easily share it via email or services such as Power BI. However, once the platform grows, and different parts of the business become dependent on it, sharing data between systems becomes a big challenge.
 
