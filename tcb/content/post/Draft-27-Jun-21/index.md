@@ -1,6 +1,6 @@
 ---
-title: Event Driven Architecture 101
-date: 2021-06-27
+title: Event Driven Architecture Overview with Azure Service Bus
+date: 2021-07-26
 tags:
   - azure
 draft: true
