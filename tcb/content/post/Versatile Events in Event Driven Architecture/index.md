@@ -51,7 +51,7 @@ We require an intermediate system known as a message broker for transporting eve
 
 [Apache Kafka](https://kafka.apache.org/) is one of the most popular durable Open Source message brokers that enables applications to process, persist, and re-process events or streams of data. [Azure Service Bus](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview) and [Event Hubs](https://docs.microsoft.com/en-au/azure/event-hubs/) are other popular options. Azure Event Hubs [support Kafka producer and consumer APIs](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-for-kafka-ecosystem-overview) and can be used for event streaming and event analytics.
 
-{{< img src="3.png" alt="Kafka as a broker for transporting events" >}}
+{{< img src="3.png" alt="Message Broker for transporting events" >}}
 
 There are two categories of message brokers based on how they store data as follows:
 
