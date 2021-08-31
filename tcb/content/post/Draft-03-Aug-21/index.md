@@ -7,6 +7,12 @@ draft: true
 comment_id: https://www.uuidgenerator.net/version4
 ---
 
+https://konghq.com/blog/kubernetes-kong-konnect/
+
+kubectl run curl-po --image=radial/busyboxplus:curl -i --tty --rm
+
+curl prices-api-service.pricing-ns.svc.cluster.local
+
 //https://cloud.redhat.com/blog/modern-application-development-with-kong-konnect-enterprise-and-red-hat-openshift
 
 //https://blog.dreamfactory.com/what-is-a-reusable-api/#:~:text=You%20don't%20always%20need,make%20information%20easier%20to%20track.
