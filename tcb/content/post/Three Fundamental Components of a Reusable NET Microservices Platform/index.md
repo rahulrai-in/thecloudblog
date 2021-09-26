@@ -1,10 +1,9 @@
 ---
-title: Three Must-Have Components in a Reusable Microservices Platform
-date: 2021-09-11
+title: Three Fundamental Components of a Reusable .NET Microservices Platform
+date: 2021-09-26
 tags:
-  - azure
-draft: true
-comment_id: https://www.uuidgenerator.net/version4
+  - programming
+comment_id: b707346b-6de4-44d1-ba81-f17e8f79d61a
 ---
 
 Development teams frequently need to build new microservices to either add new functionality or replace existing microservices. However, microservices must support some standard features such as providing insight into their health through logging, allowing monitoring, and following the organization's security standards. A reusable microservices platform can help developers jumpstart the development process by providing reusable components that they can use to build new microservices.
@@ -41,7 +40,7 @@ We will discuss the implementation of the platform components in the next sectio
 
 We will use [Serilog](https://serilog.net/) to implement the logging component. Serilog is a structured logging library for .NET. [Serilog enrichers](https://github.com/serilog/serilog/wiki/Enrichment) are used for enriching the log events with additional information. Enrichers can be specified using the `Enrich.With` fluent API of the Serilog `LoggerConfiguration`. We will use the following enrichers in our implementation:
 
-1. **Log context enricher**: This enricher is used to dynamically add and remove properties from the ambient [log context](https://github.com/serilog/serilog/wiki/Enrichment).
+1. **Log context enricher**: This enricher is used to add and remove properties from the ambient [log context](https://github.com/serilog/serilog/wiki/Enrichment) dynamically.
 2. **Span enricher**: [This enricher](https://github.com/RehanSaeed/Serilog.Enrichers.Span) adds the span unique identifier, parent span unique identifier, ASP.NET trace identifier to the log event.
 
 Create a .NET Core class library named `Microservices.Platform` and add the NuGet packages `Microsoft.Extensions.Hosting`, `Serilog.AspNetCore`, and `Serilog.Enrichers.Span` to it. Add a class named `HostBuilderExtensions` to the project and add the following code to it:
@@ -95,7 +94,7 @@ The command creates a NuGet package named `Microservices.Platform` in the bin/Re
 
 ## Component 2: Health Check
 
-We will now use [ASP.NET Core's health checks feature](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks) to implement two monitoring endpoints as follows:
+We will use the [ASP.NET Core's health checks feature](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks) to implement two monitoring endpoints as follows:
 
 1. `/health/live` responds to every request with an HTTP 200 OK status code to indicate that the service is healthy and can handle requests.
 2. `/health/startup` performs a basic health check and responds with HTTP 200 OK if the health check succeeds. If the health check fails, the service will respond with HTTP 503 Service Unavailable.
@@ -159,7 +158,7 @@ public static class ApplicationBuilderExtensions
 }
 ```
 
-The tags "startup" and "liveness" are used to identify the endpoint that any check belongs to. In addition, the tags ensure that additional health checks are added to the correct family of checks that are executed on the invocation of the startup and liveness endpoints.
+The tags "startup" and "liveness" are used to identify the endpoint that a check belongs to. In addition, the tags ensure that additional health checks are added to the correct family of checks that are executed on the invocation of the startup and liveness endpoints.
 
 Following is an implementation of a dummy health check to demonstrate how a microservice can extend the health check functionality:
 
@@ -199,7 +198,7 @@ Let's launch the microservice application and verify the response from the healt
 
 ## Component 3: Tracing
 
-The third component that you should standardize across microservices is application tracing. Distributed tracing allows you to trace the execution of a request across multiple services. Request correlation happens via the `traceparent` header as specified in [W3C Trace Context standard](https://www.w3.org/TR/trace-context/). Following is the format of the W3C compatible `traceparent` header:
+The third component that you should standardize across microservices is application tracing. Distributed tracing allows you to trace the execution of a request across multiple services. Request correlation happens via the `traceparent` header as specified in the [W3C Trace Context standard](https://www.w3.org/TR/trace-context/). Following is the format of the W3C compatible `traceparent` header:
 
 ```plaintext
 traceparent: <version>-<trace-id>-<span-id>-<trace flags>
@@ -229,7 +228,7 @@ public static IServiceCollection AddOtelServices(this IServiceCollection service
 }
 ```
 
-Let's discuss the implementation in a little more detail. The method `AddAspNetCoreInstrumentation` adds [OpenTelemetry instrumentation](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore/README.md) to the .NET Core application. The `SetResourceBuilder` method allows you to add common attributes to all spans in the application. We used this method to add the name of the application to all the spans. The `AddHttpClientInstrumentation` method enables you to instrument `System.Net.Http.HttpClient` and `System.Net.HttpWebRequest` to collect telemetry about outgoing HTTP requests. You can read more about the [HttpClient and HttpWebRequest instrumentation for OpenTelemetry on the GitHub docs](https://github.com/open-telemetry/opentelemetry-dotnet/blob/1.0.0-rc2/src/OpenTelemetry.Instrumentation.Http/README.md). The `SetSampler` method allows you to adjust the number of samples of traces collected and sent to the OpenTelemetry collector. The `AddConsoleExporter` method exports the collected telemetry to the console. In production, you should use other useful exporters such as [Jaeger](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Exporter.Jaeger/README.md), [Zipkin](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Exporter.Zipkin/README.md), or [Prometheus](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Exporter.Prometheus/README.md).
+Let's discuss the implementation in a little more detail. The method `AddAspNetCoreInstrumentation` adds [OpenTelemetry instrumentation](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore/README.md) to the .NET Core application. The `SetResourceBuilder` method allows you to add common attributes to all spans in the application. We used this method to add the name of the application to all the spans. The `AddHttpClientInstrumentation` method enables you to instrument `System.Net.Http.HttpClient` and `System.Net.HttpWebRequest` to collect telemetry about outgoing HTTP requests. You can read more about the [HttpClient and HttpWebRequest instrumentation for OpenTelemetry in the GitHub docs](https://github.com/open-telemetry/opentelemetry-dotnet/blob/1.0.0-rc2/src/OpenTelemetry.Instrumentation.Http/README.md). The `SetSampler` method allows you to adjust the number of samples of traces collected and sent to the OpenTelemetry collector. The `AddConsoleExporter` method exports the collected telemetry to the console. In production, you should use other useful exporters such as [Jaeger](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Exporter.Jaeger/README.md), [Zipkin](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Exporter.Zipkin/README.md), or [Prometheus](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Exporter.Prometheus/README.md).
 
 To enable distributed tracing in your application, add the following to the `ConfigureServices` method of the microservice:
 
