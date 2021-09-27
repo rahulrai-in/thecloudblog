@@ -4,7 +4,6 @@ date: 2021-09-27
 tags:
   - kong
   - kubernetes
-draft: true
 comment_id: 2e860f05-6beb-4ae7-8458-a9e06db71ec1
 ---
 
