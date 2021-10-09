@@ -503,10 +503,13 @@ code[data-lang]:before {
 }
 
 // Advertisement banner
+.col--advt {
+    position: relative;
+}
+
 @media (min-width: $breakpoint-medium) {
     .col--advt {
         text-align: right;
-        position: relative;
     }
 }
 
