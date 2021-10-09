@@ -503,16 +503,6 @@ code[data-lang]:before {
 }
 
 // Advertisement banner
-.col--advt {
-    border: 1px solid #ccc;
-}
-
-@media (min-width: $breakpoint-medium) {
-    .col--advt {
-        visibility: visible;
-    }
-}
-
 #carbonads * {
     margin: initial;
     padding: initial;
@@ -526,8 +516,11 @@ code[data-lang]:before {
 
 #carbonads {
     display: flex;
+    max-width: 300px;
     background-color: hsl(0, 0%, 98%);
     box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, 0.1);
+    background-color: hsl(0, 0%, 10%);
+    box-shadow: 0 0 1px hsla(0, 0%, 0%, 0.5);
     z-index: 100;
 }
 
