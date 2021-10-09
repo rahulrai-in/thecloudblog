@@ -504,13 +504,11 @@ code[data-lang]:before {
 
 // Advertisement banner
 .col--advt {
-    visibility: hidden;
+    border: 1px solid #ccc;
 }
 
 @media (min-width: $breakpoint-medium) {
     .col--advt {
-        text-align: right;
-        position: relative;
         visibility: visible;
     }
 }
@@ -528,12 +526,9 @@ code[data-lang]:before {
 
 #carbonads {
     display: flex;
-    max-width: 300px;
     background-color: hsl(0, 0%, 98%);
     box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, 0.1);
     z-index: 100;
-    right: 0;
-    position: absolute;
 }
 
 #carbonads a {
