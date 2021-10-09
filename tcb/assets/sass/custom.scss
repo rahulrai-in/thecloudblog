@@ -507,21 +507,11 @@ code[data-lang]:before {
     visibility: hidden;
 }
 
-.col--advt-small {
-    text-align: center;
-    position: relative;
-    visibility: visible;
-}
-
 @media (min-width: $breakpoint-medium) {
     .col--advt {
         text-align: right;
         position: relative;
         visibility: visible;
-    }
-
-    .col--advt-small {
-        visibility: hidden;
     }
 }
 
