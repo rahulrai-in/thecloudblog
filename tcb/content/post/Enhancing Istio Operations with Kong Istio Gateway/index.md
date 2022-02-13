@@ -7,8 +7,6 @@ tags:
 comment_id: 4fb27380-a2f5-4a09-9195-0d5a4f4b8125
 ---
 
-![Kong Istio Gateway visitors](https://badge.tcblabs.net/api/hc/rahul/kong-istio-gw "Kong Istio Gateway visitors")
-
 If you're a developer for a service-oriented application, routing requests between services can be overwhelming. This work may force you to focus on operational details that take you away from building great features for your customers.
 
 Fortunately, with [Kong Istio Gateway](https://konghq.com/solutions/istio-gateway/?utm_source=guest&utm_medium=devspotlight&utm_campaign=community), we can solve many inter-service networking concerns such as security, resiliency, observability, and traffic control with services-first networking policies. By offloading network-related problems to the [service mesh](https://konghq.com/learning-center/service-mesh/what-is-a-service-mesh/?utm_source=guest&utm_medium=devspotlight&utm_campaign=community), you can focus on building features that deliver business value.
@@ -463,3 +461,5 @@ Send a few requests to the default endpoint and inspect the output in the bin th
 This article discussed installing Kong Istio Gateway in the Istio service mesh as a regular service. We also discussed how the north-south and east-west traffic flows in the cluster and how the presence of Kong Istio Gateway aids with that traffic flow. Finally, using a few examples, we discussed how you could enhance the key capabilities of Istio using Kong Gateway. If you want to gain the power of Istio in your systems, give it a try yourself!
 
 {{< subscribe >}}
+
+![Kong Istio Gateway visitors](https://badge.tcblabs.net/api/hc/rahul/kong-istio-gw "Kong Istio Gateway visitors")
