@@ -2,7 +2,7 @@
 title: Practical Introduction to Kubernetes Autoscaling Tools with Linode Kubernetes Engine
 date: 2022-03-06
 tags:
-  - Kubernetes
+  - kubernetes
 comment_id: 49e59aab-b085-41a5-9645-1843e297192e
 ---
 
