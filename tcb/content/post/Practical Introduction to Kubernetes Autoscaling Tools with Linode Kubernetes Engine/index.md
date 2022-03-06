@@ -435,3 +435,5 @@ kubectl delete deployment/pressure-api-deployment
 We discussed the concept of horizontal autoscaling, vertical autoscaling, and cluster autoscaling, along with their use cases and considerations. If your applications are often subject to changes in capacity requirements, you can use HPA to scale them horizontally. VPA may help you to identify the optimal resource values for your applications. CPA can help you address the scaling requirements of applications that need to scale with the workload in the cluster. If your workloads can scale beyond the cluster's capacity, use CA to autoscale the cluster itself. If you’re considering a managed Kubernetes service like LKE, look for a solution that has built-in autoscaling tools to reduce your effort.
 
 {{< subscribe >}}
+
+![LKE blog 1 visitors](https://badge.tcblabs.net/api/hc/rahul/lke-blog-1 "LKE blog 1 visitors")
