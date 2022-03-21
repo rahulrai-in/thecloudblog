@@ -26,9 +26,6 @@ jobs:
       - name: Build
         run: hugo --minify --gc
 
-      - name: Install Node packages
-        run: cd functions/ogimage && npm install
-
       - name: Deploy
         uses: netlify/actions/cli@master
         with:
