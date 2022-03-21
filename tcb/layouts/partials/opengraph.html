@@ -2,7 +2,11 @@
 <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}" />
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
 <meta property="og:url" content="{{ .Permalink }}" />
-<meta property="og:image" name="image" content={{ .Site.BaseURL }}/.netlify/functions/ogimage?{{ (querify "t" .Title ) | safeURL }}.jpg />
+{{ $url := .Title }}
+{{ $url = replace $url ":" "%3A" }}
+{{ $url = replace $url "/" "%2F" }}
+{{ $url = replace $url " " "%20" }}
+<meta property="og:image" name="image" content=https://res.cloudinary.com/rahulrai/image/upload/w_1200,h_630,c_fill,f_auto/w_900,h_450,c_fit,co_rgb:FFFFFF,g_west,x_200,y_-10,l_text:signika_50_bold:{{ $url }}/og_thecloudblog.png />
 <meta property="og:image:width" content="1300"/>
 <meta property="og:image:height" content="650"/>
 <meta property="og:image:type" content="image/jpeg" /> 
