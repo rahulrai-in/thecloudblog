@@ -22,7 +22,7 @@ Build a Flow from scratch that responds to congratulatory Facebook posts from fr
 I don’t want to deviate from the subject of this post, that is Microsoft Flow. Therefore, it would be great if you could get yourself familiar with performing the following activities.
 
 - [Create a new Facebook App and get your App Id and secret.](https://developers.facebook.com/docs/apps/register)
-- [Get your own Facebook user identifier](http://findmyfbid.com/).
+- [Get your own Facebook user identifier](https://randomtools.io/).
 - Get user access token for your app. You can use [Graph API Explorer](https://developers.facebook.com/tools/explorer/) tool to do this. Remember that the token that you generate should give you access to the following User Data Permissions.
 
   - publish_actions: to respond to posts.
