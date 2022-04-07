@@ -1,8 +1,6 @@
-# [![Github](https://github.frapsoft.com/social/github.png)](https://github.com/rahulrai-in/) The Cloud Blog by Rahul
+# The Cloud Blog by Rahul
 
-## My Personal Blog
-
-Source code for my blog hosted on Netlify and built on Hugo. If you wish to contact me, then use any social channel from the website.
+Source code for my blog hosted on Netlify and built with Hugo. If you wish to contact me, then use any social channel from the website.
 
 Don't forget to subscribe to **[The Cloud Blog](https://thecloudblog.net)**.
 
