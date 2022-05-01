@@ -1,0 +1,16 @@
+apiVersion: kappctrl.k14s.io/v1alpha1
+kind: App
+metadata:
+  name: azure-vote-app
+  namespace: default
+spec:
+  serviceAccountName: default-ns-sa
+  fetch:
+    - git:
+        url: https://github.com/rahulrai-in/azure-voting-app-dotnet
+        ref: origin/main
+        subPath: kubernetes-manifests/
+  template:
+    - ytt: {}
+  deploy:
+    - kapp: {}
