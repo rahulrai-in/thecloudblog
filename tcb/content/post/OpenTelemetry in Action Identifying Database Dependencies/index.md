@@ -404,3 +404,5 @@ This article discussed one of the common challenges that developers encounter wh
 By using OpenTelemetry, we can identify the dependencies among the various components and between the components and the database. With the knowledge and understanding of our dependencies, we can develop the refactoring plan for our components, planning how they should evolve as independent microservices.
 
 {{< subscribe >}}
+
+![LS blog 1 visitors](https://badge.tcblabs.net/api/hc/rahul/ls-blog-1 "LS blog 1 visitors")
