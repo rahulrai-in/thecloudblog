@@ -543,3 +543,5 @@ This article discussed how OpenTelemetry can be used to easily detect performanc
 Without altering the database in any manner, we instrumented a simple application to surface several types of database performance issues. With sufficient context, we can either quickly fix the underlying issue, or we can confidently develop a plan to improve the performance of our database.
 
 {{< subscribe >}}
+
+![LS blog 2 visitors](https://badge.tcblabs.net/api/hc/rahul/ls-blog-2 "LS blog 2 visitors")
