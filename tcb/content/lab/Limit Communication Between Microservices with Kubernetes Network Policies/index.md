@@ -7,8 +7,6 @@ tags:
 comment_id: 7f81a6f9-c4c5-40c2-9661-2b9dced524db
 ---
 
-{{< tweet 1432590473198141442 >}}
-
 Security is an important concern for microservices applications. Although security is a broad topic, I want to zoom into a critical aspect: limiting communication between microservices. By default, microservices platforms such as Kubernetes allow unconstrained communication between services. However, to prevent a few compromised services from affecting all the services on the platform, a microservices platform needs to limit the interactions between services. This constraint is enforced by creating [network policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/) in Kubernetes. Network policies allow you to specify which services can communicate with each other and which services can't. For example, you can specify that a service can only communicate with other services in the same namespace with a network policy.
 
 A Kubernetes cluster needs a network controller to enforce the network policies. The network controller is a special pod that runs on every node in the cluster (a.k.a DaemonSet). It monitors the network traffic between services and enforces the network policies.

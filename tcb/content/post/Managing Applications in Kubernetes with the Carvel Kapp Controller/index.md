@@ -6,8 +6,6 @@ tags:
 comment_id: 2dc28891-11cc-4385-879c-952a97075c56
 ---
 
-{{< tweet 1522446912703578112 >}}
-
 Any typical enterprise-grade application deployed on Kubernetes comprises several API resources that need to be deployed together. For example, the [WordPress application](https://github.com/kubernetes/examples/blob/master/mysql-wordpress-pd), which is one of the example applications available on the Kubernetes GitHub repository, includes:
 
 - a `wordpress` frontend pod

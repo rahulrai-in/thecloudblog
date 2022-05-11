@@ -7,8 +7,6 @@ tags:
 comment_id: df5c2542-bcde-478e-8730-ddc123ac7f34
 ---
 
-{{< tweet 1414461321584648192 >}}
-
 In the initial stages of a data platform development, data size is small, and you can easily share it via email or services such as Power BI. However, once the platform grows, and different parts of the business become dependent on it, sharing data between systems becomes a big challenge.
 
 In a majority of the data-driven systems, one of the two patterns is used for consuming data.
