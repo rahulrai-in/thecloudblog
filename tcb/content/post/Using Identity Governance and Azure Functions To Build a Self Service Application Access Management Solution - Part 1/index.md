@@ -18,10 +18,10 @@ Azure AD Identity Governance enables non-admin users to create access packages. 
 
 In this series of articles, we will learn to use Azure Functions to invite a guest user to the organization and use access packages to grant the guest user time-bound permissions to access a web application. Here is the complete workflow of the process:
 
-1. Create a web application and restrict its access to users in a security group.
+1. Create a web application and restrict its access to users explicitly assigned access to it.
 2. Create an Azure Function and use Microsoft Graph API to invite a guest user to the organization.
-3. Create an access package that allows members to join the security group.
-4. Grant the guest user access to the security group and have the guest user redeem the access package.
+3. Create an access package that grants permissions to the user to access the application.
+4. Ask the guest user to redeem the access package.
 
 In this post, we will discuss the steps to create an authenticated web application and use an Azure Function to invite a guest user to the organization. In the next post, we will discuss steps 3 and 4 in more detail.
 
@@ -34,28 +34,17 @@ In this post, we will discuss the steps to create an authenticated web applicati
 
 {{< img src="1.png" alt="Add an identity provider" >}}
 
-## Restrict Application Access to Users in a Security Group
+## Restrict Application Access to Assigned Users
 
-1. Navigate to the default Active Directory and click on the **Add/Group** option.
-   {{< img src="2.png" alt="Add group" >}}
+Let's make it necessary for the users to be assigned to the application before they can access it. The policy prevents the users registered in the Active Directory who are not listed as users of the application (see [How to assign users account to an application](https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/add-application-portal-assign-users)) from accessing the application. Click on the **Properties** option in the **Manage** section and turn on the toggle for the **Assignment required** setting as follows:
 
-2. Create a new security group named **Invited Users** with the following configurations and click on the **Create** button:
+{{< img src="2.png" alt="Assignment required setting" >}}
 
-{{< img src="3.png" alt="Create a new security group" >}}
-
-3. We will now restrict the application's access to the users of the group we defined. Click on the **Enterprise application** option and select your application from the list. Configure your application to restrict its access to the security group as follows:
-
-{{< video src="4.mp4" alt="Restrict application access to group (video)" >}}
-
-4. Finally, let's make it necessary for the users to be assigned to the application before they can access it. The policy prevents the users registered in the Active Directory who are not part of the security group from accessing the application. Click on the **Properties** option in the **Manage** section and turn on the toggle for the **Assignment required** setting as follows:
-
-{{< img src="5.png" alt="Assignment required setting" >}}
-
-We now have an application that can only be accessed by users that are members of the security group. So let's automate the process of inviting guest users to our organization.
+We now have an application that can only be accessed by a subset of users in the Azure AD. Now we will automate the process of inviting guest users to our organization.
 
 ## Inviting a Guest User to the Organization with Azure Functions
 
-We will now invite guest users to join our organization using Azure Functions. We will use [Microsoft Graph API](https://docs.microsoft.com/en-us/graph/use-the-api) in the Azure Function to automate sending the invite to the user. REST APIs are not very friendly to end-users. Although not covered in this article, you can call the Function through a custom user interface such as [Power Apps](https://powerapps.microsoft.com/) to make inviting new users to the organization even easier.
+We will now invite guest users to join our organization using Azure Functions. We will use [Microsoft Graph API](https://docs.microsoft.com/en-us/graph/use-the-api) in our Function to automate sending the invite to the user. We know that REST APIs are not meant for end-user interactions. To solve this problem, although not covered in this article, you can call the Function through a custom user interface such as [Power Apps](https://powerapps.microsoft.com/) to make inviting new users to the organization even easier.
 
 Before using the Graph API, we must register the Function application in Azure AD with the proper permissions. So let's do that now.
 
@@ -65,29 +54,29 @@ Before using the Graph API, we must register the Function application in Azure A
 2. In the Azure AD overview blade, select the **App registrations** option and click on the **+ New registration** in the top menu.
 3. Populate the application registration form as follows and click on the **Register** button to complete the registration:
 
-{{< img src="6.png" alt="Create new registration" >}}
+{{< img src="3.png" alt="Create new registration" >}}
 
 4. After the app registration is created, you will be redirected to the app's overview page. We will now grant permission to invite new users to the application. In the left menu, select the **API permissions** option and click on the **+ Add a permission** option in the top menu.
 
-{{< img src="7.png" alt="API permissions" >}}
+{{< img src="4.png" alt="API permissions" >}}
 
 5. In the next blade, select the **Microsoft Graph** option as we will use Microsoft Graph for creating a guest user.
 6. Choose **Application permissions** as the type of permission required by our application and add the following permissions:
    1. User.ReadWrite.All: For writing details of the user to the AD.
    2. User.Invite.All: For inviting a guest user to the organization.
 
-{{< img src="8.png" alt="Add app permissions" >}}
+{{< img src="5.png" alt="Add app permissions" >}}
 
 7. Click **Add permissions**.
 8. Click **Grant admin consent** for the permissions as follows:
 
-{{< img src="9.png" alt="Grant admin consent to permissions" >}}
+{{< img src="6.png" alt="Grant admin consent to permissions" >}}
 
 9. Finally, create an app secret. Our Function App will require it together with Azure AD tenant ID and the application ID to make a request. In the left menu, click **Certificates & secrets**.
 10. Click the **+ New client secret** option under the **Client secrets** section.
 11. Set the secret name and when you want it to expire. Then, click on the **Add** button to create the secret.
 
-{{< img src="10.png" alt="Set client secret values" >}}
+{{< img src="7.png" alt="Set client secret values" >}}
 
 12. Copy the secret value and save it because it will be displayed only once.
 13. From the overview page of the app registration, copy the Application ID and the Tenant ID. We will use these values to authenticate our calls to the Graph API from our Function App.
@@ -96,7 +85,7 @@ In the next part, we will create the function.
 
 ### Invite Guest Users Using an Azure Function
 
-Create an HttpTrigger C# function with VS Code by following the instructions in the [Azure Functions quickstart guide](https://docs.microsoft.com/en-us/azure/azure-functions/create-first-function-vs-code-csharp). We will now write the code for the function. Also, here is the source code for the function for your reference:
+Create an HttpTrigger C# function with VS Code by following the instructions in the [Azure Functions quickstart guide](https://docs.microsoft.com/en-us/azure/azure-functions/create-first-function-vs-code-csharp). We will now write the code for the function. Also, here is the source code of the function for your reference:
 
 {{< sourceCode src="https://github.com/rahulrai-in/GuestUserGraphFx" >}}
 
@@ -138,6 +127,7 @@ public class AddGuestUser
         {
             InvitedUserDisplayName = $"{firstName}",
             InvitedUserEmailAddress = email,
+            // Replace the redirect URL with the URL of the access package which we will create later.
             InviteRedirectUrl = "https://myapplications.microsoft.com/",
             InvitedUserMessageInfo = new()
             {
@@ -190,7 +180,7 @@ Azure AD is one of the services integrated with Microsoft Graph. Nearly all the 
 
 Coming back to our function, we now have a POST endpoint that accepts the email and first name of the guest user and sends them an invitation to join the organization. To test the function, open a new terminal and run the command `dotnet build`. After a successful build, run the function by pressing **F5**, which will result in the following output:
 
-{{< img src="11.png" alt="Debugging the function locally" >}}
+{{< img src="8.png" alt="Debugging the function locally" >}}
 
 Add the required query string parameters to the endpoint URL displayed in the terminal and use a tool such as [Postman](https://www.postman.com/) to send a POST request to the endpoint. The URL should look like the following example:
 
@@ -200,22 +190,22 @@ http://localhost:7008/api/AddUser?firstname=NAME&email=EMAIL
 
 Here is the outcome of the POST request from the Postman console:
 
-{{< img src="12.png" alt="Response from the function" >}}
+{{< img src="9.png" alt="Response from the function" >}}
 
 Open the email sent to the user and accept the invite to join the organization. Following is the email that I received after executing the function:
 
-{{< img src="13.png" alt="Email sent to the user" >}}
+{{< img src="10.png" alt="Email sent to the user" >}}
 
 After accepting the invite, you will find the user added to your Azure AD as follows:
 
-{{< img src="14.png" alt="User added to Azure AD" >}}
+{{< img src="11.png" alt="User added to Azure AD" >}}
 
 You can follow the instructions in the [Azure Function VS Code development guide](https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code) to deploy the function app to Azure.
 
 ## Conclusion and What's Next
 
-In this article, we deployed a web application and configured its authentication using Azure AD such that only the users of a security group can access it. In addition, we covered how you can add guest users to Azure AD using an Azure AD app registration, Azure Function, and the Graph API.
+In this article, we deployed a web application and configured its authentication using Azure AD so that only the users assigned to the application can access it. In addition, we covered how you can add guest users to Azure AD using an Azure AD app registration, Azure Function, and the Graph API.
 
-Currently, the guest user is only a member of Azure AD and can not access the web application. In the following article, we will set up an access package for the user to enroll themselves in the security group and gain temporary access to the web application.
+Currently, the guest user is only a member of Azure AD and can not access the web application. In the following article, we will set up an access package for the user to enroll themselves as the users of the application and gain temporary access to it.
 
 {{< subscribe >}}
