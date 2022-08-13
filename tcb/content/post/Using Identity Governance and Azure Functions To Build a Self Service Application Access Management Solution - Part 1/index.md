@@ -7,6 +7,11 @@ tags:
 comment_id: 3d4266d1-55f1-46e4-a74c-3b8a9978c3b9
 ---
 
+> In this series:
+>
+> 1. Creating an authenticated web application and using Azure Functions to invite guest users to the organization
+> 2. [Creating an access package and redeeming it](/post/using-identity-governance-and-azure-functions-to-build-a-self-service-application-access-management-solution-part-2/)
+
 Azure Active Directory serves two primary use cases:
 
 1. It enables you to [grant users and applications access to your Azure resources](https://docs.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal) in a secure and scalable manner.
