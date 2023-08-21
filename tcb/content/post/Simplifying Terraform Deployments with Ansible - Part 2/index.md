@@ -176,7 +176,7 @@ An interesting aspect of the script is that it supports [conditional execution](
 
 Here is what each task in the playbook does:
 
-1. **Substitute tfvars**: This task copies the Jinja2 template **templates/tfvars.j2** to **{{ playbook\_dir }}/tf/env.tfvars** after transforming the values of the variables. `{{ playbook_dir }}` is an inbuilt variable whose value is the path to the playbook file's directory. In our case, it will be the path to the folder containing the playbook file **cluster.yaml**.
+1. **Substitute tfvars**: This task copies the Jinja2 template **templates/tfvars.j2** to **{{ playbook\_dir }}/tf/env.tfvars** after transforming the values of the variables. `{{ playbook_dir }}` is an inbuilt variable whose value is the path to the playbook file's directory. In our case, it will be the path to the folder containing the playbook file **deploy.yaml**.
 
 2. **Init Terraform**: When the value of the parameter `operation` is set to **init**, this task will initialize Terraform, and the subsequent task will display the output of initialization on the console.
 
