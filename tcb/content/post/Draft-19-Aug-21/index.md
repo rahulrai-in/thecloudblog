@@ -68,3 +68,6 @@ Continuous Deployment aims to takes Continuous Delivery further by optimizing th
 Continuous Deployment requires the best Quality Assurance culture and a very high level of automation which is not always present in traditional organizations. The practice has various advantages, such as reduced time to market, reduced cost, and reduced risk. Software teams and organizations should strive towards implementing it by continuously optimizing the delivery process and reducing the delivery cycle period.
 
 {{< subscribe >}}
+
+
+NOTE for FUTURE: https://developer.chrome.com/docs/workbox/remove-buggy-service-workers/
